@@ -1,0 +1,5 @@
+package it.unicam.cs.ids2425.users.model;
+
+public enum UserRole {
+    GUEST, CUSTOMER, PRODUCER, TRANSFORMER, DISTRIBUTOR, EVENT_PLANNER, MODERATOR, CUSTOMER_SERVICE, ADMIN
+}
