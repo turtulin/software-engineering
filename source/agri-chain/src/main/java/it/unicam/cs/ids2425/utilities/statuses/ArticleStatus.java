@@ -6,10 +6,13 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum BaseStatus implements IStatus {
+public enum ArticleStatus implements IStatus {
     DELETED(StatusCodes.DELETED),
-    ACTIVE(StatusCodes.ACTIVE),
-    INACTIVE(StatusCodes.INACTIVE);
+    PUBLISHED(StatusCodes.PUBLISHED),
+    REJECTED(StatusCodes.REJECTED),
+    DRAFT(StatusCodes.DRAFT),
+    PENDING(StatusCodes.PENDING);
 
     private final StatusCodes statusCodes;
+
 }

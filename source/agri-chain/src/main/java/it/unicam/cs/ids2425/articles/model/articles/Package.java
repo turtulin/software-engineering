@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Package extends CompositeArticle {
+
     @Override
     public boolean canContain(IArticle article) {
         return (article.getArticleType() == ArticleType.RAW_MATERIAL ||
