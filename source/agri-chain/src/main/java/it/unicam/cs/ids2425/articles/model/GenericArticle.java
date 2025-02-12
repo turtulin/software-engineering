@@ -6,6 +6,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"name", "seller", "type"})
 public abstract class GenericArticle implements IArticle {
     private String name;
     private String description;

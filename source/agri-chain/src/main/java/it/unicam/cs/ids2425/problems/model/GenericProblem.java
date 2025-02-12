@@ -1,13 +1,14 @@
 package it.unicam.cs.ids2425.problems.model;
 
 import it.unicam.cs.ids2425.users.model.IUser;
-import it.unicam.cs.ids2425.utilities.statuses.BaseStatus;
+import lombok.*;
 
-import java.sql.Timestamp;
-
-public abstract class GenericProblem implements IProblem {
-    private final Timestamp creationDate = new Timestamp(System.currentTimeMillis());
-    private BaseStatus status;
-    private String description;
+@Getter
+@EqualsAndHashCode
+@AllArgsConstructor
+public abstract class GenericProblem<T> implements IProblem {
+    private final String description;
+    private final T problem;
+    @Setter
     private IUser user;
 }

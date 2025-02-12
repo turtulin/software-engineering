@@ -12,7 +12,9 @@ public enum OrderStatus implements IStatus {
     SHIPPED(StatusCodes.SHIPPED),
     DELIVERED(StatusCodes.DELIVERED),
     CANCELLED(StatusCodes.CANCELLED),
-    REFUNDED(StatusCodes.REFUNDED);
+    REFUNDED(StatusCodes.REFUNDED),
+    EVALUATING_REFUND(StatusCodes.EVALUATING_REFUND),
+    REFUND_DENIED(StatusCodes.REJECTED);
 
     private final StatusCodes statusCodes;
 }

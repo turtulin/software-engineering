@@ -2,7 +2,7 @@ package it.unicam.cs.ids2425.utilities.statuses;
 
 import it.unicam.cs.ids2425.utilities.statuses.statusconfigs.StatusCodes;
 
-public sealed interface IStatus permits BaseStatus, ArticleStatus, OrderStatus {
+public sealed interface IStatus permits BaseStatus, ArticleStatus, OrderStatus, UserStatus, ProblemStatus {
     StatusCodes getStatusCodes();
 
     default int getCode() {

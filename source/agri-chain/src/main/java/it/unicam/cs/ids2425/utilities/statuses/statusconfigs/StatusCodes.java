@@ -14,6 +14,5 @@ public record StatusCodes(int code, String displayName) {
     public static StatusCodes CANCELLED = new StatusCodes(10, "Cancelled");
     public static StatusCodes REFUNDED = new StatusCodes(11, "Refunded");
     public static StatusCodes COMPLETED = new StatusCodes(12, "Completed");
-    public static StatusCodes FAILED = new StatusCodes(13, "Failed");
-
+    public static StatusCodes EVALUATING_REFUND = new StatusCodes(13, "Evaluating Refund");
 }
