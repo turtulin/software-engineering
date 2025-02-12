@@ -1,11 +1,10 @@
 package it.unicam.cs.ids2425.articles.model.articles;
 
 import it.unicam.cs.ids2425.articles.model.ArticleType;
-import it.unicam.cs.ids2425.articles.model.IArticle;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Package extends CompositeArticle {
+public final class Package extends CompositeArticle {
 
     @Override
     public boolean canContain(IArticle article) {

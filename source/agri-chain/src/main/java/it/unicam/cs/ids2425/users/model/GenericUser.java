@@ -20,4 +20,8 @@ public abstract class GenericUser implements IUser {
     public UserRole getRole() {
         return UserRole.GUEST;
     }
+
+    public GenericUser(String username) {
+        this.username = username;
+    }
 }

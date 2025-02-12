@@ -14,7 +14,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class GenericSeller extends GenericUser implements ISeller {
+public sealed abstract class GenericSeller extends GenericUser implements ISeller permits Producer, Transformer, Distributor, EventPlanner {
     private List<IPaymentMethod> IPaymentMethods;
     private List<Address> addresses;
 }

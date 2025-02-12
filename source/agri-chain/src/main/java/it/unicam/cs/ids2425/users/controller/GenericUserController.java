@@ -1,6 +1,7 @@
 package it.unicam.cs.ids2425.users.controller;
 
 import it.unicam.cs.ids2425.users.model.IUser;
+import it.unicam.cs.ids2425.users.model.UserRole;
 import it.unicam.cs.ids2425.utilities.controllers.IController;
 import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
 import it.unicam.cs.ids2425.utilities.repositories.SingletonRepository;
@@ -22,18 +23,18 @@ public class GenericUserController implements IController {
 
     protected final StatusInfoController<UserStatus> statusInfoController = SingletonController.getInstance(new StatusInfoController<UserStatus>() {});
 
-    public List<IUser> getAll(UserStatus status) {
-        if (status == null) {
-            return userRepository.getAll().stream().filter(u -> check(u, null)).toList();
+    public List<IUser> getAll(IUser user) {
+        user = get(user, UserStatus.ACTIVE);
+        if (user.getRole() != UserRole.ADMIN){
+            throw new IllegalArgumentException("User is not an admin");
         }
-        return userStatusRepository.getAll().stream()
-                .filter(pair -> pair.getValue().getLast().status() == status)
-                .map(Pair::getKey).map(userRepository::get)
-                .filter( u -> check(u, status)).toList();
+        return userRepository.getAll().stream().filter(u -> this.check(u, null)).toList();
     }
 
     public IUser get(@NonNull IUser u, UserStatus status) {
-        check(u, status);
+        if (status != null) {
+            check(u, status);
+        }
         return userRepository.get(u);
     }
 

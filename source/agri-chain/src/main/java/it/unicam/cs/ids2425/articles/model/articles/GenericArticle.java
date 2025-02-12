@@ -1,5 +1,6 @@
-package it.unicam.cs.ids2425.articles.model;
+package it.unicam.cs.ids2425.articles.model.articles;
 
+import it.unicam.cs.ids2425.articles.model.ArticleType;
 import it.unicam.cs.ids2425.users.model.actors.sellers.ISeller;
 import lombok.*;
 
@@ -7,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"name", "seller", "type"})
-public abstract class GenericArticle implements IArticle {
+public sealed abstract class GenericArticle implements IArticle permits RawMaterial, Event, CompositeArticle {
     private String name;
     private String description;
     private String content;

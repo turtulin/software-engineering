@@ -10,7 +10,8 @@ public enum UserStatus implements IStatus {
     PENDING(StatusCodes.PENDING),
     ACTIVE(StatusCodes.ACTIVE),
     BANNED(StatusCodes.INACTIVE),
-    DELETED(StatusCodes.DELETED);
+    DELETED(StatusCodes.DELETED),
+    DEACTIVATED(StatusCodes.INACTIVE);
 
     private final StatusCodes statusCodes;
 }

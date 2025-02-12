@@ -1,6 +1,6 @@
 package it.unicam.cs.ids2425.eshop.model.reviews;
 
-import it.unicam.cs.ids2425.articles.model.IArticle;
+import it.unicam.cs.ids2425.articles.model.articles.IArticle;
 import it.unicam.cs.ids2425.users.model.IUser;
 import lombok.NonNull;
 
