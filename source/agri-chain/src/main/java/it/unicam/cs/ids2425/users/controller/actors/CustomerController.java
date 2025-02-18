@@ -6,21 +6,21 @@ import it.unicam.cs.ids2425.eshop.controller.CartController;
 import it.unicam.cs.ids2425.eshop.controller.OrderController;
 import it.unicam.cs.ids2425.eshop.controller.ReviewController;
 import it.unicam.cs.ids2425.eshop.model.Cart;
-import it.unicam.cs.ids2425.eshop.model.Order;
+import it.unicam.cs.ids2425.eshop.model.order.Order;
+import it.unicam.cs.ids2425.eshop.model.order.OrderState;
 import it.unicam.cs.ids2425.eshop.model.reviews.Review;
 import it.unicam.cs.ids2425.users.controller.CanLogoutController;
 import it.unicam.cs.ids2425.users.controller.CanRegisterController;
 import it.unicam.cs.ids2425.users.controller.GenericUserController;
 import it.unicam.cs.ids2425.users.model.IUser;
 import it.unicam.cs.ids2425.users.model.UserRole;
+import it.unicam.cs.ids2425.users.model.UserState;
 import it.unicam.cs.ids2425.users.model.actors.Customer;
 import it.unicam.cs.ids2425.users.model.details.addresses.Address;
 import it.unicam.cs.ids2425.users.model.details.payments.IPaymentMethod;
 import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
 import it.unicam.cs.ids2425.utilities.statuses.ArticleStatus;
-import it.unicam.cs.ids2425.utilities.statuses.StatusInfo;
 import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
-import it.unicam.cs.ids2425.utilities.wrappers.Pair;
 import lombok.NonNull;
 
 import java.util.List;
@@ -58,12 +58,12 @@ public class CustomerController extends GenericUserController implements CanRegi
         return reviewController.create(article, review, user);
     }
 
-    public Order cancelOrder(@NonNull Order order) {
-        return orderController.cancel(order).getKey();
+    public OrderState cancelOrder(@NonNull Order order) {
+        return orderController.cancel(order);
     }
 
-    public Order returnOrder(@NonNull Order order) {
-        return orderController.returnOrder(order).getKey();
+    public OrderState returnOrder(@NonNull Order order) {
+        return orderController.returnOrder(order);
     }
 
     @Override
@@ -78,10 +78,12 @@ public class CustomerController extends GenericUserController implements CanRegi
         if (c.getCart() == null) {
             c.setCart(new Cart(c));
         }
+        UserState userStatus = new UserState(c, UserStatus.ACTIVE, null);
+
         cartController.create(c);
-        userRepository.create(c);
-        userStatusRepository.create(new Pair<>(c,
-                List.of(statusInfoController.create(new StatusInfo<>(UserStatus.ACTIVE, c), c))));
+        userRepository.save(c);
+        userStatusRepository.save(userStatus);
+
         return super.get(c, UserStatus.ACTIVE);
     }
 

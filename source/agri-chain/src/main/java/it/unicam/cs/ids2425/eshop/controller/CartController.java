@@ -12,73 +12,71 @@ import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
 import it.unicam.cs.ids2425.utilities.repositories.SingletonRepository;
 import it.unicam.cs.ids2425.utilities.statuses.ArticleStatus;
 import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
-import it.unicam.cs.ids2425.utilities.wrappers.TypeToken;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.util.List;
+import java.util.NoSuchElementException;
 
 @NoArgsConstructor
 public class CartController implements IController {
-    private final SingletonRepository<List<Cart>, Cart, Cart> cartRepository = SingletonRepository.getInstance(new TypeToken<>() {
-    });
+    private final SingletonRepository<Cart> cartRepository = SingletonRepository.getInstance(Cart.class);
 
     private final CustomerController customerController = SingletonController.getInstance(new CustomerController() {
     });
     private final ArticleController articleController = SingletonController.getInstance(new ArticleController() {
     });
 
-    public Cart addArticleToCart(@NonNull IArticle article, @NonNull IUser user) {
-        article = articleController.get(article, ArticleStatus.PUBLISHED);
+    private Cart getCustomerCart(@NonNull IUser user) {
         IUser u = customerController.get(user, UserStatus.ACTIVE);
         if (u.getRole() != UserRole.CUSTOMER) {
             throw new IllegalArgumentException("User is not a customer");
         }
         Customer customer = (Customer) user;
+        return getCart(customer.getCart());
+    }
 
-        Cart userCart = customer.getCart();
-        userCart = cartRepository.get(userCart);
+    private Cart getCart(Cart cart) {
+        return cartRepository.findById(cart).orElseThrow(() -> new NoSuchElementException("Cart not found"));
+    }
 
-        userCart.addArticle(article);
-        userCart = cartRepository.save(userCart, userCart);
+    public Cart addArticleToCart(@NonNull IArticle article, @NonNull IUser user) {
+        Cart cart = getCustomerCart(user);
+        article = articleController.get(article, ArticleStatus.PUBLISHED);
 
-        return cartRepository.get(userCart);
+        cart.addArticle(article);
+        cartRepository.save(cart);
+        return getCart(cart);
     }
 
     public Cart removeArticleFromCart(@NonNull IArticle article, @NonNull IUser user) {
+        Cart cart = getCustomerCart(user);
         article = articleController.get(article, ArticleStatus.PUBLISHED);
-        user = customerController.get(user, UserStatus.ACTIVE);
 
-        if (user.getRole() != UserRole.CUSTOMER) {
-            throw new IllegalArgumentException("User is not a customer");
-        }
-        Customer c = (Customer) user;
-        Cart cart = c.getCart();
         cart.removeArticle(article);
-        cartRepository.save(cart, cart);
-        return cartRepository.get(cart);
+        cartRepository.save(cart);
+        return getCart(cart);
     }
 
     public Cart get(@NonNull Cart cart) {
-        return cartRepository.get(cart);
+        return getCart(cart);
     }
 
     public Cart create(@NonNull Customer c) {
         Cart cart = new Cart(c);
         if (c.getCart() != null) {
-            Cart userCart = cartRepository.get(c.getCart());
+            Cart userCart = cartRepository.findById(c.getCart()).orElse(null);
             if (userCart != null) {
                 throw new IllegalArgumentException("Cart already exists");
             }
             cart = c.getCart();
         }
-        cartRepository.create(cart);
-        return cartRepository.get(cart);
+        cartRepository.save(cart);
+        return getCart(cart);
     }
 
     public void empty(@NonNull Cart cart) {
-        cart = cartRepository.get(cart);
+        cart = getCart(cart);
         cart.empty();
-        cartRepository.save(cart, cart);
+        cartRepository.save(cart);
     }
 }

@@ -2,7 +2,8 @@ package it.unicam.cs.ids2425.users.view.actors;
 
 import it.unicam.cs.ids2425.articles.model.articles.IArticle;
 import it.unicam.cs.ids2425.eshop.model.Cart;
-import it.unicam.cs.ids2425.eshop.model.Order;
+import it.unicam.cs.ids2425.eshop.model.order.Order;
+import it.unicam.cs.ids2425.eshop.model.order.OrderState;
 import it.unicam.cs.ids2425.eshop.model.reviews.Review;
 import it.unicam.cs.ids2425.users.controller.CanRegisterController;
 import it.unicam.cs.ids2425.users.controller.actors.CustomerController;
@@ -35,11 +36,11 @@ public class CustomerView extends GenericUserView implements CanRegisterView, Ca
                 ResponseStatus.CREATED);
     }
 
-    public ViewResponse<Order> cancelOrder(Order order) {
+    public ViewResponse<OrderState> cancelOrder(Order order) {
         return genericCall(() -> customerController.cancelOrder(order));
     }
 
-    public ViewResponse<Order> returnOrder(Order order) {
+    public ViewResponse<OrderState> returnOrder(Order order) {
         return genericCall(() -> customerController.returnOrder(order));
     }
 

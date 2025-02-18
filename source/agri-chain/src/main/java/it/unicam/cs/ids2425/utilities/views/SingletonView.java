@@ -12,6 +12,7 @@ import java.util.Map;
 public class SingletonView<T extends IView> {
     private static final Map<Class<?>, SingletonView<?>> instances = new HashMap<>();
     private final T view;
+
     @SuppressWarnings("unchecked")
     public static <T extends IView> T getInstance(T controller) {
         return (T) instances.computeIfAbsent(controller.getClass(), k -> new SingletonView<>(controller)).getView();

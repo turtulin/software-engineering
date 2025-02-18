@@ -5,7 +5,6 @@ import it.unicam.cs.ids2425.users.model.details.payments.IPaymentMethod;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-
 public record Card(String cardNumber, Timestamp expirationDate, String cvv) implements IPaymentMethod {
     @Override
     public boolean equals(Object o) {
@@ -17,5 +16,19 @@ public record Card(String cardNumber, Timestamp expirationDate, String cvv) impl
     @Override
     public int hashCode() {
         return Objects.hash(cardNumber(), expirationDate(), cvv());
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "cardNumber='" + cardNumber + '\'' +
+                ", expirationDate=" + expirationDate +
+                ", cvv='" + cvv + '\'' +
+                '}';
+    }
+
+    @Override
+    public String getId() {
+        return toString();
     }
 }

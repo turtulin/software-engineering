@@ -1,7 +1,9 @@
 package it.unicam.cs.ids2425.users.model;
 
 
-public interface IUser {
+import it.unicam.cs.ids2425.core.identifiers.Identifiable;
+
+public interface IUser extends Identifiable<Long> {
     UserRole getRole();
 
     String getUsername();

@@ -10,16 +10,12 @@ import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
 import it.unicam.cs.ids2425.utilities.repositories.SingletonRepository;
 import it.unicam.cs.ids2425.utilities.statuses.ArticleStatus;
 import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
-import it.unicam.cs.ids2425.utilities.wrappers.TypeToken;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.util.List;
-
 @NoArgsConstructor
 public class ReviewController implements IController {
-    private final SingletonRepository<List<Review>, Review, Review> reviewRepository = SingletonRepository.getInstance(new TypeToken<>() {
-    });
+    private final SingletonRepository<Review> reviewRepository = SingletonRepository.getInstance(Review.class);
 
     private final CustomerController customerController = SingletonController.getInstance(new CustomerController() {
     });
@@ -29,10 +25,10 @@ public class ReviewController implements IController {
     public Review create(@NonNull IArticle article, @NonNull Review review, @NonNull IUser user) {
         article = articleController.get(article, ArticleStatus.PUBLISHED);
         user = customerController.get(user, UserStatus.ACTIVE);
-        if (!review.article().equals(article) || !review.user().equals(user)) {
-            review = new Review(user, article, review.rating(), review.title(), review.comment());
+        if (!review.getArticle().equals(article) || !review.getUser().equals(user)) {
+            review = new Review(user, article, review.getRating(), review.getTitle(), review.getComment());
         }
-        reviewRepository.create(review);
-        return reviewRepository.get(review);
+        reviewRepository.save(review);
+        return reviewRepository.findById(review).get();
     }
 }

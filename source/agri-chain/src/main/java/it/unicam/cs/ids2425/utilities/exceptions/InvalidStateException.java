@@ -1,4 +1,4 @@
-package it.unicam.cs.ids2425.core.exceptions;
+package it.unicam.cs.ids2425.utilities.exceptions;
 
 import it.unicam.cs.ids2425.utilities.statuses.IState;
 

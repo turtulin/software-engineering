@@ -12,6 +12,7 @@ import java.util.Map;
 public final class SingletonController<T extends IController> {
     private static final Map<Class<?>, SingletonController<?>> instances = new HashMap<>();
     private final T controller;
+
     @SuppressWarnings("unchecked")
     public static <T extends IController> T getInstance(T controller) {
         return (T) instances.computeIfAbsent(controller.getClass(), k -> new SingletonController<>(controller)).getController();

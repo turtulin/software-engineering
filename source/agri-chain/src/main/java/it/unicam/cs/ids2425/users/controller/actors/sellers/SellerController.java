@@ -5,10 +5,9 @@ import it.unicam.cs.ids2425.users.controller.CanRegisterController;
 import it.unicam.cs.ids2425.users.controller.GenericUserController;
 import it.unicam.cs.ids2425.users.model.IUser;
 import it.unicam.cs.ids2425.users.model.UserRole;
-import it.unicam.cs.ids2425.users.model.actors.sellers.GenericSeller;
-import it.unicam.cs.ids2425.utilities.statuses.StatusInfo;
+import it.unicam.cs.ids2425.users.model.UserState;
+import it.unicam.cs.ids2425.users.model.actors.sellers.ISeller;
 import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
-import it.unicam.cs.ids2425.utilities.wrappers.Pair;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -32,13 +31,14 @@ public class SellerController extends GenericUserController implements CanRegist
         if (super.get(u, null) != null) {
             throw new IllegalArgumentException("User already exists");
         }
-        if (!sellerRoles.contains(u.getRole())) {
+        if (sellerRoles.contains(u.getRole())) {
             throw new IllegalArgumentException("User role is not valid");
         }
-        GenericSeller s = (GenericSeller) u;
-        userRepository.create(s);
-        userStatusRepository.create(new Pair<>(s,
-                List.of(statusInfoController.create(new StatusInfo<>(UserStatus.PENDING, s), s))));
+        ISeller s = (ISeller) u;
+        UserState userStatus = new UserState(s, UserStatus.PENDING, null);
+
+        userRepository.save(s);
+        userStatusRepository.save(userStatus);
         return super.get(s, UserStatus.PENDING);
     }
 }

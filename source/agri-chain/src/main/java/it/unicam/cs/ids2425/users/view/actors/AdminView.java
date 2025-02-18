@@ -27,20 +27,20 @@ public class AdminView extends GenericUserView implements CanRegisterView {
                 ResponseStatus.NOT_FOUND);
     }
 
-    public ViewResponse<IUser> ban(IUser user) {
-        return genericCall(() -> adminController.ban(user), ResponseStatus.OK, ResponseStatus.NOT_FOUND);
+    public ViewResponse<IUser> ban(IUser user, IUser target) {
+        return genericCall(() -> adminController.ban(user, target), ResponseStatus.OK, ResponseStatus.NOT_FOUND);
     }
 
-    public ViewResponse<IUser> unban(IUser user) {
-        return genericCall(() -> adminController.unban(user), ResponseStatus.OK, ResponseStatus.NOT_FOUND);
+    public ViewResponse<IUser> unban(IUser user, IUser target) {
+        return genericCall(() -> adminController.unban(user, target), ResponseStatus.OK, ResponseStatus.NOT_FOUND);
     }
 
-    public ViewResponse<IUser> deactivate(IUser user, String reason, Timestamp until) {
-        return genericCall(() -> adminController.deactivate(user, reason, until), ResponseStatus.OK, ResponseStatus.NOT_FOUND);
+    public ViewResponse<IUser> deactivate(IUser user, IUser target, String reason, Timestamp until) {
+        return genericCall(() -> adminController.deactivate(user, target, reason, until), ResponseStatus.OK, ResponseStatus.NOT_FOUND);
     }
 
-    public ViewResponse<IUser> activate(IUser user) {
-        return genericCall(() -> adminController.activate(user), ResponseStatus.OK, ResponseStatus.NOT_FOUND);
+    public ViewResponse<IUser> activate(IUser user, IUser target) {
+        return genericCall(() -> adminController.activate(user, target), ResponseStatus.OK, ResponseStatus.NOT_FOUND);
     }
 
     @Override

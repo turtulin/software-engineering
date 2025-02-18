@@ -1,4 +1,4 @@
-package it.unicam.cs.ids2425.core.exceptions;
+package it.unicam.cs.ids2425.utilities.exceptions;
 
 public class AuthorizationException extends RuntimeException {
     public AuthorizationException(String message) {

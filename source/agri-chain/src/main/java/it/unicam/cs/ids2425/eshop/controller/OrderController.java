@@ -1,7 +1,8 @@
 package it.unicam.cs.ids2425.eshop.controller;
 
 import it.unicam.cs.ids2425.eshop.model.Cart;
-import it.unicam.cs.ids2425.eshop.model.Order;
+import it.unicam.cs.ids2425.eshop.model.order.Order;
+import it.unicam.cs.ids2425.eshop.model.order.OrderState;
 import it.unicam.cs.ids2425.users.controller.actors.CustomerController;
 import it.unicam.cs.ids2425.users.controller.details.AddressController;
 import it.unicam.cs.ids2425.users.controller.details.PaymentMethodController;
@@ -12,23 +13,16 @@ import it.unicam.cs.ids2425.utilities.controllers.IController;
 import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
 import it.unicam.cs.ids2425.utilities.repositories.SingletonRepository;
 import it.unicam.cs.ids2425.utilities.statuses.OrderStatus;
-import it.unicam.cs.ids2425.utilities.statuses.StatusInfo;
 import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
-import it.unicam.cs.ids2425.utilities.statuses.controller.StatusInfoController;
-import it.unicam.cs.ids2425.utilities.wrappers.Pair;
-import it.unicam.cs.ids2425.utilities.wrappers.TypeToken;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.util.List;
-import java.util.Set;
+import java.util.NoSuchElementException;
 
 @NoArgsConstructor
 public class OrderController implements IController {
-    private final SingletonRepository<List<Order>, Order, Order> orderRepository = SingletonRepository.getInstance(new TypeToken<>() {
-    });
-    private final SingletonRepository<Set<Pair<Order, List<StatusInfo<OrderStatus>>>>, Pair<Order, List<StatusInfo<OrderStatus>>>, Order> orderStatusRepository = SingletonRepository.getInstance(new TypeToken<>() {
-    });
+    private final SingletonRepository<Order> orderRepository = SingletonRepository.getInstance(Order.class);
+    private final SingletonRepository<OrderState> orderStatusRepository = SingletonRepository.getInstance(OrderState.class);
 
     private final AddressController addressController = SingletonController.getInstance(new AddressController() {
     });
@@ -39,8 +33,6 @@ public class OrderController implements IController {
     private final CustomerController customerController = SingletonController.getInstance(new CustomerController() {
     });
     private final ShippingController shippingController = SingletonController.getInstance(new ShippingController() {
-    });
-    private final StatusInfoController<OrderStatus> orderStatusController = SingletonController.getInstance(new StatusInfoController<OrderStatus>() {
     });
 
     public Order create(@NonNull Cart cart, @NonNull Address shippingAddress, @NonNull Address billingAddress, @NonNull IPaymentMethod payment) {
@@ -53,40 +45,33 @@ public class OrderController implements IController {
         user = customerController.get(user, UserStatus.ACTIVE);
 
         Order order = new Order(cart, shippingAddress, billingAddress, payment, shippingController.getTrackingNumber(cart, shippingAddress));
+        OrderState state = new OrderState(order, OrderStatus.PENDING, user);
 
-        orderRepository.create(order);
-
-        StatusInfo<OrderStatus> status = orderStatusController.create(new StatusInfo<>(OrderStatus.PENDING, user, "Order created"), user);
-        orderStatusRepository.create(new Pair<>(order, List.of(status)));
+        orderRepository.save(order);
+        orderStatusRepository.save(state);
 
         cartController.empty(cart);
 
-        return orderRepository.get(order);
+        return orderRepository.findById(order).get();
     }
 
-    public Pair<Order, List<StatusInfo<OrderStatus>>> cancel(@NonNull Order order) {
-        order = orderRepository.get(order);
+    private OrderState changeOrderStatus(@NonNull Order order, OrderStatus newStatus) {
+        order = orderRepository.findById(order).orElseThrow(NoSuchElementException::new);
         IUser user = order.getCart().getUser();
         user = customerController.get(user, UserStatus.ACTIVE);
-
-        StatusInfo<OrderStatus> status = orderStatusController.create(new StatusInfo<>(OrderStatus.CANCELLED, user, "Order cancelled"), user);
-        Pair<Order, List<StatusInfo<OrderStatus>>> pair = orderStatusRepository.get(order);
-        pair.getValue().add(status);
-        orderStatusRepository.save(order, pair);
-
-        return orderStatusRepository.get(order);
+        OrderState state = new OrderState(order, newStatus, user);
+        orderStatusRepository.save(state);
+        return orderStatusRepository.findAll().stream()
+                .filter(o -> o.equals(state))
+                .sorted()
+                .toList().getLast();
     }
 
-    public Pair<Order, List<StatusInfo<OrderStatus>>> returnOrder(@NonNull Order order) {
-        order = orderRepository.get(order);
-        IUser user = order.getCart().getUser();
-        user = customerController.get(user, UserStatus.ACTIVE);
+    public OrderState cancel(@NonNull Order order) {
+        return changeOrderStatus(order, OrderStatus.CANCELLED);
+    }
 
-        StatusInfo<OrderStatus> status = orderStatusController.create(new StatusInfo<>(OrderStatus.EVALUATING_REFUND, user, "Order refund requested"), user);
-        Pair<Order, List<StatusInfo<OrderStatus>>> pair = orderStatusRepository.get(order);
-        pair.getValue().add(status);
-        orderStatusRepository.save(order, pair);
-
-        return orderStatusRepository.get(order);
+    public OrderState returnOrder(@NonNull Order order) {
+        return changeOrderStatus(order, OrderStatus.EVALUATING_REFUND);
     }
 }

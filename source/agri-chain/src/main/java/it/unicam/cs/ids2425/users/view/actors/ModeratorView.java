@@ -10,8 +10,6 @@ import it.unicam.cs.ids2425.users.view.CanReportView;
 import it.unicam.cs.ids2425.users.view.GenericUserView;
 import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
 import it.unicam.cs.ids2425.utilities.statuses.ArticleStatus;
-import it.unicam.cs.ids2425.utilities.statuses.StatusInfo;
-import it.unicam.cs.ids2425.utilities.wrappers.Pair;
 import it.unicam.cs.ids2425.utilities.wrappers.responses.ResponseStatus;
 import it.unicam.cs.ids2425.utilities.wrappers.responses.ViewResponse;
 import lombok.NoArgsConstructor;
@@ -23,13 +21,13 @@ public class ModeratorView extends GenericUserView implements CanRegisterView, C
     private final ModeratorController moderatorController = SingletonController.getInstance(new ModeratorController() {
     });
 
-    public ViewResponse<Pair<IArticle, List<StatusInfo<ArticleStatus>>>> approve(IArticle article, IUser user) {
+    public ViewResponse<ArticleStatus> approve(IArticle article, IUser user) {
         return genericCall(() -> moderatorController.approve(article, (Moderator) user),
                 ResponseStatus.ACCEPTED,
                 "Article approved");
     }
 
-    public ViewResponse<Pair<IArticle, List<StatusInfo<ArticleStatus>>>> reject(IArticle article, String reason, IUser user) {
+    public ViewResponse<ArticleStatus> reject(IArticle article, String reason, IUser user) {
         return genericCall(() -> moderatorController.reject(article, reason, (Moderator) user),
                 ResponseStatus.ACCEPTED,
                 "Article rejected");

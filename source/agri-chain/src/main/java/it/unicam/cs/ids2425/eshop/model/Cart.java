@@ -1,6 +1,7 @@
 package it.unicam.cs.ids2425.eshop.model;
 
 import it.unicam.cs.ids2425.articles.model.articles.IArticle;
+import it.unicam.cs.ids2425.core.identifiers.Identifiable;
 import it.unicam.cs.ids2425.users.model.actors.Customer;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 @Getter
 @EqualsAndHashCode(of = "user")
-public class Cart {
+public class Cart implements Identifiable<Long> {
     private final Map<IArticle, Integer> articles;
     private final Customer user;
 
@@ -40,5 +41,10 @@ public class Cart {
 
     public void empty() {
         articles.clear();
+    }
+
+    @Override
+    public Long getId() {
+        return user.getId();
     }
 }

@@ -5,10 +5,9 @@ import it.unicam.cs.ids2425.users.controller.CanRegisterController;
 import it.unicam.cs.ids2425.users.controller.GenericUserController;
 import it.unicam.cs.ids2425.users.model.IUser;
 import it.unicam.cs.ids2425.users.model.UserRole;
+import it.unicam.cs.ids2425.users.model.UserState;
 import it.unicam.cs.ids2425.users.model.actors.CustomerService;
-import it.unicam.cs.ids2425.utilities.statuses.StatusInfo;
 import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
-import it.unicam.cs.ids2425.utilities.wrappers.Pair;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -25,9 +24,10 @@ public class CustomerServiceController extends GenericUserController implements 
             throw new IllegalArgumentException("User role is not valid");
         }
         CustomerService cs = (CustomerService) u;
-        userRepository.create(cs);
-        userStatusRepository.create(new Pair<>(cs,
-                List.of(statusInfoController.create(new StatusInfo<>(UserStatus.PENDING, cs), cs))));
+        UserState userStatus = new UserState(cs, UserStatus.PENDING, null);
+
+        userRepository.save(cs);
+        userStatusRepository.save(userStatus);
         return super.get(cs, UserStatus.PENDING);
     }
 

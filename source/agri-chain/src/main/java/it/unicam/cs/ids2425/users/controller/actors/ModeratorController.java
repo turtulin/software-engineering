@@ -7,12 +7,11 @@ import it.unicam.cs.ids2425.users.controller.CanRegisterController;
 import it.unicam.cs.ids2425.users.controller.GenericUserController;
 import it.unicam.cs.ids2425.users.model.IUser;
 import it.unicam.cs.ids2425.users.model.UserRole;
+import it.unicam.cs.ids2425.users.model.UserState;
 import it.unicam.cs.ids2425.users.model.actors.Moderator;
 import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
 import it.unicam.cs.ids2425.utilities.statuses.ArticleStatus;
-import it.unicam.cs.ids2425.utilities.statuses.StatusInfo;
 import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
-import it.unicam.cs.ids2425.utilities.wrappers.Pair;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -23,7 +22,7 @@ public class ModeratorController extends GenericUserController implements CanReg
     private final ArticleController articleController = SingletonController.getInstance(new ArticleController() {
     });
 
-    public Pair<IArticle, List<StatusInfo<ArticleStatus>>> approve(@NonNull IArticle a, @NonNull Moderator m) {
+    public ArticleStatus approve(@NonNull IArticle a, @NonNull Moderator m) {
         a = articleController.get(a, ArticleStatus.PENDING);
         IUser u = super.get(m, UserStatus.ACTIVE);
         if (u.getRole() != UserRole.MODERATOR) {
@@ -35,7 +34,7 @@ public class ModeratorController extends GenericUserController implements CanReg
         return articleController.getArticleStatus(a);
     }
 
-    public Pair<IArticle, List<StatusInfo<ArticleStatus>>> reject(@NonNull IArticle a, @NonNull String reason, @NonNull Moderator m) {
+    public ArticleStatus reject(@NonNull IArticle a, @NonNull String reason, @NonNull Moderator m) {
         if (reason.isBlank()) {
             throw new IllegalArgumentException("Must provide a Reason");
         }
@@ -74,9 +73,10 @@ public class ModeratorController extends GenericUserController implements CanReg
             throw new IllegalArgumentException("User role is not valid");
         }
         Moderator m = (Moderator) u;
-        userRepository.create(m);
-        userStatusRepository.create(new Pair<>(m,
-                List.of(statusInfoController.create(new StatusInfo<>(UserStatus.PENDING, m), m))));
+        UserState userStatus = new UserState(m, UserStatus.PENDING, null);
+
+        userRepository.save(m);
+        userStatusRepository.save(userStatus);
         return super.get(m, UserStatus.PENDING);
     }
 

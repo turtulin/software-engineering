@@ -1,35 +1,47 @@
 package it.unicam.cs.ids2425.utilities.repositories;
 
-import it.unicam.cs.ids2425.utilities.wrappers.TypeToken;
-import lombok.Getter;
+import it.unicam.cs.ids2425.core.identifiers.Identifiable;
 
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
-@Getter
-public final class SingletonRepository<T extends Collection<S>, S, ID> implements IRepository<T, S, ID> {
-    private static final Map<Class<?>, SingletonRepository<?, ?, ?>> instances = new HashMap<>();
-    private final T entities;
+public class SingletonRepository<T extends Identifiable<?>> implements IRepository<T> {
+    private static final ConcurrentHashMap<Class<?>, SingletonRepository<?>> instances = new ConcurrentHashMap<>();
+    private final List<T> storage = new ArrayList<>();
 
-    private SingletonRepository(Class<T> type) {
-        try {
-            this.entities = type.getConstructor().newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    @SuppressWarnings("unchecked")
+    public static <T extends Identifiable<?>> SingletonRepository<T> getInstance(Class<T> entityType) {
+        return (SingletonRepository<T>) instances.computeIfAbsent(
+                entityType,
+                k -> new SingletonRepository<T>()
+        );
     }
 
-    /**
-     * Note: an alternative solution to warning suppression is way too long and adds a lot of data and code.
-     * Therefore, I am suppressing a Warning that does never cause any problems.
-     * instance is always an instance of SingletonRepository<T> because of the way it is created.
-     */
-    @SuppressWarnings("unchecked")
-    public static <T extends Collection<S>, S, ID> SingletonRepository<T, S, ID> getInstance(TypeToken<T> typeToken) {
-        Type type = typeToken.getType();
-        return (SingletonRepository<T, S, ID>) instances.computeIfAbsent(type.getClass(), k -> new SingletonRepository<>(
-                (Class<T>) type.getClass()));
+    @Override
+    public T save(T entity) {
+        storage.add(entity);
+        return entity;
+    }
+
+    @Override
+    public Optional<T> findById(T entity) {
+        return storage.stream().filter(e -> e.equals(entity)).findFirst().or(Optional::empty);
+    }
+
+    @Override
+    public List<T> findAll() {
+        return List.copyOf(storage);
+    }
+
+    @Override
+    public void deleteById(T entity) {
+        storage.remove(entity);
+    }
+
+    @Override
+    public boolean existsById(T entity) {
+        return storage.contains(entity);
     }
 }

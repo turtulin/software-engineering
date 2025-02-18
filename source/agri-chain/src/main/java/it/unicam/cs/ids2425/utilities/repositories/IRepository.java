@@ -1,34 +1,16 @@
 package it.unicam.cs.ids2425.utilities.repositories;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
-public interface IRepository<T extends Collection<S>, S, ID> {
+public interface IRepository<T> {
+    T save(T entity);
 
-    T getEntities();
+    Optional<T> findById(T entity);
 
-    default T getAll() {
-        return getEntities();
-    }
+    List<T> findAll();
 
-    default S get(ID entity) {
-        return getEntities().stream().filter(e -> e.equals(entity)).findFirst().orElse(null);
-    }
+    void deleteById(T id);
 
-    default boolean remove(ID entity) {
-        S entityElem = get(entity);
-        return getEntities().remove(entityElem);
-    }
-
-    default boolean create(S elem) {
-        return getEntities().add(elem);
-    }
-
-    default S save(ID entity, S elem) {
-        S entityElem = get(entity);
-        if (entityElem != null) {
-            remove(entity);
-        }
-        create(elem);
-        return get(entity);
-    }
+    boolean existsById(T id);
 }

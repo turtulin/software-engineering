@@ -1,12 +1,11 @@
 package it.unicam.cs.ids2425.articles.model.articles;
 
 import it.unicam.cs.ids2425.articles.model.ArticleType;
-import it.unicam.cs.ids2425.core.model.ArticleId;
-import it.unicam.cs.ids2425.core.model.UserId;
+import it.unicam.cs.ids2425.users.model.IUser;
 
 public final class ProcessedProduct extends CompositeArticle {
-    public ProcessedProduct(ArticleId id, String name, String description, UserId sellerId, double price) {
-        super(id, name, description, sellerId, price);
+    public ProcessedProduct(String name, String description, IUser seller, double price) {
+        super(name, description, seller, price);
     }
 
     @Override
