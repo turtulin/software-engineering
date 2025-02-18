@@ -10,6 +10,7 @@ import it.unicam.cs.ids2425.utilities.controllers.IController;
 import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
 import it.unicam.cs.ids2425.utilities.repositories.SingletonRepository;
 import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
+import lombok.NonNull;
 
 import java.sql.Timestamp;
 import java.util.NoSuchElementException;
@@ -19,21 +20,20 @@ public interface CanLoginController extends IController {
 
     SingletonRepository<UserState> getUserStatusRepository();
 
-    default Token login(String username, String password) {
+    default Token login(@NonNull String username, @NonNull String password) {
         IUser user = getGenericUserRepository().findAll().stream()
                 .filter(u -> (u.getUsername().equals(username) &&
                         ((GenericUser) u).getPassword().equals(password)))
                 .findFirst().orElseThrow(() -> new NoSuchElementException("User not found"));
-        UserStatus userStatus = getUserStatusRepository().findAll().stream()
+        UserState userStatus = getUserStatusRepository().findAll().stream()
                 .filter(s -> s.getEntity().equals(user))
-                .sorted().toList().getLast().getStatus();
-        if (userStatus == UserStatus.DEACTIVATED) {
+                .sorted().toList().getLast();
+        if (userStatus.getStatus() == UserStatus.DEACTIVATED) {
             checkReenable(user);
-        } else if (userStatus != UserStatus.ACTIVE) {
+        } else if (userStatus.getStatus() != UserStatus.ACTIVE) {
             throw new IllegalArgumentException("User is not active");
         }
-        return SingletonController.getInstance(new TokenController() {
-        }).create(user);
+        return SingletonController.getInstance(new TokenController()).create(user);
     }
 
     private void checkReenable(IUser user) {
@@ -43,7 +43,8 @@ public interface CanLoginController extends IController {
                 .sorted().toList().getLast();
         if (userStatus.getStatus() == UserStatus.DEACTIVATED &&
                 new Timestamp(System.currentTimeMillis()).after(userStatus.getStateTime())) {
-            UserState newState = new UserState(user, UserStatus.ACTIVE, new Time());
+            //TODO review, better creating one single "Time" user!!
+            UserState newState = new UserState(user, UserStatus.ACTIVE, new Time("Time", "time"));
             getUserStatusRepository().save(newState);
             return;
         }

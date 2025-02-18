@@ -14,7 +14,9 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Optional;
 
 @NoArgsConstructor
 public class GenericProblemController implements IController {
@@ -22,22 +24,22 @@ public class GenericProblemController implements IController {
     private final SingletonRepository<IProblem> problemRepository = SingletonRepository.getInstance(IProblem.class);
     private final SingletonRepository<ProblemState> problemStatusRepository = SingletonRepository.getInstance(ProblemState.class);
 
-    private final CustomerServiceController customerServiceController = SingletonController.getInstance(new CustomerServiceController() {
-    });
+    public IProblem create(@NonNull IProblem problem, @NonNull IUser user) {
+        user = SingletonController.getInstance(new GenericUserController()).get(user, UserStatus.ACTIVE);
 
-    public IProblem create(@NonNull IProblem p, @NonNull IUser u) {
-        u = SingletonController.getInstance(new GenericUserController() {
-        }).get(u, UserStatus.ACTIVE);
-
-        if (p.getDescription() == null || p.getDescription().isBlank()) {
+        if (problem.getDescription() == null || problem.getDescription().isBlank()) {
             throw new IllegalArgumentException("Problem description is empty");
         }
 
-        p.setUser(u);
-        ProblemState problemStatus = new ProblemState(p, ProblemStatus.OPEN, u);
-        problemRepository.save(p);
+        problem.setUser(user);
+        ProblemState problemStatus = new ProblemState(problem, ProblemStatus.OPEN, user);
+        problemRepository.save(problem);
         problemStatusRepository.save(problemStatus);
-        return problemRepository.findById(p).get();
+        Optional<IProblem> p = problemRepository.findById(problem);
+        if (p.isPresent()) {
+            return p.get();
+        }
+        throw new RuntimeException("Problem not found");
     }
 
     private List<IProblem> getAllProblems(ProblemStatus status) {
@@ -52,21 +54,19 @@ public class GenericProblemController implements IController {
     }
 
     public List<IProblem> getAll(@NonNull IUser user, ProblemStatus status) {
-        customerServiceController.get(user, UserStatus.ACTIVE);
+        SingletonController.getInstance(new CustomerServiceController()).get(user, UserStatus.ACTIVE);
         return getAllProblems(status);
     }
 
-    public IProblem get(IProblem problem, IUser user) {
-        customerServiceController.get(user, UserStatus.ACTIVE);
-
+    public IProblem get(@NonNull IProblem problem, @NonNull IUser user) {
+        SingletonController.getInstance(new CustomerServiceController()).get(user, UserStatus.ACTIVE);
         return problemStatusRepository.findAll().stream()
                 .filter(state -> state.getEntity().equals(problem))
-                .map(state -> problemRepository.findById(state.getEntity()).get())
+                .map(state -> problemRepository.findById(state.getEntity()).orElseThrow(() -> new RuntimeException("Problem not found")))
                 .findFirst().orElse(null);
     }
 
     private IProblem updateProblem(IProblem problem, IUser user, ProblemStatus newStatus) {
-        IUser customerService = customerServiceController.get(user, UserStatus.ACTIVE);
         IProblem p = get(problem, user);
         if (p == null) {
             return null;
@@ -74,9 +74,13 @@ public class GenericProblemController implements IController {
         ProblemState oldState = problemStatusRepository.findAll().stream()
                 .filter(state -> state.getEntity().equals(p))
                 .findFirst().orElse(null);
-        ProblemState problemStatus = new ProblemState(p, newStatus, customerService, oldState);
+        ProblemState problemStatus = new ProblemState(p, newStatus, user, oldState);
         problemStatusRepository.save(problemStatus);
-        return problemRepository.findById(problem).get();
+        Optional<IProblem> optionalProblem = problemRepository.findById(p);
+        if (optionalProblem.isPresent()) {
+            return optionalProblem.get();
+        }
+        throw new RuntimeException("Problem not found");
     }
 
     public IProblem solve(IProblem problem, IUser user) {
@@ -89,5 +93,16 @@ public class GenericProblemController implements IController {
 
     public IProblem close(IProblem problem, IUser user) {
         return updateProblem(problem, user, ProblemStatus.CLOSED);
+    }
+
+    public ProblemStatus getStatus(@NonNull IProblem problem, @NonNull IUser user) {
+        SingletonController.getInstance(new CustomerServiceController()).get(user, UserStatus.ACTIVE);
+        IProblem p = get(problem, user);
+        if (p == null) {
+            throw new NoSuchElementException("Problem not found");
+        }
+        return problemStatusRepository.findAll().stream()
+                .filter(state -> state.getEntity().equals(p))
+                .map(ProblemState::getStatus).sorted().toList().getLast();
     }
 }

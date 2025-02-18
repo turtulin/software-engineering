@@ -10,8 +10,7 @@ import it.unicam.cs.ids2425.utilities.wrappers.responses.ViewResponse;
 
 public interface CanReportView extends IView {
     private GenericProblemController getProblemController() {
-        return SingletonController.getInstance(new GenericProblemController() {
-        });
+        return SingletonController.getInstance(new GenericProblemController());
     }
 
     default ViewResponse<IProblem> reportProblem(IProblem problem, IUser user) {

@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Getter
 @EqualsAndHashCode(of = "user")
-public class Cart implements Identifiable<Long> {
+public class Cart implements Identifiable<String>, Cloneable {
     private final Map<IArticle, Integer> articles;
     private final Customer user;
 
@@ -44,7 +44,14 @@ public class Cart implements Identifiable<Long> {
     }
 
     @Override
-    public Long getId() {
+    public String getId() {
         return user.getId();
+    }
+
+    @Override
+    public Cart clone() {
+        Cart clone = new Cart(user);
+        clone.articles.putAll(this.articles);
+        return clone;
     }
 }

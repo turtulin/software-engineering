@@ -27,7 +27,7 @@ public class TokenController implements IController {
                 .filter(t -> t.getToken().equals(token)
                         && t.getIssueTime()
                         .before(Timestamp.from(t.getIssueTime().toInstant().plusSeconds(60 * 60 * 24 * 2))))
-                .map(Token::getUser).findFirst().orElse(new GenericUser("") {
+                .map(Token::getUser).findFirst().orElse(new GenericUser("", "") {
                 });
     }
 

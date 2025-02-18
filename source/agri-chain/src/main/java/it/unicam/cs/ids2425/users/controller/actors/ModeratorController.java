@@ -16,58 +16,60 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @NoArgsConstructor
 public class ModeratorController extends GenericUserController implements CanRegisterController, CanLogoutController {
-    private final ArticleController articleController = SingletonController.getInstance(new ArticleController() {
-    });
+    private final ArticleController articleController = SingletonController.getInstance(new ArticleController());
 
-    public ArticleStatus approve(@NonNull IArticle a, @NonNull Moderator m) {
-        a = articleController.get(a, ArticleStatus.PENDING);
-        IUser u = super.get(m, UserStatus.ACTIVE);
+    public ArticleStatus approve(@NonNull IArticle article, @NonNull Moderator moderator) {
+        article = articleController.get(article, ArticleStatus.PENDING);
+        IUser u = super.get(moderator, UserStatus.ACTIVE);
         if (u.getRole() != UserRole.MODERATOR) {
             throw new IllegalArgumentException("Moderator not found");
         }
-        m = (Moderator) u;
+        moderator = (Moderator) u;
 
-        a = articleController.approveArticle(a, m);
-        return articleController.getArticleStatus(a);
+        article = articleController.approveArticle(article, moderator);
+        return articleController.getArticleStatus(article);
     }
 
-    public ArticleStatus reject(@NonNull IArticle a, @NonNull String reason, @NonNull Moderator m) {
+    public ArticleStatus reject(@NonNull IArticle article, @NonNull String reason, @NonNull Moderator moderator) {
         if (reason.isBlank()) {
             throw new IllegalArgumentException("Must provide a Reason");
         }
-        a = articleController.get(a, ArticleStatus.PENDING);
-        IUser u = super.get(m, UserStatus.ACTIVE);
+        article = articleController.get(article, ArticleStatus.PENDING);
+        IUser u = super.get(moderator, UserStatus.ACTIVE);
         if (u.getRole() != UserRole.MODERATOR) {
             throw new IllegalArgumentException("Moderator not found");
         }
-        m = (Moderator) u;
+        moderator = (Moderator) u;
 
-        a = articleController.rejectArticle(a, reason, m);
-        return articleController.getArticleStatus(a);
+        article = articleController.rejectArticle(article, reason, moderator);
+        return articleController.getArticleStatus(article);
     }
 
-    public List<IArticle> getApprovedArticles(@NonNull Moderator m) {
-        check(m, UserStatus.ACTIVE);
-        return articleController.getAll(m, ArticleStatus.PUBLISHED);
+    public List<IArticle> getApprovedArticles(@NonNull Moderator moderator) {
+        check(moderator, UserStatus.ACTIVE);
+        return articleController.getAll(moderator, ArticleStatus.PUBLISHED);
     }
 
-    public List<IArticle> getRejectedArticles(@NonNull Moderator m) {
-        check(m, UserStatus.ACTIVE);
-        return articleController.getAll(m, ArticleStatus.REJECTED);
+    public List<IArticle> getRejectedArticles(@NonNull Moderator moderator) {
+        check(moderator, UserStatus.ACTIVE);
+        return articleController.getAll(moderator, ArticleStatus.REJECTED);
     }
 
-    public List<IArticle> getPendingArticles(IUser u) {
-        check(u, UserStatus.ACTIVE);
-        return articleController.getAll(u, ArticleStatus.PENDING);
+    public List<IArticle> getPendingArticles(@NonNull Moderator moderator) {
+        check(moderator, UserStatus.ACTIVE);
+        return articleController.getAll(moderator, ArticleStatus.PENDING);
     }
 
     @Override
     public IUser register(IUser u) {
-        if (super.get(u, null) != null) {
+        try {
+            super.get(u, null);
             throw new IllegalArgumentException("User already exists");
+        } catch (NoSuchElementException ignored) {
         }
         if (u.getRole() != UserRole.MODERATOR) {
             throw new IllegalArgumentException("User role is not valid");
@@ -81,9 +83,9 @@ public class ModeratorController extends GenericUserController implements CanReg
     }
 
     @Override
-    protected boolean check(@NonNull IUser u, UserStatus status) {
-        IUser user = super.get(u, null);
-        if (!super.check(u, status) && List.of(UserRole.MODERATOR, UserRole.ADMIN).contains(user.getRole())) {
+    protected boolean check(@NonNull IUser user, UserStatus status) {
+        IUser u = super.get(user, null);
+        if (!super.check(user, status) && List.of(UserRole.MODERATOR, UserRole.ADMIN).contains(u.getRole())) {
             throw new IllegalArgumentException("User is not a moderator");
         }
         return true;

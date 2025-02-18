@@ -26,6 +26,11 @@ public interface IView {
                     .status(failureStatus)
                     .message(e.getMessage())
                     .build();
+        } catch (Exception e) {
+            return ViewResponse.<T>builder()
+                    .status(ResponseStatus.BAD_REQUEST)
+                    .message(e.getMessage())
+                    .build();
         }
     }
 

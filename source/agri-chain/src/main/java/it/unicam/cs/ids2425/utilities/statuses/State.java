@@ -4,11 +4,13 @@ import it.unicam.cs.ids2425.core.identifiers.Identifiable;
 import it.unicam.cs.ids2425.users.model.IUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.sql.Timestamp;
 
 @Getter
 @EqualsAndHashCode(of = "id")
+@ToString
 public class State<T extends Identifiable<ID>, S extends IStatus, ID> implements Identifiable<ID>, Comparable<State<T, S, ID>> {
     private final ID id;
     private final T entity;

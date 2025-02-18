@@ -5,25 +5,17 @@ import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
 
 import java.sql.Timestamp;
 
-public class UserState extends State<IUser, UserStatus, Long> {
+public class UserState extends State<IUser, UserStatus, String> {
 
-    public UserState(IUser entity, UserStatus status, IUser initiator, String reason, State<IUser, UserStatus, Long> oldState, Timestamp stateTime) {
+    public UserState(IUser entity, UserStatus status, IUser initiator, String reason, State<IUser, UserStatus, String> oldState, Timestamp stateTime) {
         super(entity, status, initiator, reason, oldState, stateTime);
-    }
-
-    public UserState(IUser entity, UserStatus status, IUser initiator, String reason, State<IUser, UserStatus, Long> oldState) {
-        super(entity, status, initiator, reason, oldState);
     }
 
     public UserState(IUser entity, UserStatus status, IUser initiator) {
         super(entity, status, initiator);
     }
 
-    public UserState(IUser entity, UserStatus status, IUser initiator, String reason) {
-        super(entity, status, initiator, reason);
-    }
-
-    public UserState(IUser entity, UserStatus status, IUser initiator, State<IUser, UserStatus, Long> oldState) {
+    public UserState(IUser entity, UserStatus status, IUser initiator, State<IUser, UserStatus, String> oldState) {
         super(entity, status, initiator, oldState);
     }
 }

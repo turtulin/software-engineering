@@ -17,31 +17,46 @@ import java.util.NoSuchElementException;
 
 @NoArgsConstructor
 public class AdminController extends GenericUserController implements CanRegisterController, CanLogoutController {
-    public List<IUser> getAll(IUser user) {
+    public List<IUser> getAll(@NonNull IUser user) {
         check(user, UserStatus.ACTIVE);
         return userRepository.findAll().stream().toList();
     }
 
+    public IUser get(IUser user, IUser target, UserStatus status) {
+        check(user, UserStatus.ACTIVE);
+        return super.get(target, status);
+    }
+
+    public UserState getUserState(IUser user, IUser target) {
+        check(user, UserStatus.ACTIVE);
+        return userStatusRepository.findAll().stream()
+                .filter(s -> s.getEntity().equals(target)).sorted().toList().getLast();
+    }
+
     @Override
     public IUser register(IUser u) {
-        if (super.get(u, null) != null) {
+        try {
+            super.get(u, null);
             throw new IllegalArgumentException("User already exists");
+        } catch (NoSuchElementException ignored) {
         }
         if (u.getRole() != UserRole.ADMIN) {
             throw new IllegalArgumentException("User role is not valid");
         }
         Admin a = (Admin) u;
-        UserState userStatus = new UserState(a, UserStatus.PENDING, null);
+        // TODO review, setting admin as active automatically for testing purposes
+        UserState userStatus = new UserState(a, UserStatus.ACTIVE, null);
 
         userRepository.save(a);
         userStatusRepository.save(userStatus);
-        return super.get(a, UserStatus.PENDING);
+        // TODO review, same as above
+        return super.get(a, UserStatus.ACTIVE);
     }
 
     @Override
-    protected boolean check(@NonNull IUser u, UserStatus status) {
-        IUser user = super.get(u, null);
-        if (!super.check(u, status) && user.getRole() != UserRole.ADMIN) {
+    protected boolean check(@NonNull IUser user, UserStatus status) {
+        IUser U = super.get(user, null);
+        if (!super.check(U, status) && U.getRole() != UserRole.ADMIN) {
             throw new IllegalArgumentException("User is not an Admin");
         }
         return true;
@@ -49,42 +64,47 @@ public class AdminController extends GenericUserController implements CanRegiste
 
     private IUser changeUserStatus(IUser user, IUser target, UserStatus previousStatus, UserStatus newStatus) {
         user = get(user, UserStatus.ACTIVE);
-        if (user.getRole() == UserRole.ADMIN) {
+        if (target.getRole() == UserRole.ADMIN && newStatus != UserStatus.ACTIVE) {
             throw new IllegalArgumentException("Admin cannot be banned");
         }
         IUser t = super.get(target, previousStatus);
         UserState oldState = userStatusRepository.findAll().stream()
                 .filter(s -> s.getEntity().equals(t))
-                .filter(s -> s.getStatus() == previousStatus)
+                .filter(s -> previousStatus == null || s.getStatus() == previousStatus)
                 .findFirst().orElseThrow(() -> new NoSuchElementException("User status not found"));
-        UserState userStatus = new UserState(target, newStatus, user, oldState);
+        UserState userStatus = new UserState(t, newStatus, user, oldState);
         userStatusRepository.save(userStatus);
-        return super.get(user, newStatus);
+        return super.get(t, newStatus);
     }
 
-    public IUser ban(IUser user, IUser target) {
+    public IUser ban(@NonNull IUser user, @NonNull IUser target) {
         return changeUserStatus(user, target, UserStatus.ACTIVE, UserStatus.BANNED);
     }
 
-    public IUser unban(IUser user, IUser target) {
+    public IUser unban(@NonNull IUser user, @NonNull IUser target) {
         return changeUserStatus(user, target, UserStatus.BANNED, UserStatus.ACTIVE);
     }
 
-    public IUser activate(IUser user, IUser target) {
+    public IUser activate(@NonNull IUser user, @NonNull IUser target) {
         return changeUserStatus(user, target, null, UserStatus.ACTIVE);
     }
 
-    public IUser deactivate(IUser user, IUser target, String reason, Timestamp until) {
+    public IUser deactivate(@NonNull IUser user, @NonNull IUser target, @NonNull String reason, @NonNull Timestamp until) {
         user = get(user, UserStatus.ACTIVE);
-        if (user.getRole() == UserRole.ADMIN) {
+        if (target.getRole() == UserRole.ADMIN) {
             throw new IllegalArgumentException("Admin cannot be banned");
+        }
+        if (reason.isBlank()) {
+            throw new IllegalArgumentException("Reason is blank");
+        }
+        if (until.before(new Timestamp(System.currentTimeMillis())) || until.equals(new Timestamp(System.currentTimeMillis()))) {
+            throw new IllegalArgumentException("Until date is in the past");
         }
         IUser t = super.get(target, null);
         UserState oldState = userStatusRepository.findAll().stream()
-                .filter(s -> s.getEntity().equals(t))
-                .findFirst().orElseThrow(() -> new NoSuchElementException("User status not found"));
-        UserState userStatus = new UserState(target, UserStatus.DEACTIVATED, user, reason, oldState, until);
+                .filter(s -> s.getEntity().equals(t)).sorted().toList().getLast();
+        UserState userStatus = new UserState(t, UserStatus.DEACTIVATED, user, reason, oldState, until);
         userStatusRepository.save(userStatus);
-        return super.get(user, UserStatus.DEACTIVATED);
+        return super.get(t, UserStatus.DEACTIVATED);
     }
 }

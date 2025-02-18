@@ -6,7 +6,6 @@ import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
 
 public interface CanLogoutController {
     default void logout(Token token) {
-        SingletonController.getInstance(new TokenController() {
-        }).remove(token);
+        SingletonController.getInstance(new TokenController()).remove(token);
     }
 }

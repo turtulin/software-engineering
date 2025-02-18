@@ -3,9 +3,11 @@ package it.unicam.cs.ids2425.articles.model.articles;
 import it.unicam.cs.ids2425.users.model.IUser;
 import it.unicam.cs.ids2425.utilities.statuses.ArticleStatus;
 import it.unicam.cs.ids2425.utilities.statuses.State;
+import lombok.ToString;
 
 import java.sql.Timestamp;
 
+@ToString(callSuper = true)
 public class ArticleState extends State<IArticle, ArticleStatus, Long> {
     public ArticleState(IArticle entity, ArticleStatus status, IUser initiator, String reason, State<IArticle, ArticleStatus, Long> oldState, Timestamp stateTime) {
         super(entity, status, initiator, reason, oldState, stateTime);

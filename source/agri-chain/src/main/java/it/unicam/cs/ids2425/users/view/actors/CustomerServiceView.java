@@ -2,13 +2,16 @@ package it.unicam.cs.ids2425.users.view.actors;
 
 import it.unicam.cs.ids2425.problems.controller.GenericProblemController;
 import it.unicam.cs.ids2425.problems.model.IProblem;
+import it.unicam.cs.ids2425.users.controller.CanLoginController;
 import it.unicam.cs.ids2425.users.controller.CanRegisterController;
 import it.unicam.cs.ids2425.users.controller.actors.CustomerServiceController;
 import it.unicam.cs.ids2425.users.model.IUser;
+import it.unicam.cs.ids2425.users.view.CanLoginView;
 import it.unicam.cs.ids2425.users.view.CanRegisterView;
 import it.unicam.cs.ids2425.users.view.CanReportView;
 import it.unicam.cs.ids2425.users.view.GenericUserView;
 import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
+import it.unicam.cs.ids2425.utilities.statuses.ProblemStatus;
 import it.unicam.cs.ids2425.utilities.wrappers.responses.ResponseStatus;
 import it.unicam.cs.ids2425.utilities.wrappers.responses.ViewResponse;
 import lombok.NoArgsConstructor;
@@ -16,9 +19,8 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @NoArgsConstructor
-public class CustomerServiceView extends GenericUserView implements CanRegisterView, CanReportView {
-    private final GenericProblemController problemController = SingletonController.getInstance(new GenericProblemController() {
-    });
+public class CustomerServiceView extends GenericUserView implements CanRegisterView, CanLoginView, CanReportView {
+    private final GenericProblemController problemController = SingletonController.getInstance(new GenericProblemController());
 
     public ViewResponse<List<IProblem>> getAll(IUser user) {
         return genericCall(() -> {
@@ -54,9 +56,19 @@ public class CustomerServiceView extends GenericUserView implements CanRegisterV
     }
 
 
+    public ViewResponse<ProblemStatus> getStatus(IProblem problem, IUser user) {
+        return genericCall(() -> problemController.getStatus(problem, user),
+                ResponseStatus.OK,
+                ResponseStatus.NOT_FOUND);
+    }
+
     @Override
     public CanRegisterController getCanRegisterController() {
-        return SingletonController.getInstance(new CustomerServiceController() {
-        });
+        return SingletonController.getInstance(new CustomerServiceController());
+    }
+
+    @Override
+    public CanLoginController getCanLoginController() {
+        return SingletonController.getInstance(new CustomerServiceController());
     }
 }

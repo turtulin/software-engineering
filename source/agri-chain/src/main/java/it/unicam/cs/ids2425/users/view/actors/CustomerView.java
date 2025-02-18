@@ -5,11 +5,13 @@ import it.unicam.cs.ids2425.eshop.model.Cart;
 import it.unicam.cs.ids2425.eshop.model.order.Order;
 import it.unicam.cs.ids2425.eshop.model.order.OrderState;
 import it.unicam.cs.ids2425.eshop.model.reviews.Review;
+import it.unicam.cs.ids2425.users.controller.CanLoginController;
 import it.unicam.cs.ids2425.users.controller.CanRegisterController;
 import it.unicam.cs.ids2425.users.controller.actors.CustomerController;
 import it.unicam.cs.ids2425.users.model.IUser;
 import it.unicam.cs.ids2425.users.model.details.addresses.Address;
 import it.unicam.cs.ids2425.users.model.details.payments.IPaymentMethod;
+import it.unicam.cs.ids2425.users.view.CanLoginView;
 import it.unicam.cs.ids2425.users.view.CanRegisterView;
 import it.unicam.cs.ids2425.users.view.CanReportView;
 import it.unicam.cs.ids2425.users.view.GenericUserView;
@@ -19,9 +21,8 @@ import it.unicam.cs.ids2425.utilities.wrappers.responses.ViewResponse;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class CustomerView extends GenericUserView implements CanRegisterView, CanReportView {
-    private final CustomerController customerController = SingletonController.getInstance(new CustomerController() {
-    });
+public class CustomerView extends GenericUserView implements CanRegisterView, CanLoginView, CanReportView {
+    private final CustomerController customerController = SingletonController.getInstance(new CustomerController());
 
     public ViewResponse<Cart> addArticleToCart(IArticle article, IUser user) {
         return genericCall(() -> customerController.addArticlesToCart(article, user));
@@ -31,17 +32,17 @@ public class CustomerView extends GenericUserView implements CanRegisterView, Ca
         return genericCall(() -> customerController.removeArticlesFromCart(article, user));
     }
 
-    public ViewResponse<Order> checkout(Cart cart, Address shippingAddress, Address billingAddress, IPaymentMethod payment) {
-        return genericCall(() -> customerController.checkout(cart, shippingAddress, billingAddress, payment),
+    public ViewResponse<Order> checkout(Cart cart, Address shippingAddress, Address billingAddress, IPaymentMethod payment, IUser user) {
+        return genericCall(() -> customerController.checkout(cart, shippingAddress, billingAddress, payment, user),
                 ResponseStatus.CREATED);
     }
 
-    public ViewResponse<OrderState> cancelOrder(Order order) {
-        return genericCall(() -> customerController.cancelOrder(order));
+    public ViewResponse<OrderState> cancelOrder(Order order, IUser user) {
+        return genericCall(() -> customerController.cancelOrder(order, user));
     }
 
-    public ViewResponse<OrderState> returnOrder(Order order) {
-        return genericCall(() -> customerController.returnOrder(order));
+    public ViewResponse<OrderState> returnOrder(Order order, IUser user) {
+        return genericCall(() -> customerController.returnOrder(order, user));
     }
 
     public ViewResponse<Review> addReview(IArticle article, Review review, IUser user) {
@@ -51,6 +52,11 @@ public class CustomerView extends GenericUserView implements CanRegisterView, Ca
 
     @Override
     public CanRegisterController getCanRegisterController() {
+        return customerController;
+    }
+
+    @Override
+    public CanLoginController getCanLoginController() {
         return customerController;
     }
 }

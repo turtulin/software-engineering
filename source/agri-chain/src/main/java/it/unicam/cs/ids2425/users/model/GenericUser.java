@@ -8,18 +8,21 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = {"username"})
 @ToString
-public abstract class GenericUser implements IUser, Identifiable<Long> {
-    private static long currentLastId = 0L;
-    private Long id;
+public abstract class GenericUser implements IUser, Identifiable<String> {
     private String username;
     private String password;
     private Timestamp birthDate;
 
-    public GenericUser(String username) {
+    public GenericUser(String username, String password) {
         this.username = username;
-        id = ++currentLastId;
+        this.password = password;
+    }
+
+    @Override
+    public String getId() {
+        return username;
     }
 
     @Override

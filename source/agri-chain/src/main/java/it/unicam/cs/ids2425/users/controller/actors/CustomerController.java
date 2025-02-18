@@ -24,16 +24,13 @@ import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
 import lombok.NonNull;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class CustomerController extends GenericUserController implements CanRegisterController, CanLogoutController {
-    private final ArticleController articleController = SingletonController.getInstance(new ArticleController() {
-    });
-    private final CartController cartController = SingletonController.getInstance(new CartController() {
-    });
-    private final OrderController orderController = SingletonController.getInstance(new OrderController() {
-    });
-    private final ReviewController reviewController = SingletonController.getInstance(new ReviewController() {
-    });
+    private final ArticleController articleController = SingletonController.getInstance(new ArticleController());
+    private final CartController cartController = SingletonController.getInstance(new CartController());
+    private final OrderController orderController = SingletonController.getInstance(new OrderController());
+    private final ReviewController reviewController = SingletonController.getInstance(new ReviewController());
 
     public Cart addArticlesToCart(@NonNull IArticle article, @NonNull IUser user) {
         user = super.get(user, UserStatus.ACTIVE);
@@ -47,9 +44,15 @@ public class CustomerController extends GenericUserController implements CanRegi
         return cartController.removeArticleFromCart(article, user);
     }
 
-    public Order checkout(@NonNull Cart cart, @NonNull Address shippingAddress, @NonNull Address billingAddress, @NonNull IPaymentMethod payment) {
+    public Order checkout(@NonNull Cart cart, @NonNull Address shippingAddress, @NonNull Address billingAddress, @NonNull IPaymentMethod payment, @NonNull IUser user) {
+        user = super.get(user, UserStatus.ACTIVE);
         cart = cartController.get(cart);
-        return orderController.create(cart, shippingAddress, billingAddress, payment);
+        if (!cart.getUser().equals(user)) {
+            throw new IllegalArgumentException("Cart does not belong to user");
+        }
+        Cart clone = cart.clone();
+        cartController.empty(cart);
+        return orderController.create(clone, shippingAddress, billingAddress, payment);
     }
 
     public Review addReview(@NonNull IArticle article, @NonNull Review review, @NonNull IUser user) {
@@ -58,23 +61,34 @@ public class CustomerController extends GenericUserController implements CanRegi
         return reviewController.create(article, review, user);
     }
 
-    public OrderState cancelOrder(@NonNull Order order) {
+    public OrderState cancelOrder(@NonNull Order order, @NonNull IUser user) {
+        user = super.get(user, UserStatus.ACTIVE);
+        if (!order.getCart().getUser().equals(user)) {
+            throw new IllegalArgumentException("Order does not belong to user");
+        }
         return orderController.cancel(order);
     }
 
-    public OrderState returnOrder(@NonNull Order order) {
+    public OrderState returnOrder(@NonNull Order order, @NonNull IUser user) {
+        user = super.get(user, UserStatus.ACTIVE);
+        if (!order.getCart().getUser().equals(user)) {
+            throw new IllegalArgumentException("Order does not belong to user");
+        }
         return orderController.returnOrder(order);
     }
 
     @Override
-    public IUser register(@NonNull IUser u) {
-        if (super.get(u, null) != null) {
+    public IUser register(@NonNull IUser user) {
+        try {
+            super.get(user, null);
             throw new IllegalArgumentException("User already exists");
+        } catch (NoSuchElementException ignored) {
         }
-        if (u.getRole() != UserRole.CUSTOMER) {
+
+        if (user.getRole() != UserRole.CUSTOMER) {
             throw new IllegalArgumentException("User role is not set");
         }
-        Customer c = (Customer) u;
+        Customer c = (Customer) user;
         if (c.getCart() == null) {
             c.setCart(new Cart(c));
         }
@@ -88,9 +102,9 @@ public class CustomerController extends GenericUserController implements CanRegi
     }
 
     @Override
-    protected boolean check(@NonNull IUser u, UserStatus status) {
-        u = super.get(u, null);
-        if (super.check(u, status) && List.of(UserRole.CUSTOMER, UserRole.CUSTOMER_SERVICE, UserRole.ADMIN).contains(u.getRole())) {
+    protected boolean check(@NonNull IUser user, UserStatus status) {
+        user = super.get(user, null);
+        if (super.check(user, status) && List.of(UserRole.CUSTOMER, UserRole.CUSTOMER_SERVICE, UserRole.ADMIN).contains(user.getRole())) {
             return true;
         }
         throw new IllegalArgumentException("User is not a customer");

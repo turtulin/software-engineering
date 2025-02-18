@@ -12,14 +12,18 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @NoArgsConstructor
 public class CustomerServiceController extends GenericUserController implements CanRegisterController, CanLogoutController {
     @Override
     public IUser register(IUser u) {
-        if (super.get(u, null) != null) {
+        try {
+            super.get(u, null);
             throw new IllegalArgumentException("User already exists");
+        } catch (NoSuchElementException ignored) {
         }
+
         if (u.getRole() != UserRole.CUSTOMER_SERVICE) {
             throw new IllegalArgumentException("User role is not valid");
         }
@@ -32,9 +36,9 @@ public class CustomerServiceController extends GenericUserController implements 
     }
 
     @Override
-    protected boolean check(@NonNull IUser u, UserStatus status) {
-        IUser user = super.get(u, null);
-        if (!super.check(u, status) && List.of(UserRole.CUSTOMER_SERVICE, UserRole.ADMIN).contains(user.getRole())) {
+    protected boolean check(@NonNull IUser user, UserStatus status) {
+        IUser u = super.get(user, null);
+        if (!super.check(user, status) && List.of(UserRole.CUSTOMER_SERVICE, UserRole.ADMIN).contains(u.getRole())) {
             throw new IllegalArgumentException("User is not a Customer Service");
         }
         return true;

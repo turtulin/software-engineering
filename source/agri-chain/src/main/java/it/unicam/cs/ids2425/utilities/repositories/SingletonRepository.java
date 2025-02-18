@@ -41,6 +41,11 @@ public class SingletonRepository<T extends Identifiable<?>> implements IReposito
     }
 
     @Override
+    public void deleteAll() {
+        storage.clear();
+    }
+
+    @Override
     public boolean existsById(T entity) {
         return storage.contains(entity);
     }

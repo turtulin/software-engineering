@@ -18,7 +18,7 @@ public class Review implements Identifiable<Long> {
     private final String title;
     private final String comment;
 
-    public Review(@NonNull IUser user, @NonNull IArticle article, ReviewRatings rating, @NonNull String title,
+    public Review(@NonNull IUser user, @NonNull IArticle article, @NonNull ReviewRatings rating, @NonNull String title,
                   String comment) {
         this.id = ++lastId;
         this.user = user;

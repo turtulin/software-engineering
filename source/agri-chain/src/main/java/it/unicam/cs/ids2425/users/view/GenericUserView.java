@@ -14,8 +14,7 @@ import java.util.List;
 
 @NoArgsConstructor
 public class GenericUserView implements IView {
-    private final ArticleController articleController = SingletonController.getInstance(new ArticleController() {
-    });
+    private final ArticleController articleController = SingletonController.getInstance(new ArticleController());
 
     public ViewResponse<List<IArticle>> getAll() {
         return genericCall(() -> {

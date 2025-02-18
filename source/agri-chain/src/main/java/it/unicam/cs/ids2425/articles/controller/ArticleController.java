@@ -2,24 +2,19 @@ package it.unicam.cs.ids2425.articles.controller;
 
 import it.unicam.cs.ids2425.articles.model.articles.ArticleState;
 import it.unicam.cs.ids2425.articles.model.articles.IArticle;
-import it.unicam.cs.ids2425.users.controller.actors.sellers.SellerController;
 import it.unicam.cs.ids2425.users.model.IUser;
 import it.unicam.cs.ids2425.users.model.UserRole;
 import it.unicam.cs.ids2425.users.model.actors.Moderator;
 import it.unicam.cs.ids2425.users.model.actors.sellers.ISeller;
 import it.unicam.cs.ids2425.utilities.controllers.IController;
-import it.unicam.cs.ids2425.utilities.controllers.SingletonController;
 import it.unicam.cs.ids2425.utilities.repositories.SingletonRepository;
 import it.unicam.cs.ids2425.utilities.statuses.ArticleStatus;
-import it.unicam.cs.ids2425.utilities.statuses.State;
-import it.unicam.cs.ids2425.utilities.statuses.UserStatus;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 @NoArgsConstructor
@@ -27,21 +22,17 @@ public class ArticleController implements IController {
     private final SingletonRepository<IArticle> articleRepository = SingletonRepository.getInstance(IArticle.class);
     private final SingletonRepository<ArticleState> articleStatusRepository = SingletonRepository.getInstance(ArticleState.class);
 
-    private final SellerController sellerController = SingletonController.getInstance(new SellerController() {
-    });
-
     private final List<UserRole> sellerRoles = List.of(UserRole.PRODUCER, UserRole.TRANSFORMER, UserRole.DISTRIBUTOR, UserRole.EVENT_PLANNER);
     private final List<UserRole> adminRoles = List.of(UserRole.ADMIN, UserRole.CUSTOMER_SERVICE, UserRole.MODERATOR);
 
-    public List<IArticle> getAll(@NonNull IUser u) {
-        return getAll(u, null);
+    public List<IArticle> getAll(@NonNull IUser user) {
+        return getAll(user, null);
     }
 
-    public List<IArticle> getAll(@NonNull IUser u, ArticleStatus status) {
-        if (u.getRole() == UserRole.GUEST) {
+    public List<IArticle> getAll(@NonNull IUser user, ArticleStatus status) {
+        if (user.getRole() == UserRole.GUEST) {
             return getAllArticles(ArticleStatus.PUBLISHED);
         }
-        IUser user = sellerController.get(u, UserStatus.ACTIVE);
         if (user.getRole() == UserRole.CUSTOMER) {
             return getAllArticles(ArticleStatus.PUBLISHED);
         }
@@ -71,13 +62,13 @@ public class ArticleController implements IController {
         return result;
     }
 
-    public String shareContent(@NonNull IArticle a) {
+    public String shareContent(@NonNull IArticle article) {
         // TODO: review code, minimal implementation
-        a = get(a, ArticleStatus.PUBLISHED);
-        if (a == null) {
-            throw new IllegalArgumentException("Article not found");
+        article = get(article, ArticleStatus.PUBLISHED);
+        if (article == null) {
+            throw new NoSuchElementException("Article not found");
         }
-        return a.toString();
+        return article.toString();
     }
 
     private List<IArticle> getAllArticles(ArticleStatus status) {
@@ -85,68 +76,59 @@ public class ArticleController implements IController {
             return articleRepository.findAll();
         }
         return articleRepository.findAll().stream()
-                .map(article ->
-                        articleStatusRepository.findAll().stream()
-                                .filter(state -> state.getEntity().equals(article))
-                                .sorted().toList().getLast())
-                .filter(state -> state.getStatus() == status)
-                .map(State::getEntity)
-                .map(articleRepository::findById)
-                .filter(Optional::isPresent)
-                .map(Optional::get).toList();
+                .filter(article -> {
+                    List<ArticleState> articles = articleStatusRepository.findAll().stream()
+                            .filter(state -> state.getEntity().equals(article))
+                            .sorted().toList();
+                    return articles.getLast().getStatus() == status;
+                }).toList();
     }
 
     public IArticle get(@NonNull IArticle article, ArticleStatus status) {
-        if (status != null) {
-            check(article, status);
-        }
+        check(article, status);
         return articleRepository.findById(article).orElseThrow(() -> new NoSuchElementException("Article not found"));
     }
 
-    public IArticle create(@NonNull IArticle a, @NonNull ISeller s) {
-        IUser u = sellerController.get(s, UserStatus.ACTIVE);
-        if (!sellerRoles.contains(u.getRole())) {
+    public IArticle create(@NonNull IArticle article, @NonNull ISeller seller) {
+        if (!sellerRoles.contains(seller.getRole())) {
             throw new IllegalArgumentException("User not allowed to create articles");
         }
-        s = (ISeller) u;
-        IArticle notExistent = get(a, null);
-        if (notExistent != null) {
+        try {
+            get(article, null);
             throw new IllegalArgumentException("Article already exists");
+        } catch (NoSuchElementException ignored) {
         }
 
-        if (a.getSeller() == null || !a.getSeller().equals(s)) {
+        if (article.getSeller() == null || !article.getSeller().equals(seller)) {
             throw new IllegalArgumentException("Article seller must be the same as the user");
         }
 
-        ArticleState state = new ArticleState(a, ArticleStatus.DRAFT, s);
-        articleRepository.save(a);
+        ArticleState state = new ArticleState(article, ArticleStatus.DRAFT, seller);
+        articleRepository.save(article);
         articleStatusRepository.save(state);
 
-        return get(a, ArticleStatus.DRAFT);
+        return get(article, ArticleStatus.DRAFT);
     }
 
-    private IArticle genericUpdateArticle(@NonNull IArticle article, @NonNull IUser u, ArticleStatus newStatus, String newStatusReason, Consumer<IArticle> update) {
-        u = sellerController.get(u, UserStatus.ACTIVE);
-        if (!sellerRoles.contains(u.getRole()) && !adminRoles.contains(u.getRole())) {
+    private IArticle genericUpdateArticle(@NonNull IArticle article, @NonNull IUser user, ArticleStatus newStatus, String newStatusReason, Consumer<IArticle> update) {
+        if (!(sellerRoles.contains(user.getRole()) || adminRoles.contains(user.getRole()))) {
             throw new IllegalArgumentException("User not allowed to update articles");
         }
-        check(article, null);
         IArticle a = get(article, null);
 
-        if (sellerRoles.contains(u.getRole()) && !a.getSeller().equals(u)) {
-            throw new IllegalArgumentException("Seller not allowed to update this article");
-        }
-
         if (update != null) {
+            if (!(sellerRoles.contains(user.getRole()) && a.getSeller().equals(user))) {
+                throw new IllegalArgumentException("Seller not allowed to update this article");
+            }
             update.accept(a);
+            articleRepository.save(a);
         }
-        articleRepository.save(a);
 
         if (newStatus != null) {
             ArticleState oldState = articleStatusRepository.findAll().stream()
                     .filter(state -> state.getEntity().equals(a))
                     .sorted().toList().getLast();
-            ArticleState state = new ArticleState(a, newStatus, u, newStatusReason, oldState);
+            ArticleState state = new ArticleState(a, newStatus, user, newStatusReason, oldState);
             articleStatusRepository.save(state);
             return get(a, newStatus);
         }
@@ -154,50 +136,44 @@ public class ArticleController implements IController {
         return get(a, null);
     }
 
-    private IArticle genericUpdateArticle(@NonNull IArticle a, @NonNull IUser u, ArticleStatus newStatus, String newStatusReason) {
-        return genericUpdateArticle(a, u, newStatus, newStatusReason, null);
+    private IArticle genericUpdateArticle(@NonNull IArticle article, @NonNull IUser user, ArticleStatus newStatus, String newStatusReason) {
+        return genericUpdateArticle(article, user, newStatus, newStatusReason, null);
     }
 
-    private IArticle genericUpdateArticle(@NonNull IArticle a, @NonNull IUser u, Consumer<IArticle> update) {
-        return genericUpdateArticle(a, u, null, null, update);
+    public IArticle updateArticle(@NonNull IArticle article, @NonNull ISeller seller) {
+        return genericUpdateArticle(article, seller, ArticleStatus.DRAFT, "Article updated");
     }
 
-    public IArticle updateArticle(@NonNull IArticle a, @NonNull ISeller s) {
-        return genericUpdateArticle(a, s, ArticleStatus.DRAFT, "Article updated");
+    public IArticle publishArticle(@NonNull IArticle article, @NonNull ISeller seller) {
+        return genericUpdateArticle(article, seller, ArticleStatus.PENDING, "Article published");
     }
 
-    public IArticle publishArticle(@NonNull IArticle a, @NonNull ISeller s) {
-        return genericUpdateArticle(a, s, ArticleStatus.PENDING, "Article published");
+    public IArticle approveArticle(@NonNull IArticle article, @NonNull Moderator moderator) {
+        return genericUpdateArticle(article, moderator, ArticleStatus.PUBLISHED, "Article approved");
     }
 
-    public IArticle approveArticle(@NonNull IArticle a, @NonNull Moderator m) {
-        return genericUpdateArticle(a, m, ArticleStatus.PUBLISHED, "Article approved");
+    public @NonNull IArticle rejectArticle(@NonNull IArticle article, @NonNull String reason, @NonNull Moderator moderator) {
+        return genericUpdateArticle(article, moderator, ArticleStatus.REJECTED, reason);
     }
 
-    public @NonNull IArticle rejectArticle(@NonNull IArticle a, @NonNull String reason, @NonNull Moderator m) {
-        return genericUpdateArticle(a, m, ArticleStatus.REJECTED, reason);
+    public IArticle draftArticle(@NonNull IArticle article, @NonNull ISeller seller) {
+        return genericUpdateArticle(article, seller, ArticleStatus.DRAFT, "Article drafted");
     }
 
-    public IArticle draftArticle(@NonNull IArticle a, @NonNull ISeller s) {
-        return genericUpdateArticle(a, s, ArticleStatus.DRAFT, "Article drafted");
+    public IArticle deleteArticle(@NonNull IArticle article, @NonNull ISeller seller) {
+        return genericUpdateArticle(article, seller, ArticleStatus.DELETED, "Article deleted");
     }
 
-    public IArticle deleteArticle(@NonNull IArticle a, @NonNull ISeller s) {
-        return genericUpdateArticle(a, s, ArticleStatus.DELETED, "Article deleted");
-    }
-
-    private boolean check(@NonNull IArticle a, ArticleStatus status) {
-        IArticle article = get(a, null);
-        if (article == null) {
-            throw new IllegalArgumentException("Article not found");
-        }
-        ArticleState state = articleStatusRepository.findAll().stream()
+    private void check(@NonNull IArticle article, ArticleStatus status) {
+        List<ArticleState> state = articleStatusRepository.findAll().stream()
                 .filter(s -> s.getEntity().equals(article))
-                .sorted().toList().getLast();
-        if (status != null && state.getStatus() != status) {
+                .sorted().toList();
+        if (state.isEmpty()) {
+            throw new NoSuchElementException("Article not found");
+        }
+        if (status != null && state.getLast().getStatus() != status) {
             throw new IllegalArgumentException("Article status is not " + status);
         }
-        return true;
     }
 
     public ArticleStatus getArticleStatus(@NonNull IArticle article) {

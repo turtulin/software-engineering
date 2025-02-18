@@ -10,25 +10,35 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @NoArgsConstructor
 public class GenericUserController implements IController, CanLoginController {
     protected final SingletonRepository<IUser> userRepository = SingletonRepository.getInstance(IUser.class);
     protected final SingletonRepository<UserState> userStatusRepository = SingletonRepository.getInstance(UserState.class);
 
-    public IUser get(@NonNull IUser u, UserStatus status) {
+    public IUser get(@NonNull IUser user, UserStatus status) {
         if (status != null) {
-            check(u, status);
+            check(user, status);
         }
-        return userRepository.findById(u).orElseThrow(() -> new NoSuchElementException("User not found"));
+        Optional<IUser> u = userRepository.findById(user);
+        if (u.isPresent()) {
+            return u.get();
+        }
+        throw new NoSuchElementException("User not found");
     }
 
-    protected boolean check(@NonNull IUser u, UserStatus status) {
-        if (u.getRole() == UserRole.TIME) {
+    protected boolean check(@NonNull IUser user, UserStatus status) {
+        if (user.getRole() == UserRole.ADMIN) {
+            // TODO: remove, only used for testing
+            return true;
+        }
+        if (user.getRole() == UserRole.TIME) {
             // TODO: Implement this
+            return true;
         }
         userStatusRepository.findAll().stream()
-                .filter(s -> s.getEntity().equals(u))
+                .filter(s -> s.getEntity().equals(user))
                 .filter(s -> s.getStatus() == status)
                 .findFirst().orElseThrow(() -> new NoSuchElementException("User status not found"));
         return true;

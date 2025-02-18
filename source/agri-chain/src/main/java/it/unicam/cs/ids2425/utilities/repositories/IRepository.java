@@ -12,5 +12,7 @@ public interface IRepository<T> {
 
     void deleteById(T id);
 
+    void deleteAll();
+
     boolean existsById(T id);
 }
