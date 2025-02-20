@@ -1,0 +1,3247 @@
+{
+	"info": {
+		"_postman_id": "b3431a43-b91b-4202-b2da-b6d3056c1996",
+		"name": "DEMO-IDS-PROJECT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42493738",
+		"_collection_link": "https://ids-project-8503.postman.co/workspace/IDS-project-Workspace~04acc417-9a64-4079-8318-185eb798d464/collection/40496783-b3431a43-b91b-4202-b2da-b6d3056c1996?action=share&source=collection_link&creator=42493738"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "Customer Register",
+					"item": [
+						{
+							"name": "Customer Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"customer\",\n  \"password\": \"customer\",\n  \"role\": \"CUSTOMER\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/customer/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"customer",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Null Customer Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/customer/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"customer",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Event Planner Register",
+					"item": [
+						{
+							"name": "Event Planner Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"eventplanner\",\n  \"password\": \"eventplanner\",\n  \"role\": \"EVENT_PLANNER\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Null Seller Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"\",\n  \"password\": \"\",\n  \"role\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Producer Register",
+					"item": [
+						{
+							"name": "Producer Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"producer\",\n  \"password\": \"producer\",\n  \"role\": \"PRODUCER\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Transformer Register",
+					"item": [
+						{
+							"name": "Transformer Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"transformer\",\n    \"password\": \"transformer\",\n    \"role\": \"TRANSFORMER\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Distributor Register",
+					"item": [
+						{
+							"name": "Distributor Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"distributor\",\n    \"password\": \"distributor\",\n    \"role\": \"DISTRIBUTOR\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin Register",
+					"item": [
+						{
+							"name": "Admin Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\",\n  \"role\": \"ADMIN\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customer Service Register",
+					"item": [
+						{
+							"name": "Customer Service Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"customerservice\",\n    \"password\": \"customerservice\",\n    \"role\": \"CUSTOMER_SERVICE\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/customer-service/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"customer-service",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Moderator Register",
+					"item": [
+						{
+							"name": "Moderator Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"moderator\",\n    \"password\": \"moderator\",\n    \"role\": \"MODERATOR\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/moderator/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"moderator",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Customer Login",
+					"item": [
+						{
+							"name": "Customer Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"customer\",\n  \"password\": \"customer\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/customer/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Non Existing Customer Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"qqqqqqqqqqq\",\n  \"password\": \"zzzzzzzzzzz\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/customer/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Null Customer Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/customer/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"customer",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Seller Login",
+					"item": [
+						{
+							"name": "Seller Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"seller\",\n  \"password\": \"seller\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Null Seller Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin Login",
+					"item": [
+						{
+							"name": "Admin Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/admin/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Non Existing Admin Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"qqqqqqqqqqq\",\n  \"password\": \"zzzzzzzzzzz\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/admin/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Null Admin Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/admin/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Moderator Login",
+					"item": [
+						{
+							"name": "Moderator Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"moderator\",\n  \"password\": \"moderator\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/moderator/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"moderator",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Non Existing Moderator Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"qqqqqqqqqqq\",\n  \"password\": \"zzzzzzzzzzz\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/customer/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Null Customer Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/moderator/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"moderator",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customer Service Login",
+					"item": [
+						{
+							"name": "Customer Service Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"customerservice\",\n  \"password\": \"customerservice\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/customer-service/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer-service",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Non Existing Customer Service Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"qqqqqqqqqqq\",\n  \"password\": \"zzzzzzzzzzz\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/customer-service/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer-service",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Null Customer Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/customer-service/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"customer-service",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Event Planner Login",
+					"item": [
+						{
+							"name": "Event Planner Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"eventplanner\",\n  \"password\": \"eventplanner\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Producer Login",
+					"item": [
+						{
+							"name": "Producer Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"producer\",\n  \"password\": \"producer\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Transformer Login",
+					"item": [
+						{
+							"name": "Transformer Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"transformer\",\n  \"password\": \"transformer\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Distributor Login",
+					"item": [
+						{
+							"name": "Distributor Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"distributor\",\n  \"password\": \"distributor\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/seller/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"seller",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "Customer Report",
+					"item": [
+						{
+							"name": "Report Review",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"problem\",\r\n    \"problem\":{\r\n        \"user\":{\r\n            \"username\":\"aa\",\r\n            \"password\":\"bb\"\r\n        },\r\n        \"article\":{\r\n            \"name\":\"ab\",\r\n            \"description\":\"aaa\",\r\n            \"seller\":{\r\n                \"username\":\"bb\",\r\n                \"password\":\"cc\",\r\n                \"role\":\"PRODUCER\"\r\n            },\r\n            \"price\": \"2.0\"\r\n        },\r\n        \"rating\":\"BAD\",\r\n        \"title\":\"aaaa\",\r\n        \"comment\":\"bbbb\"\r\n    },\r\n    \"user\":{\r\n        \"username\":\"aa\",\r\n        \"password\":\"bb\",\r\n        \"role\":\"CUSTOMER\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/customer/report",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"report"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SellerReport",
+					"item": [
+						{
+							"name": "Report Review",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"problem\",\r\n    \"problem\":{\r\n        \"user\":{\r\n            \"username\":\"aa\",\r\n            \"password\":\"bb\"\r\n        },\r\n        \"article\":{\r\n            \"name\":\"ab\",\r\n            \"description\":\"aaa\",\r\n            \"seller\":{\r\n                \"username\":\"bb\",\r\n                \"password\":\"cc\",\r\n                \"role\":\"PRODUCER\"\r\n            },\r\n            \"price\": \"2.0\"\r\n        },\r\n        \"rating\":\"BAD\",\r\n        \"title\":\"aaaa\",\r\n        \"comment\":\"bbbb\"\r\n    },\r\n    \"user\":{\r\n        \"username\":\"aa\",\r\n        \"password\":\"bb\",\r\n        \"role\":\"PRODUCER\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/seller/report",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"report"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customer Service Report",
+					"item": [
+						{
+							"name": "Report Review",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"problem\",\r\n    \"problem\":{\r\n        \"user\":{\r\n            \"username\":\"aa\",\r\n            \"password\":\"bb\"\r\n        },\r\n        \"article\":{\r\n            \"name\":\"ab\",\r\n            \"description\":\"aaa\",\r\n            \"seller\":{\r\n                \"username\":\"bb\",\r\n                \"password\":\"cc\",\r\n                \"role\":\"PRODUCER\"\r\n            },\r\n            \"price\": \"2.0\"\r\n        },\r\n        \"rating\":\"BAD\",\r\n        \"title\":\"aaaa\",\r\n        \"comment\":\"bbbb\"\r\n    },\r\n    \"user\":{\r\n        \"username\":\"aa\",\r\n        \"password\":\"bb\",\r\n        \"role\":\"CUSTOMER_SERVICE\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/customer-service/report",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer-service",
+										"report"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Moderator Report",
+					"item": [
+						{
+							"name": "Report Review",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"problem\",\r\n    \"problem\":{\r\n        \"user\":{\r\n            \"username\":\"aa\",\r\n            \"password\":\"bb\"\r\n        },\r\n        \"article\":{\r\n            \"name\":\"ab\",\r\n            \"description\":\"aaa\",\r\n            \"seller\":{\r\n                \"username\":\"bb\",\r\n                \"password\":\"cc\",\r\n                \"role\":\"PRODUCER\"\r\n            },\r\n            \"price\": \"2.0\"\r\n        },\r\n        \"rating\":\"BAD\",\r\n        \"title\":\"aaaa\",\r\n        \"comment\":\"bbbb\"\r\n    },\r\n    \"user\":{\r\n        \"username\":\"aa\",\r\n        \"password\":\"bb\",\r\n        \"role\":\"MODERATOR\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/moderator/report",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"moderator",
+										"report"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Generic User",
+			"item": [
+				{
+					"name": "Get Non Existing Article",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/article/37376353",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"article",
+								"37376353"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Article",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/article/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"article",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Articles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/article/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"article",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Share Non Existing Article",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/article/742693653967596/share",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"article",
+								"742693653967596",
+								"share"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Share Article",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/article/1/share",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"article",
+								"1",
+								"share"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seller",
+			"item": [
+				{
+					"name": "Create Article",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"aa\",\n    \"description\": \"bb\",\n    \"seller\": {\"username\": \"seller\", \n               \"password\": \"seller\",\n               \"role\": \"EVENT_PLANNER\"\n               },\n    \"price\": \"1.0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Publish Article",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article/1/publish",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article",
+								"1",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Article Quantity",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article/1/quantity",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article",
+								"1",
+								"quantity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Article Quantity",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article/1/quantity/9",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article",
+								"1",
+								"quantity",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Article",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Article",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"aa\",\n    \"description\": \"bb\",\n    \"seller\": {\"username\": \"seller\", \n               \"password\": \"seller\"},\n    \"price\": \"1.0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Seller Articles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/seller/article/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Seller Articles By Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/seller/article/all/published",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article",
+								"all",
+								"published"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Seller Articles By Status Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/seller/article/1/pending",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article",
+								"1",
+								"pending"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Moderator",
+			"item": [
+				{
+					"name": "Approve Article",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/moderator/article/1/approve",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moderator",
+								"article",
+								"1",
+								"approve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Article",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"badddd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/moderator/article/1/reject",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moderator",
+								"article",
+								"1",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Approved",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/moderator/all/approved",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moderator",
+								"all",
+								"approved"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Rejected",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/moderator/all/rejected",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moderator",
+								"all",
+								"rejected"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Pending",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/moderator/all/pending",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moderator",
+								"all",
+								"pending"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Get Cart",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/customer/cart",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cart Checkout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"shippingAddress\": {\"point\": {\"x\": \"1\", \"y\": \"2\"},\"notes\": \"no\", \"street\": \"roma\", \"city\": \"milano\", \"zipCode\": \"111\", \"country\": \"italia\", \"email\": \"aa@qq.pp\", \"password\": \"bb\"},\n    \"billingAddress\": {\"point\": {\"x\": \"1\", \"y\": \"2\"},\"notes\": \"no\", \"street\": \"roma\", \"city\": \"milano\", \"zipCode\": \"111\", \"country\": \"italia\", \"email\": \"aa@qq.pp\", \"password\": \"bb\"},\n    \"payment\": {\"email\": \"aa\", \"password\": \"bb\"}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customer/cart/1/checkout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"cart",
+								"1",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Order",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customer/order/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\"username\": \"aa\", \"password\": \"bb\", \"role\": \"CUSTOMER\"},\n    \"article\": {\"name\": \"aa\", \"description\": \"gg\", \"seller\": {\"username\": \"bb\", \"password\": \"aa\", \"role\": \"EVENT_PLANNER\"}, \"price\": \"1.0\"},\n    \"rating\": \"VERY_GOOD\",\n    \"title\": \"idk\",\n    \"comment\": \"all good\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customer/1/review",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"1",
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Article To Cart",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/customer/cart/1/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"cart",
+								"1",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Article From Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/customer/cart/1/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"cart",
+								"1",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer Service",
+			"item": [
+				{
+					"name": "Get All Problem",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/customer-service/problem/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer-service",
+								"problem",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Problem By id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/customer-service/problem/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer-service",
+								"problem",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Problem Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/customer-service/problem/1/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer-service",
+								"problem",
+								"1",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solve Problem",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/customer-service/problem/1/solve",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer-service",
+								"problem",
+								"1",
+								"solve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close Problem",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/customer-service/problem/1/close",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer-service",
+								"problem",
+								"1",
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Problem",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"aa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customer-service/problem/1/reject",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer-service",
+								"problem",
+								"1",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get User All",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/user/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/user/1/active",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"1",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/user/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User State",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/user/1/state",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"1",
+								"state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ban User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/user/1/ban",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"1",
+								"ban"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unban User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/user/1/unban",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"1",
+								"unban"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"aa\",\n    \"until\": \"111111116464646434\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/user/1/deactivate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"1",
+								"deactivate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/user/1/activate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"1",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SETUP",
+			"item": [
+				{
+					"name": "Admin Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\",\n  \"role\":\"ADMIN\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/user/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Moderator Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"moderator\",\n  \"password\": \"moderator\",\n  \"role\": \"MODERATOR\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/moderator/article/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"moderator",
+								"article",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Service Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customerservice\",\n  \"password\": \"customerservice\",\n  \"role\": \"CUSTOMER_SERVICE\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer-service/problem/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer-service",
+								"problem",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Producer1 Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"producer1\",\n  \"password\": \"producer1\",\n  \"role\": \"PRODUCER\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seller/article/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seller",
+								"article",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Producer2 Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"producer2\",\n  \"password\": \"producer2\",\n  \"role\": \"PRODUCER\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seller/article/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seller",
+								"article",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transformer Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"transformer\",\n  \"password\": \"transformer\",\n  \"role\": \"TRANSFORMER\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seller/article/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seller",
+								"article",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Distributor Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"distributor\",\n  \"password\": \"distributor\",\n  \"role\": \"DISTRIBUTOR\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seller/article/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seller",
+								"article",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Planner Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"eventplanner\",\n  \"password\": \"eventplanner\",\n  \"role\": \"EVENT_PLANNER\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seller/article/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seller",
+								"article",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate Producer1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/user/1/activate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"1",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate Producer2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/user/2/activate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"2",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate Transformer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/user/3/activate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"3",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate Distributor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/user/4/activate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"4",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate Event Planner",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/user/5/activate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"5",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Producer1 Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"producer1\",\n  \"password\": \"producer1\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seller/article/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seller",
+								"article",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Producer2 Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"producer2\",\n  \"password\": \"producer2\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seller/article/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seller",
+								"article",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transformer Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"transformer\",\n  \"password\": \"transformer\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seller/article/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seller",
+								"article",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Distributor Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"distributor\",\n  \"password\": \"distributor\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seller/article/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seller",
+								"article",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Planner Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"eventplanner\",\n  \"password\": \"eventplanner\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seller/article/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seller",
+								"article",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Uva",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"UVA\",\n    \"description\": \"UVA DEL VIGNETO X\",\n    \"seller\": {\n        \"username\": \"producer1\", \n        \"password\": \"producer1\",\n        \"role\": \"PRODUCER\"\n    },\n    \"price\": \"6.0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Latte",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"LATTE\",\n    \"description\": \"LATTE DELL'ALLEVAMENTO Y\",\n    \"seller\": {\n        \"username\": \"producer2\", \n        \"password\": \"producer2\",\n        \"role\": \"PRODUCER\"\n        },\n    \"price\": \"4.0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vino",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"BARBERA\",\n    \"description\": \"BARBERA BIO\",\n    \"seller\": {\n        \"username\": \"transformer\", \n        \"password\": \"transformer\",\n       \"role\": \"TRANSFORMER\"\n    },\n    \"price\": \"11.0\",\n    \"children\":[\n        {\n            \"name\":\"UVA\",\n            \"description\": \"UVA DEL VIGNETO X\",\n            \"seller\": {\n                \"username\": \"producer1\", \n                \"password\": \"producer1\",\n                \"role\": \"PRODUCER\"\n            },\n            \"price\": \"6.0\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Formaggio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"FORMAGGIO\",\n    \"description\": \"FORMAGGIO BIO\",\n    \"seller\": {\n        \"username\": \"transformer\", \n        \"password\": \"transformer\",\n       \"role\": \"TRANSFORMER\"\n    },\n    \"price\": \"8.0\",\n    \"children\":[\n        {\n            \"name\":\"LATTE\",\n            \"description\": \"LATTE DEL ALLEVAMENTO Y\",\n            \"seller\": {\n                \"username\": \"producer2\", \n                \"password\": \"producer2\",\n                \"role\": \"PRODUCER\"\n            },\n            \"price\": \"6.0\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Pacchetto 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"PACCHETTO 1\",\n    \"description\": \"UVA E FORMAGGIO\",\n    \"seller\": {\n        \"username\": \"distributor\", \n        \"password\": \"distributor\",\n        \"role\": \"DISTRIBUTOR\"\n    },\n    \"price\": \"20.0\",\n    \"children\": [\n        {\n            \"name\":\"BARBERA\",\n            \"description\": \"BARBERA BIO\",\n            \"seller\": {\n                \"username\": \"transformer\", \n                \"password\": \"transformer\",\n                \"role\": \"TRANSFORMER\"\n            },\n            \"price\": \"11.0\",\n            \"children\":[\n                {\n                    \"name\":\"UVA\",\n                    \"description\": \"UVA DEL VIGNETO X\",\n                    \"seller\": {\n                        \"username\": \"producer1\", \n                        \"password\": \"producer1\",\n                        \"role\": \"PRODUCER\"\n                    },\n                    \"price\": \"6.0\"\n                }\n            ]\n        },\n        {\n            \"name\":\"FORMAGGIO\",\n            \"description\": \"FORMAGGIO BIO\",\n            \"seller\": {\n                \"username\": \"transformer\", \n                \"password\": \"transformer\",\n            \"role\": \"TRANSFORMER\"\n            },\n            \"price\": \"8.0\",\n            \"children\":[\n                {\n                    \"name\":\"LATTE\",\n                    \"description\": \"LATTE DEL ALLEVAMENTO Y\",\n                    \"seller\": {\n                        \"username\": \"producer2\", \n                        \"password\": \"producer2\",\n                        \"role\": \"PRODUCER\"\n                    },\n                    \"price\": \"6.0\"\n                }\n            ]\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Evento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"EVENTO 1\",\n    \"description\": \"VIENI A CONOSCERE LE MUCCHE DI CUI BEVI IL LATTE\",\n    \"seller\": {\n        \"username\": \"eventplanner\", \n        \"password\": \"eventplanner\",\n        \"role\": \"EVENT_PLANNER\"\n    },\n    \"price\": \"10.0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer1 Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer1\",\n  \"password\": \"customer1\",\n  \"role\":\"CUSTOMER\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer2 Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer2\",\n  \"password\": \"customer2\",\n  \"role\":\"CUSTOMER\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer3 Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer3\",\n  \"password\": \"customer3\",\n  \"role\":\"CUSTOMER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer4 Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer4\",\n  \"password\": \"customer4\",\n  \"role\":\"CUSTOMER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer5 Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer5\",\n  \"password\": \"customer5\",\n  \"role\":\"CUSTOMER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer6 Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer6\",\n  \"password\": \"customer6\",\n  \"role\":\"CUSTOMER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer1 Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer1\",\n  \"password\": \"customer1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customer/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer2 Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer2\",\n  \"password\": \"customer2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customer/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer3 Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer3\",\n  \"password\": \"customer3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customer/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer4 Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer4\",\n  \"password\": \"customer4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customer/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer5 Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer5\",\n  \"password\": \"customer5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customer/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer6 Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"customer6\",\n  \"password\": \"customer6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/customer/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
