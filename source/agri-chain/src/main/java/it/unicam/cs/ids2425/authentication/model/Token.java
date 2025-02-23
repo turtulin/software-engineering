@@ -1,31 +1,38 @@
 package it.unicam.cs.ids2425.authentication.model;
 
 
-import it.unicam.cs.ids2425.core.identifiers.Identifiable;
-import it.unicam.cs.ids2425.users.model.IUser;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import it.unicam.cs.ids2425.user.model.User;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 
-@Getter
-@EqualsAndHashCode
-public class Token implements Identifiable<String> {
-    private final Timestamp issueTime;
-    private final IUser user;
-    private final String token;
+@Data
+@EqualsAndHashCode(of = {"token"})
+@ToString
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Token {
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    public Token(IUser user) {
+    @CreationTimestamp
+    private Timestamp issueTime;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private User user;
+
+    private String token;
+
+    public Token(User user) {
         if (user == null) {
             throw new IllegalArgumentException("User must not be null");
         }
         this.user = user;
         issueTime = new Timestamp(System.currentTimeMillis());
-        token = issueTime + user.getUsername();
-    }
-
-    @Override
-    public String getId() {
-        return token;
+        token = String.format("%015x", new BigInteger(1, (issueTime + user.getUsername()).getBytes()));
     }
 }

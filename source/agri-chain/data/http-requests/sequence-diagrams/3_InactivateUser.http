@@ -1,0 +1,7 @@
+### Get all ACTIVE Users
+GET {{base_url}}/admin/all/ACTIVE
+Authorization: {{admin_token}}
+
+### Inactivate User
+PUT {{base_url}}/admin/8/deactivate
+Authorization: {{admin_token}}

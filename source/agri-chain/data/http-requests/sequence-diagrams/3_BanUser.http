@@ -1,0 +1,15 @@
+### Get all users
+GET {{base_url}}/admin/all
+Authorization: {{admin_token}}
+
+### Get User State
+GET {{base_url}}/admin/9/state
+Authorization: {{admin_token}}
+
+### Ban User
+PUT {{base_url}}/admin/9/ban
+Authorization: {{admin_token}}
+
+### Get User State
+GET {{base_url}}/admin/9/state
+Authorization: {{admin_token}}
