@@ -10,8 +10,10 @@
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## 📜 Project Description  
-The aim of this group project, as part of the Unicam Software Engineering exam, is to teach us how to approach the development of every software-related artifact following a Iterative Development Model (the Unified Process). The focus is not only on the development of the codebase, but also and above all on the analysis process.
-The project focuses on managing a marketplace dedicated to selling typical products, processed goods, and experiential packages linked to local traditions. It involves various actors, including producers, transformers, distributors, event planners, moderators, customer service, and admins, each with specific roles.  
+The aim of this group project, as part of the Unicam Software Engineering exam, is to teach us how to approach the development of every software-related artifact following a Iterative Development Model (the Unified Process). The focus is not only on the development of the codebase, but also and above all on the analysis process. <br>
+
+The project focuses on managing a marketplace dedicated to selling typical products, processed goods, and experiential packages linked to local traditions.<br>
+It involves various actors, including producers, transformers, distributors, event planners, moderators, customer service, and admins, each with specific roles.  
 
 ### ✨ Key Features:  
 - **🛍️ Article Management**: Uploading, editing, and selling articles.  
@@ -74,7 +76,6 @@ The project uses the following dependencies with specific versions:
 - **Spring Boot Starter Web** - `3.4.3`
 - **Spring Boot Starter Validation** - `3.4.3`
 - **H2 Database** - `2.3.232`
-- **Hibernate Spatial** - `7.0.0.Beta4`
 - **Lombok** - `1.18.36`
 - **SpringDoc OpenAPI Starter WebMVC UI** - `2.8.5`
 - **Maven Surefire Plugin** - `3.5.2`
