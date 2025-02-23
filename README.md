@@ -2,23 +2,22 @@
 
 ![Java](https://img.shields.io/badge/Java-21-blue?logo=openjdk)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.3-brightgreen?logo=spring)
-![Maven](https://img.shields.io/badge/Maven-3.9.6-C71A36?logo=apachemaven)
+![Maven](https://img.shields.io/badge/Maven-4.0.0-C71A36?logo=apachemaven)
 ![H2 Database](https://img.shields.io/badge/Database-H2-lightgrey?logo=h2)
-![Hibernate](https://img.shields.io/badge/Hibernate-6.3.1.Final-orange?logo=hibernate)
-![JUnit5](https://img.shields.io/badge/JUnit%205-5.12.0--RC2-red?logo=junit5)
+![Hibernate](https://img.shields.io/badge/Hibernate-6.6.8.Final-orange?logo=hibernate)
 ![Lombok](https://img.shields.io/badge/Lombok-1.18.36-pink?logo=lombok)
 ![SpringDoc OpenAPI](https://img.shields.io/badge/SpringDoc%20OpenAPI-2.8.5-green?logo=swagger)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## 📜 Project Description  
-
-The project focuses on managing a marketplace dedicated to selling typical products, processed goods, and experiential packages linked to local traditions. It involves various actors, including producers, processors, distributors, curators, and supply chain animators, each with specific roles.  
+The aim of this group project, as part of the Unicam Software Engineering exam, is to teach us how to approach the development of every software-related artifact following a Iterative Development Model (the Unified Process). The focus is not only on the development of the codebase, but also and above all on the analysis process.
+The project focuses on managing a marketplace dedicated to selling typical products, processed goods, and experiential packages linked to local traditions. It involves various actors, including producers, transformers, distributors, event planners, moderators, customer service, and admins, each with specific roles.  
 
 ### ✨ Key Features:  
-- **🛍️ Product Management**: Uploading, editing, and selling products and packages.  
-- **✅ Content Validation**: Curators review and approve content before publication.  
+- **🛍️ Article Management**: Uploading, editing, and selling articles.  
+- **✅ Article Validation**: Moderator review and approve articles before publication.  
 - **📦 Order & Return Management**: Handling shipments, returns, and refunds.  
-- **👨‍⚖️ User Moderation**: Managing reports, warnings, and temporary bans through customer service.  
+- **👨‍⚖️ User Moderation**: Managing reports, warnings, and temporary bans.  
 - **🎉 Event Management**: Organizing fairs, tours, and tastings to promote local products.  
 
 ---
@@ -28,10 +27,7 @@ The project focuses on managing a marketplace dedicated to selling typical produ
 ### 📌 Prerequisites
 Make sure you have the following installed:
 - **☕ JDK 21**  
-- **🐘 Maven**  
-- **🚀 Spring Boot**  
-- **🗄️ H2 Database**  
-- **🔗 Hibernate**  
+- **🐘 Maven 4.0.0**
 
 ### 📥 Clone the Repository
 ```sh
@@ -53,8 +49,7 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 
 # Enable H2 Console (accessible at /h2-console)
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2-console
+spring.h2.console.enabled=false
 ```
 
 ### 🔧 Build and Run the Project
@@ -78,21 +73,18 @@ The project uses the following dependencies with specific versions:
 - **Spring Boot Starter Data JPA** - `3.4.3`
 - **Spring Boot Starter Web** - `3.4.3`
 - **Spring Boot Starter Validation** - `3.4.3`
-- **Spring Boot DevTools** - `3.4.3`
-- **H2 Database** - `2.1.214`
-- **Hibernate Spatial** - `6.3.1.Final`
+- **H2 Database** - `2.3.232`
+- **Hibernate Spatial** - `7.0.0.Beta4`
 - **Lombok** - `1.18.36`
 - **SpringDoc OpenAPI Starter WebMVC UI** - `2.8.5`
-- **JUnit Jupiter API** - `5.12.0-RC2`
 - **Maven Surefire Plugin** - `3.5.2`
-- **LocationTech JTS Core** - `1.20.0`
 
 ---
 
 ## 👥 Team Members
+- **Iena Alessandro**
 - **Musso Marta**
 - **Tonti Francesco**
-- **Iena Alessandro**
 
 ## 🤝 Contributing
 If you wish to contribute, please fork the repository and create a pull request with your changes.
