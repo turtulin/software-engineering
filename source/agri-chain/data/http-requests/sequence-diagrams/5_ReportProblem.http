@@ -1,0 +1,11 @@
+### Report problem
+POST {{base_url}}/seller/producer/report
+Authorization: {{producer_token}}
+Content-Type: application/json
+
+{
+  "user": {
+    "username": "producer"
+  },
+  "description": "problem with bread"
+}

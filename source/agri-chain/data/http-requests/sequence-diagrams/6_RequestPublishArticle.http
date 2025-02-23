@@ -1,0 +1,15 @@
+### Get all DRAFT Articles
+GET {{base_url}}/seller/producer/article/all/DRAFT
+Authorization: {{producer_token}}
+
+### Publish Article
+PUT {{base_url}}/seller/producer/article/1/publish
+Authorization: {{producer_token}}
+
+### Publish Article
+PUT {{base_url}}/seller/transformer/article/4/publish
+Authorization: {{transformer_token}}
+
+### Publish Article
+PUT {{base_url}}/seller/producer/article/2/publish
+Authorization: {{producer_token}}

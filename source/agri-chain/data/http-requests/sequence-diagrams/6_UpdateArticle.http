@@ -1,0 +1,27 @@
+### Get all Articles
+GET {{base_url}}/seller/distributor/article/all
+Authorization: {{distributor_token}}
+
+### Update Producer Article (Package)
+PUT {{base_url}}/seller/distributor/article
+Authorization: {{distributor_token}}
+Content-Type: application/json
+
+{
+  "id": 6,
+  "type": "PACKAGE",
+  "name": "Tomato + Potato + Milk",
+  "description": "very cheap",
+  "price": 1,
+  "seller": {
+    "id": 6,
+    "role": "DISTRIBUTOR",
+    "username": "distributor",
+    "password": "distributor",
+    "birthDate": "2025-02-23T08:15:02.766+00:00"
+  }
+}
+
+### Get Updated Article
+GET {{base_url}}/seller/distributor/article/6/DRAFT
+Authorization: {{distributor_token}}

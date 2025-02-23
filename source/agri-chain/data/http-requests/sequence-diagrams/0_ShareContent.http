@@ -1,0 +1,6 @@
+### Get all Published articles
+GET {{base_url}}/article/all
+Content-Type: application/json
+
+### Share Article
+GET {{base_url}}/article/1/share

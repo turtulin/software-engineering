@@ -1,0 +1,7 @@
+### Get all orders
+GET {{base_url}}/customer/order/all
+Authorization: {{customer_token}}
+
+### Cancel Order
+DELETE {{base_url}}/customer/order/{{id}}
+Authorization: {{customer_token}}

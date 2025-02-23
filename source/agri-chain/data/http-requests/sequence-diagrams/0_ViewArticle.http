@@ -1,0 +1,6 @@
+### Get all PUBLISHED articles
+GET {{base_url}}/article/all
+Content-Type: application/json
+
+### OR Get PUBLISHED Article by {{id}}
+GET {{base_url}}/article/1
