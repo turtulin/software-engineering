@@ -31,6 +31,9 @@ Make sure you have the following installed:
 - **☕ JDK 21**  
 - **🐘 Maven 4.0.0**
 
+### 🚀 Demo  
+To explore the project's functionality, import the **`demo.postman_collection.json`** file into Postman. This collection includes preconfigured endpoints to test core features.
+
 ### 📥 Clone the Repository
 ```sh
 $ git clone https://github.com/turtulin/software-engineering.git
