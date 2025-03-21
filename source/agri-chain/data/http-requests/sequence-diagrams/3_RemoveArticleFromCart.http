@@ -1,7 +1,0 @@
-### Get User cart
-GET {{base_url}}/customer/cart
-Authorization: {{customer_token}}
-
-### Remove Article from Cart
-DELETE {{base_url}}/customer/cart/1/1
-Authorization: {{customer_token}}

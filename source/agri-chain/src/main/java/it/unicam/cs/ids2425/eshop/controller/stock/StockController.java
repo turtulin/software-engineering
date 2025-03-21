@@ -32,7 +32,7 @@ public class StockController {
 
     @Transactional
     public StockContent changeQuantity(@NonNull Stock stock, @NonNull Article article, @NonNull Long quantity) {
-        if (quantity != 0) {
+        if (quantity == 0) {
             throw new IllegalArgumentException("Quantity must not be 0");
         }
 
