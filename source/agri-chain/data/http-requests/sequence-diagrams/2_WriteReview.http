@@ -1,0 +1,23 @@
+### Get all Published articles
+GET {{base_url}}/article/all
+Content-Type: application/json
+
+### Get PUBLISHED Article by {{id}}
+GET {{base_url}}/article/1
+
+### Create Review
+POST {{base_url}}/customer/review
+Authorization: {{customer_token}}
+Content-Type: application/json
+
+{
+  "article": {
+    "id": 1
+  },
+  "rating": "VERY_GOOD",
+  "title": "good",
+  "comment": "so good !!"
+}
+
+### Get all Reviews
+GET {{base_url}}/article/1/review/all

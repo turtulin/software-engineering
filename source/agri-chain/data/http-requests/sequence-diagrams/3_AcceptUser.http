@@ -1,0 +1,39 @@
+### Get all PENDING users
+GET {{base_url}}/admin/all/pending
+Authorization: {{admin_token}}
+
+### Approve user with {{id}}
+# PUT {{base_url}}/admin/{{id}}/activate
+# Authorization: {{admin_token}}
+
+### Approve user 4
+PUT {{base_url}}/admin/4/activate
+Authorization: {{admin_token}}
+
+### Approve user 5
+PUT {{base_url}}/admin/5/activate
+Authorization: {{admin_token}}
+
+### Approve user 6
+PUT {{base_url}}/admin/6/activate
+Authorization: {{admin_token}}
+
+### Approve user 7
+PUT {{base_url}}/admin/7/activate
+Authorization: {{admin_token}}
+
+### Approve user 8
+PUT {{base_url}}/admin/8/activate
+Authorization: {{admin_token}}
+
+### Approve user 9
+PUT {{base_url}}/admin/9/activate
+Authorization: {{admin_token}}
+
+### Get User with {{id}} state
+# GET {{base_url}}/admin/{{id}}/state
+# Authorization: {{admin_token}}
+
+### Get User 9 state
+GET {{base_url}}/admin/9/state
+Authorization: {{admin_token}}

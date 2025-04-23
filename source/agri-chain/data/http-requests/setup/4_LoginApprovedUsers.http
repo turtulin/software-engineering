@@ -1,0 +1,63 @@
+### Login
+POST {{base_url}}/login
+Content-Type: application/json
+
+{
+"username":"customer",
+"password":"customer"
+}
+
+
+### Login
+POST {{base_url}}/login
+Content-Type: application/json
+
+{
+"username":"producer",
+"password":"producer"
+}
+
+### Login
+POST {{base_url}}/login
+Content-Type: application/json
+
+{
+  "username":"transformer",
+  "password":"transformer"
+}
+
+### Login
+POST {{base_url}}/login
+Content-Type: application/json
+
+{
+  "username":"distributor",
+  "password":"distributor"
+}
+
+### Login
+POST {{base_url}}/login
+Content-Type: application/json
+
+{
+  "username":"event-planner",
+  "password":"event-planner"
+}
+
+### Login
+POST {{base_url}}/login
+Content-Type: application/json
+
+{
+"username":"moderator",
+"password":"moderator"
+}
+
+### Login
+POST {{base_url}}/login
+Content-Type: application/json
+
+{
+"username":"customer-service",
+"password":"customer-service"
+}

@@ -1,0 +1,21 @@
+### Get all OPEN Problems
+GET {{base_url}}/customer-service/all/OPEN
+Authorization: {{customer_service_token}}
+
+### Solve Problem
+PUT {{base_url}}/customer-service/1/solve
+Authorization: {{customer_service_token}}
+
+### OR Reject Problem
+PUT {{base_url}}/customer-service/{{problemId}}/reject
+Authorization: {{customer_service_token}}
+Content-Type: application/json
+
+### OR Close Problem
+PUT {{base_url}}/customer-service/2/close
+Authorization: {{customer_service_token}}
+Content-Type: application/json
+
+{
+  "reason": "not valid"
+}

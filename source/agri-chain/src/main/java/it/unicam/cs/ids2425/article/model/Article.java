@@ -1,10 +1,7 @@
 package it.unicam.cs.ids2425.article.model;
 
 import it.unicam.cs.ids2425.user.model.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,10 +9,11 @@ import lombok.ToString;
 
 @Data
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public class Article implements IArticle {
+public abstract class Article implements IArticle {
     @Id
     @GeneratedValue
     private Long id;
