@@ -1,10 +1,10 @@
 package it.unicam.cs.ids2425.article.controller.actor.seller;
 
 import it.unicam.cs.ids2425.article.controller.actor.SellerArticleController;
-import it.unicam.cs.ids2425.article.model.Article;
 import it.unicam.cs.ids2425.article.model.ArticleType;
-import it.unicam.cs.ids2425.article.repository.ArticleRepository;
+import it.unicam.cs.ids2425.article.model.article.compositearticle.RawMaterial;
 import it.unicam.cs.ids2425.article.repository.ArticleStateRepository;
+import it.unicam.cs.ids2425.article.repository.article.compositearticle.RawMaterialRepository;
 import it.unicam.cs.ids2425.eshop.controller.stock.StockController;
 import it.unicam.cs.ids2425.user.model.User;
 import it.unicam.cs.ids2425.user.model.UserRole;
@@ -13,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProducerArticleController extends SellerArticleController {
+public class ProducerArticleController extends SellerArticleController<RawMaterial> {
+
     @Autowired
-    public ProducerArticleController(ArticleStateRepository articleStatusRepository, ArticleRepository articleRepository, StockController stockController) {
+    public ProducerArticleController(ArticleStateRepository articleStatusRepository, RawMaterialRepository articleRepository, StockController stockController) {
         super(articleStatusRepository, articleRepository, stockController);
     }
 
@@ -27,7 +28,7 @@ public class ProducerArticleController extends SellerArticleController {
     }
 
     @Override
-    public boolean checkArticleType(Article article) {
-        return article.getType() == ArticleType.RAW_MATERIAL;
+    public boolean notCorrectArticleType(RawMaterial article) {
+        return article.getType() != ArticleType.RAW_MATERIAL || !ArticleType.RAW_MATERIAL.getEntityClass().equals(article.getClass());
     }
 }

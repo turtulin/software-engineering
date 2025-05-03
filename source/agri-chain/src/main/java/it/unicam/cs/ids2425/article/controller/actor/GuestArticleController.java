@@ -2,7 +2,7 @@ package it.unicam.cs.ids2425.article.controller.actor;
 
 import it.unicam.cs.ids2425.article.controller.AbstractArticleController;
 import it.unicam.cs.ids2425.article.model.Article;
-import it.unicam.cs.ids2425.article.repository.ArticleRepository;
+import it.unicam.cs.ids2425.article.repository.AnyArticleRepository;
 import it.unicam.cs.ids2425.article.repository.ArticleStateRepository;
 import it.unicam.cs.ids2425.eshop.controller.review.ReviewController;
 import it.unicam.cs.ids2425.eshop.model.review.Review;
@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GuestArticleController extends AbstractArticleController {
+public class GuestArticleController extends AbstractArticleController<Article> {
     private final ReviewController reviewController;
 
     @Autowired
-    public GuestArticleController(ArticleStateRepository articleStatusRepository, ArticleRepository articleRepository, ReviewController reviewController) {
+    public GuestArticleController(ArticleStateRepository articleStatusRepository, AnyArticleRepository articleRepository, ReviewController reviewController) {
         super(articleStatusRepository, articleRepository);
         this.reviewController = reviewController;
     }

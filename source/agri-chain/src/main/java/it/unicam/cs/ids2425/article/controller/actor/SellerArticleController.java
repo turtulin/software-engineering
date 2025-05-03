@@ -15,10 +15,10 @@ import lombok.NonNull;
 
 import java.util.List;
 
-public abstract class SellerArticleController extends AbstractArticleController {
+public abstract class SellerArticleController<T extends Article> extends AbstractArticleController<T> {
     private final StockController stockController;
 
-    public SellerArticleController(ArticleStateRepository articleStatusRepository, ArticleRepository articleRepository, StockController stockController) {
+    public SellerArticleController(ArticleStateRepository articleStatusRepository, ArticleRepository<T> articleRepository, StockController stockController) {
         super(articleStatusRepository, articleRepository);
         this.stockController = stockController;
     }
@@ -62,10 +62,10 @@ public abstract class SellerArticleController extends AbstractArticleController 
 
     protected abstract void checkSeller(@NonNull User user);
 
-    protected abstract boolean checkArticleType(Article article);
+    protected abstract boolean notCorrectArticleType(T article);
 
     @Transactional
-    public Article createArticle(@NonNull Article article, @NonNull User user) {
+    public Article createArticle(@NonNull T article, @NonNull User user) {
         checkSeller(user);
 
         if (articleRepository.findByName(article.getName()).isPresent()) {
@@ -74,7 +74,7 @@ public abstract class SellerArticleController extends AbstractArticleController 
 
         article.setSeller(user);
 
-        if (article.getType() == null || !checkArticleType(article)) {
+        if (article.getType() == null || notCorrectArticleType(article)) {
             throw new IllegalArgumentException("Article type must be specified");
         }
 
@@ -86,7 +86,7 @@ public abstract class SellerArticleController extends AbstractArticleController 
     }
 
     @Transactional
-    public Article updateArticle(@NonNull Article article, @NonNull User user) {
+    public Article updateArticle(@NonNull T article, @NonNull User user) {
         checkSeller(user);
 
         if (articleRepository.findById(article.getId()).isEmpty()) {
@@ -99,7 +99,7 @@ public abstract class SellerArticleController extends AbstractArticleController 
             throw new IllegalArgumentException("Article seller must be the same as the user");
         }
 
-        if (article.getType() == null || !checkArticleType(article)) {
+        if (article.getType() == null || notCorrectArticleType(article)) {
             throw new IllegalArgumentException("Article type must be specified");
         }
 
@@ -114,6 +114,7 @@ public abstract class SellerArticleController extends AbstractArticleController 
         return getArticleById(article.getId(), ArticleStatusCode.DRAFT);
     }
 
+    @Transactional
     public Article updateArticleQuantity(@NonNull Long articleId, @NonNull Long quantity, @NonNull User user) {
         if (quantity < 0) {
             throw new IllegalArgumentException("Quantity must be positive");
@@ -129,7 +130,8 @@ public abstract class SellerArticleController extends AbstractArticleController 
                         0L))).getQuantity();
     }
 
-    private StockContent changeStockQuantity(@NonNull Long articleId, @NonNull Long quantity, @NonNull User user) {
+    @Transactional
+    protected StockContent changeStockQuantity(@NonNull Long articleId, @NonNull Long quantity, @NonNull User user) {
         Article article = getArticleById(articleId, ArticleStatusCode.PUBLISHED);
         Stock stock = stockController.findByUser(user);
         return stockController.changeQuantity(stock, article, quantity);

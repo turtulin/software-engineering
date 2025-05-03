@@ -17,11 +17,11 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 
-public abstract class AbstractArticleController {
+public abstract class AbstractArticleController<T extends Article> {
     protected final ArticleStateRepository articleStateRepository;
-    protected final ArticleRepository articleRepository;
+    protected final ArticleRepository<T> articleRepository;
 
-    public AbstractArticleController(ArticleStateRepository articleStateRepository, ArticleRepository articleRepository) {
+    public AbstractArticleController(ArticleStateRepository articleStateRepository, ArticleRepository<T> articleRepository) {
         this.articleStateRepository = articleStateRepository;
         this.articleRepository = articleRepository;
     }
@@ -39,9 +39,10 @@ public abstract class AbstractArticleController {
         return articleState.getEntity();
     }
 
+    @Transactional
     public Map<String, String> shareArticle(@NonNull Long id, @NonNull ArticleStatusCode articleStatusCode) {
         Map<String, String> response = new HashMap<>();
-        response.put("uri", "/article/" + id);
+        response.put("uri", STR."/article/\{id}");
         response.put("article", getArticleById(id, articleStatusCode).toString());
         return response;
     }
