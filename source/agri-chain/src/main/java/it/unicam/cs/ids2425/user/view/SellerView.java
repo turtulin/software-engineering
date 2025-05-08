@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Getter
-public abstract class SellerView implements IView, ICanLogoutView, ICanRegisterView, ICanReportView {
+public abstract class SellerView<T extends Article> implements IView, ICanLogoutView, ICanRegisterView, ICanReportView {
     private final OtherUserController logoutController;
     private final OtherUserController registerController;
     private final ProblemController problemController;
 
-    private final SellerArticleController sellerArticleController;
+    private final SellerArticleController<T> sellerArticleController;
 
-    public SellerView(OtherUserController logoutController, SellerArticleController sellerArticleController, ProblemController problemController) {
+    public SellerView(OtherUserController logoutController, SellerArticleController<T> sellerArticleController, ProblemController problemController) {
         this.logoutController = logoutController;
         this.registerController = logoutController;
         this.sellerArticleController = sellerArticleController;
@@ -51,13 +51,13 @@ public abstract class SellerView implements IView, ICanLogoutView, ICanRegisterV
     }
 
     @RequestMapping(value = "/article", method = {RequestMethod.POST})
-    public ResponseEntity<ViewResponse<Article>> createArticle(@RequestBody Article article,
+    public ResponseEntity<ViewResponse<Article>> createArticle(@RequestBody T article,
                                                                @RequestAttribute("user") User user) {
         return genericCall(() -> sellerArticleController.createArticle(article, user));
     }
 
     @RequestMapping(value = "/article", method = {RequestMethod.PUT})
-    public ResponseEntity<ViewResponse<Article>> updateArticle(@RequestBody Article article,
+    public ResponseEntity<ViewResponse<Article>> updateArticle(@RequestBody T article,
                                                                @RequestAttribute("user") User user) {
         return genericCall(() -> sellerArticleController.updateArticle(article, user));
     }
