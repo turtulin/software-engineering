@@ -27,7 +27,7 @@ public class StockController {
     }
 
     public Stock findByUser(@NonNull User user) {
-        return stockRepository.findByUser(user).get();
+        return stockRepository.findByUser(user).orElseThrow(() -> new NoSuchElementException("User Stock not found"));
     }
 
     @Transactional
