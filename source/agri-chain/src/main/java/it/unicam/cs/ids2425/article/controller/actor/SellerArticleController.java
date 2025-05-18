@@ -3,6 +3,7 @@ package it.unicam.cs.ids2425.article.controller.actor;
 import it.unicam.cs.ids2425.article.controller.AbstractArticleController;
 import it.unicam.cs.ids2425.article.model.Article;
 import it.unicam.cs.ids2425.article.model.ArticleState;
+import it.unicam.cs.ids2425.article.model.HasComponent;
 import it.unicam.cs.ids2425.article.repository.ArticleRepository;
 import it.unicam.cs.ids2425.article.repository.ArticleStateRepository;
 import it.unicam.cs.ids2425.eshop.controller.stock.StockController;
@@ -92,23 +93,36 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
         if (articleRepository.findById(article.getId()).isEmpty()) {
             throw new IllegalArgumentException("Article not found");
         }
+        T toUpdateArticle = articleRepository.findById(article.getId()).get();
 
-        User seller = articleRepository.findById(article.getId()).get().getSeller();
-
-        if (article.getSeller() == null || !article.getSeller().equals(user) || !seller.equals(user)) {
+        if (!toUpdateArticle.getSeller().equals(user)) {
             throw new IllegalArgumentException("Article seller must be the same as the user");
         }
 
-        if (article.getType() == null || notCorrectArticleType(article)) {
+        if (notCorrectArticleType(toUpdateArticle)) {
             throw new IllegalArgumentException("Article type must be specified");
         }
 
-        article.setSeller(seller);
+        ArticleState oldState = articleStateRepository.findAllByEntity(toUpdateArticle).getLast();
 
-        ArticleState oldState = articleStateRepository.findAllByEntity(article).getLast();
-        ArticleState state = new ArticleState(ArticleStatusCode.DRAFT, user, "updated", article, oldState);
+        if (article.getName() != null) {
+            toUpdateArticle.setName(article.getName());
+        }
+        if (article.getDescription() != null) {
+            toUpdateArticle.setDescription(article.getDescription());
+        }
+        if (article.getPrice() != null) {
+            toUpdateArticle.setPrice(article.getPrice());
+        }
 
-        articleRepository.save(article);
+        if (article instanceof HasComponent hasComponent && toUpdateArticle instanceof HasComponent toUpdateHasComponent) {
+            if (hasComponent.getComponents() != null) {
+                toUpdateHasComponent.setComponents(hasComponent.getComponents());
+            }
+        }
+        ArticleState state = new ArticleState(ArticleStatusCode.DRAFT, user, "updated", toUpdateArticle, oldState);
+
+        articleRepository.save(toUpdateArticle);
         articleStateRepository.save(state);
 
         return getArticleById(article.getId(), ArticleStatusCode.DRAFT);

@@ -1,6 +1,7 @@
 package it.unicam.cs.ids2425.article.model.article.compositearticle;
 
 import it.unicam.cs.ids2425.article.model.ArticleType;
+import it.unicam.cs.ids2425.article.model.HasComponent;
 import it.unicam.cs.ids2425.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,13 +14,13 @@ import java.util.List;
 @Entity
 @ToString(callSuper = true)
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public class ProcessedProduct extends ComposableArticle {
+public class ProcessedProduct extends ComposableArticle implements HasComponent {
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<ComposableArticle> ingredients;
+    private List<ComposableArticle> components;
 
     public ProcessedProduct(ArticleType type, String name, String description, double price, User seller) {
         super(type, name, description, price, seller);
-        this.ingredients = new ArrayList<>();
+        this.components = new ArrayList<>();
         if (type != ArticleType.PROCESSED_PRODUCT) {
             throw new IllegalArgumentException("The type of a raw material must be PROCESSED_PRODUCT");
         }

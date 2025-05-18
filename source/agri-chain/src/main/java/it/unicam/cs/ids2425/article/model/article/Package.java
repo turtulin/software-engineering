@@ -2,6 +2,7 @@ package it.unicam.cs.ids2425.article.model.article;
 
 import it.unicam.cs.ids2425.article.model.Article;
 import it.unicam.cs.ids2425.article.model.ArticleType;
+import it.unicam.cs.ids2425.article.model.HasComponent;
 import it.unicam.cs.ids2425.article.model.article.compositearticle.ComposableArticle;
 import it.unicam.cs.ids2425.user.model.User;
 import jakarta.persistence.Entity;
@@ -17,7 +18,7 @@ import java.util.List;
 @Entity
 @ToString(callSuper = true)
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public class Package extends Article {
+public class Package extends Article implements HasComponent {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<ComposableArticle> components;
 

@@ -24,7 +24,7 @@ public abstract class Article implements IArticle {
 
     private String description;
 
-    private double price;
+    private Double price;
 
     @ManyToOne
     private User seller;
