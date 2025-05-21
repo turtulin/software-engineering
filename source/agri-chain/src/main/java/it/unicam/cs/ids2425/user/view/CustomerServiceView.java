@@ -19,7 +19,7 @@ import java.util.List;
 
 @Getter
 @RestController
-@RequestMapping("/customer-service")
+@RequestMapping("/admin/problem")
 public class CustomerServiceView implements IView, ICanLogoutView, ICanRegisterView, ICanReportView {
     private final OtherUserController logoutController;
     private final UserController registerController;
@@ -44,38 +44,38 @@ public class CustomerServiceView implements IView, ICanLogoutView, ICanRegisterV
         return genericCall(() -> problemController.getAllProblems(user, statusCode));
     }
 
-    @RequestMapping(value = "/{problemId}", method = {RequestMethod.GET})
-    public ResponseEntity<ViewResponse<ProblemState>> getProblemState(@PathVariable Long problemId,
+    @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
+    public ResponseEntity<ViewResponse<ProblemState>> getProblemState(@PathVariable Long id,
                                                                       @RequestAttribute("user") User user) {
-        return genericCall(() -> problemController.getProblemState(problemId, user));
+        return genericCall(() -> problemController.getProblemState(id, user));
     }
 
-    @RequestMapping(value = "/{problemId}/{statusCode}", method = {RequestMethod.GET})
-    public ResponseEntity<ViewResponse<Problem>> getProblem(@PathVariable Long problemId,
-                                                            @PathVariable ProblemStatusCode statusCode,
+    @RequestMapping(value = "/{id}/{status}", method = {RequestMethod.GET})
+    public ResponseEntity<ViewResponse<Problem>> getProblem(@PathVariable Long id,
+                                                            @PathVariable ProblemStatusCode status,
                                                             @RequestAttribute("user") User user) {
-        return genericCall(() -> problemController.getProblem(problemId, statusCode, user));
+        return genericCall(() -> problemController.getProblem(id, status, user));
     }
 
-    @RequestMapping(value = "/{problemId}/solve", method = {RequestMethod.PUT})
-    public ResponseEntity<ViewResponse<Problem>> solveProblem(@PathVariable Long problemId,
+    @RequestMapping(value = "/{id}/solve", method = {RequestMethod.PUT})
+    public ResponseEntity<ViewResponse<Problem>> solveProblem(@PathVariable Long id,
                                                               @RequestAttribute("user") User user) {
-        return genericCall(() -> problemController.updateProblem(problemId, ProblemStatusCode.SOLVED, user));
+        return genericCall(() -> problemController.updateProblem(id, ProblemStatusCode.SOLVED, user));
     }
 
-    @RequestMapping(value = "/{problemId}/reject", method = {RequestMethod.PUT})
-    public ResponseEntity<ViewResponse<Problem>> rejectProblem(@PathVariable Long problemId,
+    @RequestMapping(value = "/{id}/reject", method = {RequestMethod.PUT})
+    public ResponseEntity<ViewResponse<Problem>> rejectProblem(@PathVariable Long id,
                                                                @RequestBody JsonNode body,
                                                                @RequestAttribute("user") User user) {
         String reason = body.get("reason").asText();
-        return genericCall(() -> problemController.updateProblem(problemId, ProblemStatusCode.REJECTED, reason, user));
+        return genericCall(() -> problemController.updateProblem(id, ProblemStatusCode.REJECTED, reason, user));
     }
 
-    @RequestMapping(value = "/{problemId}/close", method = {RequestMethod.PUT})
-    public ResponseEntity<ViewResponse<Problem>> closeProblem(@PathVariable Long problemId,
+    @RequestMapping(value = "/{id}/close", method = {RequestMethod.PUT})
+    public ResponseEntity<ViewResponse<Problem>> closeProblem(@PathVariable Long id,
                                                               @RequestBody JsonNode body,
                                                               @RequestAttribute("user") User user) {
         String reason = body.get("reason").asText();
-        return genericCall(() -> problemController.updateProblem(problemId, ProblemStatusCode.CLOSED, reason, user));
+        return genericCall(() -> problemController.updateProblem(id, ProblemStatusCode.CLOSED, reason, user));
     }
 }

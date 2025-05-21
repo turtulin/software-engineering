@@ -15,7 +15,7 @@ import java.util.List;
 
 @Getter
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/user")
 public class AdminView implements IView, ICanLogoutView, ICanRegisterView {
     private final OtherUserController logoutController;
     private final AdminController registerController;
@@ -37,24 +37,18 @@ public class AdminView implements IView, ICanLogoutView, ICanRegisterView {
         return genericCall(() -> registerController.getAllUsers(statusCode, admin));
     }
 
+    @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
+    public ResponseEntity<ViewResponse<UserState>> getUserState(@PathVariable Long id,
+                                                                @RequestAttribute("user") User admin) {
+        return genericCall(() -> registerController.getLastUserState(id, admin));
+    }
+
     @RequestMapping(value = "/{id}/{status}", method = {RequestMethod.GET})
-    public ResponseEntity<ViewResponse<User>> getUserById(@PathVariable Long id,
+    public ResponseEntity<ViewResponse<User>> getUser(@PathVariable Long id,
                                                           @PathVariable String status,
                                                           @RequestAttribute("user") User admin) {
         UserStatusCode statusCode = UserStatusCode.valueOf(status.toUpperCase());
-        return genericCall(() -> registerController.getUserById(id, statusCode, admin));
-    }
-
-    @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public ResponseEntity<ViewResponse<User>> getUserById(@PathVariable Long id,
-                                                          @RequestAttribute("user") User admin) {
-        return genericCall(() -> registerController.getUserById(id, null, admin));
-    }
-
-    @RequestMapping(value = "/{id}/state", method = {RequestMethod.GET})
-    public ResponseEntity<ViewResponse<UserState>> getUserStatus(@PathVariable Long id,
-                                                                 @RequestAttribute("user") User admin) {
-        return genericCall(() -> registerController.getLastUserState(id, admin));
+        return genericCall(() -> registerController.getUser(id, statusCode, admin));
     }
 
     @RequestMapping(value = "/{id}/ban", method = {RequestMethod.PUT})

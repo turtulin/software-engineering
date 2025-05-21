@@ -54,15 +54,15 @@ public class ProblemController {
     }
 
     public List<Problem> getAllProblems(@NonNull User user, ProblemStatusCode status) {
-        if (user.getRole() != UserRole.CUSTOMER_SERVICE) {
-            throw new IllegalArgumentException("User must be a customer service");
+        if (user.getRole() != UserRole.ADMIN) {
+            throw new IllegalArgumentException("User must be an admin");
         }
         return getAllProblems(status);
     }
 
     public ProblemState getProblemState(@NonNull Long problemId, @NonNull User user) {
-        if (user.getRole() != UserRole.CUSTOMER_SERVICE) {
-            throw new IllegalArgumentException("User must be a customer service");
+        if (user.getRole() != UserRole.ADMIN) {
+            throw new IllegalArgumentException("User must be an admin");
         }
         return problemStateRepository
                 .findAllByEntity_Id(problemId)
@@ -70,8 +70,8 @@ public class ProblemController {
     }
 
     public Problem getProblem(@NonNull Long problemId, @NonNull ProblemStatusCode statusCode, @NonNull User user) {
-        if (user.getRole() != UserRole.CUSTOMER_SERVICE) {
-            throw new IllegalArgumentException("User must be a customer service");
+        if (user.getRole() != UserRole.ADMIN) {
+            throw new IllegalArgumentException("User must be an admin");
         }
         ProblemState problemState = problemStateRepository
                 .findAllByEntity_Id(problemId)

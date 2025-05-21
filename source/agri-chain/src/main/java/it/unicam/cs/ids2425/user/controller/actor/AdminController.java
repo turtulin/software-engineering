@@ -43,7 +43,7 @@ public class AdminController extends UserController {
         return userRepository.findAll();
     }
 
-    public User getUserById(@NonNull Long id, UserStatusCode status, @NonNull User admin) {
+    public User getUser(@NonNull Long id, UserStatusCode status, @NonNull User admin) {
         UserState state = getLastUserState(id, admin);
         if (status != null && !state.getStatusCode().equals(status)) {
             throw new IllegalStateException("User is not in the correct state");
