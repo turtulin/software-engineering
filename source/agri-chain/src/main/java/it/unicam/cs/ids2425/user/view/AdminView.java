@@ -15,7 +15,7 @@ import java.util.List;
 
 @Getter
 @RestController
-@RequestMapping("/admin/user")
+@RequestMapping("/admin")
 public class AdminView implements IView, ICanLogoutView, ICanRegisterView {
     private final OtherUserController logoutController;
     private final AdminController registerController;
@@ -25,25 +25,25 @@ public class AdminView implements IView, ICanLogoutView, ICanRegisterView {
         this.registerController = registerController;
     }
 
-    @RequestMapping(value = "/all", method = {RequestMethod.GET})
+    @RequestMapping(value = "/user/all", method = {RequestMethod.GET})
     public ResponseEntity<ViewResponse<List<User>>> getAllUsers(@RequestAttribute("user") User admin) {
         return genericCall(() -> registerController.getAllUsers(admin));
     }
 
-    @RequestMapping(value = "/all/{status}", method = {RequestMethod.GET})
+    @RequestMapping(value = "/user/all/{status}", method = {RequestMethod.GET})
     public ResponseEntity<ViewResponse<List<User>>> getAllUsers(@PathVariable String status,
                                                                 @RequestAttribute("user") User admin) {
         UserStatusCode statusCode = UserStatusCode.valueOf(status.toUpperCase());
         return genericCall(() -> registerController.getAllUsers(statusCode, admin));
     }
 
-    @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
+    @RequestMapping(value = "/user/{id}", method = {RequestMethod.GET})
     public ResponseEntity<ViewResponse<UserState>> getUserState(@PathVariable Long id,
                                                                 @RequestAttribute("user") User admin) {
         return genericCall(() -> registerController.getLastUserState(id, admin));
     }
 
-    @RequestMapping(value = "/{id}/{status}", method = {RequestMethod.GET})
+    @RequestMapping(value = "/user/{id}/{status}", method = {RequestMethod.GET})
     public ResponseEntity<ViewResponse<User>> getUser(@PathVariable Long id,
                                                           @PathVariable String status,
                                                           @RequestAttribute("user") User admin) {
@@ -51,26 +51,26 @@ public class AdminView implements IView, ICanLogoutView, ICanRegisterView {
         return genericCall(() -> registerController.getUser(id, statusCode, admin));
     }
 
-    @RequestMapping(value = "/{id}/ban", method = {RequestMethod.PUT})
+    @RequestMapping(value = "/user/{id}/ban", method = {RequestMethod.PUT})
     public ResponseEntity<ViewResponse<UserState>> banUser(@PathVariable Long id,
                                                            @RequestAttribute("user") User admin) {
         return genericCall(() -> registerController.updateUser(id, UserStatusCode.BANNED, admin));
     }
 
-    @RequestMapping(value = "/{id}/unban", method = {RequestMethod.PUT})
+    @RequestMapping(value = "/user/{id}/unban", method = {RequestMethod.PUT})
     public ResponseEntity<ViewResponse<UserState>> unbanUser(@PathVariable Long id,
                                                              @RequestAttribute("user") User admin) {
         return genericCall(() -> registerController.updateUser(id, UserStatusCode.ACTIVE, admin));
     }
 
     // Improve by adding timestamp to the state so user is inactive until a future datetime
-    @RequestMapping(value = "/{id}/deactivate", method = {RequestMethod.PUT})
+    @RequestMapping(value = "/user/{id}/deactivate", method = {RequestMethod.PUT})
     public ResponseEntity<ViewResponse<UserState>> deactivateUser(@PathVariable Long id,
                                                                   @RequestAttribute("user") User admin) {
         return genericCall(() -> registerController.updateUser(id, UserStatusCode.INACTIVE, admin));
     }
 
-    @RequestMapping(value = "/{id}/activate", method = {RequestMethod.PUT})
+    @RequestMapping(value = "/user/{id}/activate", method = {RequestMethod.PUT})
     public ResponseEntity<ViewResponse<UserState>> activateUser(@PathVariable Long id,
                                                                 @RequestAttribute("user") User admin) {
         return genericCall(() -> registerController.updateUser(id, UserStatusCode.ACTIVE, admin));
