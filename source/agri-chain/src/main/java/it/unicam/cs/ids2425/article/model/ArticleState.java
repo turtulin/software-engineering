@@ -15,10 +15,10 @@ import lombok.*;
 @ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ArticleState extends AbstractState {
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Article entity;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private ArticleState oldState;
 
     public ArticleState(ArticleStatusCode articleStatusCode, User initiator, String reason, Article entity, ArticleState oldState) {

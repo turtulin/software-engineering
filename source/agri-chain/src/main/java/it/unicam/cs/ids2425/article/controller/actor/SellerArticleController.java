@@ -3,7 +3,9 @@ package it.unicam.cs.ids2425.article.controller.actor;
 import it.unicam.cs.ids2425.article.controller.AbstractArticleController;
 import it.unicam.cs.ids2425.article.model.Article;
 import it.unicam.cs.ids2425.article.model.ArticleState;
+import it.unicam.cs.ids2425.article.model.ArticleType;
 import it.unicam.cs.ids2425.article.model.HasComponent;
+import it.unicam.cs.ids2425.article.model.article.compositearticle.ComposableArticle;
 import it.unicam.cs.ids2425.article.repository.ArticleRepository;
 import it.unicam.cs.ids2425.article.repository.ArticleStateRepository;
 import it.unicam.cs.ids2425.eshop.controller.stock.StockController;
@@ -50,11 +52,26 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
         throw new IllegalArgumentException("Article not found");
     }
 
+    @Transactional
     public ArticleState updateArticle(@NonNull Long articleId, @NonNull ArticleStatusCode articleStatusCode, @NonNull User user) {
         checkSeller(user);
         ArticleState oldArticleState = articleStateRepository.findAllByEntity_Id(articleId).getLast();
         if (!oldArticleState.getEntity().getSeller().equals(user)) {
             throw new IllegalArgumentException("Article not found");
+        }
+        if (articleStatusCode == ArticleStatusCode.PENDING){
+            if (oldArticleState.getEntity() instanceof HasComponent hasComponent) {
+                if (hasComponent.getComponents() == null || hasComponent.getComponents().isEmpty()) {
+                    throw new IllegalArgumentException(STR."Can't publish \{oldArticleState.getEntity().getType().toString()} without components");
+                }
+                for (Article component : hasComponent.getComponents()) {
+                    try {
+                        getArticleById(component.getId(), ArticleStatusCode.PUBLISHED);
+                    } catch (IllegalArgumentException e) {
+                        throw new IllegalArgumentException("Component not found");
+                    }
+                }
+            }
         }
         ArticleState newArticleState = new ArticleState(articleStatusCode, user, null, oldArticleState.getEntity(), oldArticleState);
         articleStateRepository.save(newArticleState);
@@ -76,7 +93,20 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
         article.setSeller(user);
 
         if (article.getType() == null || notCorrectArticleType(article)) {
-            throw new IllegalArgumentException("Article type must be specified");
+            article.setType(ArticleType.fromUserRole(user.getRole()));
+        }
+
+        if (article instanceof HasComponent hasComponent) {
+            List<ComposableArticle> components = hasComponent.getComponents();
+            if (components != null) {
+                for (Article component : components) {
+                    try {
+                        getArticleById(component.getId(), ArticleStatusCode.PUBLISHED);
+                    } catch (IllegalArgumentException e) {
+                        throw new IllegalArgumentException("Component not found");
+                    }
+                }
+            }
         }
 
         ArticleState state = new ArticleState(ArticleStatusCode.DRAFT, user, null, article, null);

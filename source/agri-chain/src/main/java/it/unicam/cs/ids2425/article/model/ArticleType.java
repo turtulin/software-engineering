@@ -21,4 +21,13 @@ public enum ArticleType {
         this.userRole = userRole;
         this.entityClass = entityClass;
     }
+
+    public static ArticleType fromUserRole(UserRole userRole) {
+        for (ArticleType articleType : values()) {
+            if (articleType.getUserRole().equals(userRole)) {
+                return articleType;
+            }
+        }
+        throw new IllegalArgumentException("Article type not found");
+    }
 }

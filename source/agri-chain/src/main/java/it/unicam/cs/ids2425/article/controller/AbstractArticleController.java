@@ -27,16 +27,21 @@ public abstract class AbstractArticleController<T extends Article> {
     }
 
     public List<Article> getAllArticles(@NonNull ArticleStatusCode articleStatusCode) {
-        return articleStateRepository.findAllByStatusCode(BaseStatusCode.fromCode(articleStatusCode)).stream().map(ArticleState::getEntity).toList();
+        return articleRepository.findAll().stream().map(a -> articleStateRepository.findAllByEntity_Id(a.getId()).getLast())
+                .filter(st-> st.getStatusCode().equals(articleStatusCode)).map(ArticleState::getEntity).toList();
     }
 
     @Transactional
     public Article getArticleById(@NonNull Long id, @NonNull ArticleStatusCode articleStatusCode) {
-        ArticleState articleState = articleStateRepository.findAllByEntity_Id(id).getLast();
-        if (!articleState.getStatusCode().equals(articleStatusCode)) {
+        try {
+            ArticleState articleState = articleStateRepository.findAllByEntity_Id(id).getLast();
+            if (!articleState.getStatusCode().equals(articleStatusCode)) {
+                throw new IllegalArgumentException("Article not found");
+            }
+            return articleState.getEntity();
+        } catch (NoSuchElementException e) {
             throw new IllegalArgumentException("Article not found");
         }
-        return articleState.getEntity();
     }
 
     @Transactional
