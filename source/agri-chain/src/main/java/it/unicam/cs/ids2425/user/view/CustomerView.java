@@ -44,8 +44,7 @@ public class CustomerView implements IView, ICanLogoutView, ICanRegisterView, IC
         return genericCall(() -> customerArticleController.addToCart(articleId, quantity, user));
     }
 
-    // Not completed
-    // @RequestMapping(value = "/cart/{id}/{quantity}", method = {RequestMethod.DELETE})
+    @RequestMapping(value = "/cart/{id}/{quantity}", method = {RequestMethod.DELETE})
     public ResponseEntity<ViewResponse<StockContent>> removeFromCart(@PathVariable("id") Long articleId,
                                                                      @PathVariable("quantity") Long quantity,
                                                                      @RequestAttribute("user") User user) {

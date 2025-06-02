@@ -40,16 +40,21 @@ public class StockController {
 
         List<StockContent> articles = stock.getArticles();
         if (articles.contains(stockContent)) {
-            articles.get(articles.indexOf(stockContent))
-                    .setQuantity(
-                            articles.get(articles.indexOf(stockContent)).getQuantity()
-                                    +
-                                    stockContent.getQuantity()
-                    );
+            StockContent sc = articles.get(articles.indexOf(stockContent));
+            sc.setQuantity(sc.getQuantity() + stockContent.getQuantity());
+            if (sc.getQuantity() <= 0) {
+                articles.remove(sc);
+                stockContentRepository.delete(sc);
+            } else {
+                stockContentRepository.save(sc);
+            }
         } else {
+            if (stockContent.getQuantity() < 0) {
+                throw new IllegalArgumentException(STR."Can't remove \{article.getName()}: not present");
+            }
             articles.add(stockContent);
+            stockContentRepository.save(stockContent);
         }
-        stockContentRepository.save(stockContent);
         stockContentRepository.saveAll(articles);
         stockRepository.save(stock);
         return stockContent;
