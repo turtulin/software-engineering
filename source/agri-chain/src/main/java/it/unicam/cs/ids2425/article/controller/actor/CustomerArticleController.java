@@ -8,6 +8,7 @@ import it.unicam.cs.ids2425.eshop.controller.order.OrderController;
 import it.unicam.cs.ids2425.eshop.controller.review.ReviewController;
 import it.unicam.cs.ids2425.eshop.controller.stock.StockController;
 import it.unicam.cs.ids2425.eshop.model.order.Order;
+import it.unicam.cs.ids2425.eshop.model.order.OrderState;
 import it.unicam.cs.ids2425.eshop.model.review.Review;
 import it.unicam.cs.ids2425.eshop.model.stock.Stock;
 import it.unicam.cs.ids2425.eshop.model.stock.StockContent;
@@ -83,5 +84,9 @@ public class CustomerArticleController extends AbstractArticleController<Article
 
     public List<Order> getOrders(User user) {
         return orderController.findByUser(user);
+    }
+
+    public OrderState getOrderStatus(Long orderId, User user) {
+        return orderController.getOrderStatus(orderId, user);
     }
 }

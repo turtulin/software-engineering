@@ -168,15 +168,16 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
 
     public Long getArticleQuantity(@NonNull Long articleId, @NonNull User user) {
         List<StockContent> stockContents = stockController.findByUser(user).getArticles();
-        return stockContents.get(
-                stockContents.indexOf(new StockContent(
-                        articleRepository.findById(articleId).orElseThrow(() -> new IllegalArgumentException("Article not found")),
-                        0L))).getQuantity();
+        return stockContents.stream().filter(sc -> sc.getArticle().getId().equals(articleId) && sc.getArticle().getSeller().equals(user))
+                .map(StockContent::getQuantity).findFirst().orElse(0L);
     }
 
     @Transactional
     protected StockContent changeStockQuantity(@NonNull Long articleId, @NonNull Long quantity, @NonNull User user) {
         Article article = getArticleById(articleId, ArticleStatusCode.PUBLISHED);
+        if (!article.getSeller().equals(user)) {
+            throw new IllegalArgumentException("Article not found");
+        }
         Stock stock = stockController.findByUser(user);
         return stockController.changeQuantity(stock, article, quantity);
     }

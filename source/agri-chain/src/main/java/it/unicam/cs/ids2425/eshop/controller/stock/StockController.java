@@ -27,7 +27,7 @@ public class StockController {
     }
 
     public Stock findByUser(@NonNull User user) {
-        return stockRepository.findByUser(user).orElseThrow(() -> new NoSuchElementException("User Stock not found"));
+        return stockRepository.getStockByUser(user).orElseThrow(() -> new NoSuchElementException("User Stock not found"));
     }
 
     @Transactional
@@ -73,11 +73,15 @@ public class StockController {
             if (stockContentSeller.getRole().equals(UserRole.CUSTOMER)) {
                 throw new NoSuchElementException("Seller not found");
             }
-            Stock sellerStock = stockRepository.findByUser(stockContentSeller)
-                    .orElseThrow(() -> new NoSuchElementException("Seller Stock not found"));
+            Stock sellerStock;
+            try {
+                sellerStock = findByUser(stockContentSeller);
+            } catch (NoSuchElementException e) {
+                throw new NoSuchElementException("Seller Stock not found");
+            }
 
             if (!sellerStock.getArticles().contains(stockContent)) {
-                throw new IllegalArgumentException("Stock is not present");
+                throw new IllegalArgumentException("Article is not present in stock");
             }
             List<StockContent> articles = sellerStock.getArticles();
             StockContent actualStock = articles.get(articles.indexOf(stockContent));

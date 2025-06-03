@@ -19,11 +19,11 @@ public class Order {
     private Long id;
     @OneToOne
     private Stock stock;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address shippingAddress;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address billingAddress;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private AbstractPaymentMethod payment;
     private String trackingNumber;
 }

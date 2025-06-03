@@ -11,11 +11,14 @@ import java.sql.Timestamp;
 @Entity
 @EqualsAndHashCode(callSuper = false)
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Card extends AbstractPaymentMethod {
     private String cardNumber;
     private Timestamp expirationDate;
     private String cvv;
+
+    protected Card() {
+        super(PaymentMethodType.CARD);
+    }
 
     protected Card(String cardNumber, Timestamp expirationDate, String cvv) {
         super(PaymentMethodType.CARD);

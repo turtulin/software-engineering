@@ -72,4 +72,12 @@ public class OrderController {
     public List<Order> findByUser(User user) {
         return orderRepository.findAllByStock_User(user);
     }
+
+    public OrderState getOrderStatus(Long orderId, User user) {
+        Order order = findById(orderId);
+        if (!order.getStock().getUser().equals(user) && user.getRole() != UserRole.ADMIN) {
+            throw new IllegalArgumentException("Order does not belong to user");
+        }
+        return orderStateRepository.findAllByEntity(order).getLast();
+    }
 }

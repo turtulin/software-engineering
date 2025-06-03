@@ -14,7 +14,7 @@ public class StockContent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "article_id")
     private Article article;
 

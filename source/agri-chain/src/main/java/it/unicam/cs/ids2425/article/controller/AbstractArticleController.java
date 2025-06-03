@@ -6,7 +6,6 @@ import it.unicam.cs.ids2425.article.repository.ArticleRepository;
 import it.unicam.cs.ids2425.article.repository.ArticleStateRepository;
 import it.unicam.cs.ids2425.user.model.User;
 import it.unicam.cs.ids2425.user.model.UserRole;
-import it.unicam.cs.ids2425.utilities.statuscode.BaseStatusCode;
 import it.unicam.cs.ids2425.utilities.statuscode.specificstatuscode.ArticleStatusCode;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
@@ -27,8 +26,7 @@ public abstract class AbstractArticleController<T extends Article> {
     }
 
     public List<Article> getAllArticles(@NonNull ArticleStatusCode articleStatusCode) {
-        return articleRepository.findAll().stream().map(a -> articleStateRepository.findAllByEntity_Id(a.getId()).getLast())
-                .filter(st-> st.getStatusCode().equals(articleStatusCode)).map(ArticleState::getEntity).toList();
+        return articleRepository.findAll().stream().map(a -> articleStateRepository.findAllByEntity_Id(a.getId()).getLast()).filter(st -> st.getStatusCode().equals(articleStatusCode)).map(ArticleState::getEntity).toList();
     }
 
     @Transactional

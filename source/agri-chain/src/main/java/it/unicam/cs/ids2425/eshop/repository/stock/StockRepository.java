@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Long> {
-    Optional<Stock> findByUser(User user);
+    Optional<Stock> getStockByUser(User user);
 }
