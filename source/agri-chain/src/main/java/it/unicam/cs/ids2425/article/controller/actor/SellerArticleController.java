@@ -6,24 +6,31 @@ import it.unicam.cs.ids2425.article.model.ArticleState;
 import it.unicam.cs.ids2425.article.model.ArticleType;
 import it.unicam.cs.ids2425.article.model.HasComponent;
 import it.unicam.cs.ids2425.article.model.article.compositearticle.ComposableArticle;
+import it.unicam.cs.ids2425.article.repository.AnyArticleRepository;
 import it.unicam.cs.ids2425.article.repository.ArticleRepository;
 import it.unicam.cs.ids2425.article.repository.ArticleStateRepository;
 import it.unicam.cs.ids2425.eshop.controller.stock.StockController;
 import it.unicam.cs.ids2425.eshop.model.stock.Stock;
 import it.unicam.cs.ids2425.eshop.model.stock.StockContent;
+import it.unicam.cs.ids2425.user.controller.actor.SingleEntityController;
 import it.unicam.cs.ids2425.user.model.User;
 import it.unicam.cs.ids2425.utilities.statuscode.specificstatuscode.ArticleStatusCode;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SellerArticleController<T extends Article> extends AbstractArticleController<T> {
     private final StockController stockController;
+    private final SingleEntityController singleEntityController;
+    private final AnyArticleRepository anyArticleRepository;
 
-    public SellerArticleController(ArticleStateRepository articleStatusRepository, ArticleRepository<T> articleRepository, StockController stockController) {
+    public SellerArticleController(ArticleStateRepository articleStatusRepository, ArticleRepository<T> articleRepository, StockController stockController, SingleEntityController singleEntityController, AnyArticleRepository anyArticleRepository) {
         super(articleStatusRepository, articleRepository);
         this.stockController = stockController;
+        this.singleEntityController = singleEntityController;
+        this.anyArticleRepository = anyArticleRepository;
     }
 
     public List<Article> getAllArticles(@NonNull ArticleStatusCode articleStatusCode, @NonNull User user) {
@@ -54,6 +61,11 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
 
     @Transactional
     public ArticleState updateArticle(@NonNull Long articleId, @NonNull ArticleStatusCode articleStatusCode, @NonNull User user) {
+        return updateArticle(articleId, articleStatusCode, user, null);
+    }
+
+    @Transactional
+    public ArticleState updateArticle(@NonNull Long articleId, @NonNull ArticleStatusCode articleStatusCode, @NonNull User user, String reason) {
         checkSeller(user);
         ArticleState oldArticleState = articleStateRepository.findAllByEntity_Id(articleId).getLast();
         if (!oldArticleState.getEntity().getSeller().equals(user)) {
@@ -72,10 +84,52 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
                     }
                 }
             }
+        } else if (articleStatusCode != ArticleStatusCode.PUBLISHED) {
+            // this excludes the status published and pending,
+            //  resulting in the call of the following function only for the updates to draft and delete
+            if (oldArticleState.getEntity() instanceof ComposableArticle composableArticle) {
+                draftAllArticlesContaining(composableArticle);
+            }
         }
-        ArticleState newArticleState = new ArticleState(articleStatusCode, user, null, oldArticleState.getEntity(), oldArticleState);
+        ArticleState newArticleState = new ArticleState(articleStatusCode, user, reason, oldArticleState.getEntity(), oldArticleState);
         articleStateRepository.save(newArticleState);
         return articleStateRepository.findAllByEntity_Id(articleId).getLast();
+    }
+
+    @Transactional
+    public void draftAllArticlesContaining(ComposableArticle article) {
+        draftAllArticlesContaining(article, List.of());
+    }
+
+    @Transactional
+    public void draftAllArticlesContaining(ComposableArticle entity, List<Article> exclusions) {
+        List<Article> articles = anyArticleRepository.findAll().stream()
+                .filter(a -> a instanceof HasComponent)
+                .filter(a -> ((HasComponent) a).getComponents().stream()
+                        .anyMatch(c -> c.equals(entity))
+                ).filter(a -> !exclusions.contains(a))
+                .toList();
+        // as the function is recursive,
+        //  avoided using exclusions.addAll to not apply lower dependencies to upper calls of this function
+        // WARNING: this affects memory usage
+        List<Article> newExclusions = new ArrayList<>(exclusions);
+        newExclusions.addAll(articles);
+        for (Article hasComponent : articles) {
+            ArticleState oldArticleState = articleStateRepository.findAllByEntity_Id(hasComponent.getId()).getLast();
+            ArticleState newArticleState = new ArticleState(ArticleStatusCode.DRAFT, singleEntityController.getTimeUser(), "Component Changed", hasComponent, oldArticleState);
+            articleStateRepository.save(newArticleState);
+            if (hasComponent instanceof ComposableArticle composableArticle) {
+                // TODO check if it is possible to simplify, don't like this solution
+                // WARNING: recursive call here, may cause stack overflow
+                // excluding "articles" avoids duplicate changes for
+                //  example in:
+                //      - recursive articles (should never happen, code should not allow it, can only add published articles as components)
+                //      - cross dependencies (article A may be a component to articles B and C, and article B may be component of article C,
+                //          we only need to draft A and B once)
+                // Note: the presence of the growing "exclusions" list effectively reduces the input set over recursive calls
+                draftAllArticlesContaining(composableArticle, newExclusions);
+            }
+        }
     }
 
     protected abstract void checkSeller(@NonNull User user);

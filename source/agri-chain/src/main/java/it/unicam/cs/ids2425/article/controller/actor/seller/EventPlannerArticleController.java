@@ -3,9 +3,11 @@ package it.unicam.cs.ids2425.article.controller.actor.seller;
 import it.unicam.cs.ids2425.article.controller.actor.SellerArticleController;
 import it.unicam.cs.ids2425.article.model.ArticleType;
 import it.unicam.cs.ids2425.article.model.article.Event;
+import it.unicam.cs.ids2425.article.repository.AnyArticleRepository;
 import it.unicam.cs.ids2425.article.repository.ArticleStateRepository;
 import it.unicam.cs.ids2425.article.repository.article.EventRepository;
 import it.unicam.cs.ids2425.eshop.controller.stock.StockController;
+import it.unicam.cs.ids2425.user.controller.actor.SingleEntityController;
 import it.unicam.cs.ids2425.user.model.User;
 import it.unicam.cs.ids2425.user.model.UserRole;
 import lombok.NonNull;
@@ -16,8 +18,8 @@ import org.springframework.stereotype.Service;
 public class EventPlannerArticleController extends SellerArticleController<Event> {
 
     @Autowired
-    public EventPlannerArticleController(ArticleStateRepository articleStatusRepository, EventRepository articleRepository, StockController stockController) {
-        super(articleStatusRepository, articleRepository, stockController);
+    public EventPlannerArticleController(ArticleStateRepository articleStatusRepository, EventRepository articleRepository, StockController stockController, SingleEntityController singleEntityController, AnyArticleRepository anyArticleRepository) {
+        super(articleStatusRepository, articleRepository, stockController, singleEntityController, anyArticleRepository);
     }
 
     @Override

@@ -9,7 +9,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, of ={})
 @Data
 @Entity
 @ToString(callSuper = true)

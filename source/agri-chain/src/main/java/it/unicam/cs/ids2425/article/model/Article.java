@@ -10,7 +10,7 @@ import lombok.ToString;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 @ToString
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public abstract class Article implements IArticle {
