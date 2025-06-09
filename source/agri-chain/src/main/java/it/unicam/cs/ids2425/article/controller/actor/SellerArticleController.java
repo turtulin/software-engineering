@@ -97,10 +97,28 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
     }
 
     @Transactional
-    public void draftAllArticlesContaining(ComposableArticle article) {
-        draftAllArticlesContaining(article, List.of());
+    public void draftAllArticlesContaining(ComposableArticle entity) {
+       List<Article> articles = new ArrayList<>(anyArticleRepository.findAll().stream()
+                .filter(a -> a instanceof HasComponent)
+                .filter(a -> ((HasComponent) a).getComponents().stream()
+                        .anyMatch(c -> c.equals(entity))
+                ).toList());
+        for (int i = 0; i<articles.size(); i++) {
+            Article hasComponent = articles.get(i);
+            ArticleState oldArticleState = articleStateRepository.findAllByEntity_Id(hasComponent.getId()).getLast();
+            ArticleState newArticleState = new ArticleState(ArticleStatusCode.DRAFT, singleEntityController.getTimeUser(), "Component Changed", hasComponent, oldArticleState);
+            articleStateRepository.save(newArticleState);
+            if (hasComponent instanceof ComposableArticle composableArticle) {
+                articles.addAll(anyArticleRepository.findAll().stream()
+                        .filter(a -> a instanceof HasComponent)
+                        .filter(a -> ((HasComponent) a).getComponents().stream()
+                                .anyMatch(c -> c.equals(composableArticle))
+                        ).filter(a -> !articles.contains(a)).toList());
+            }
+        }
     }
 
+    @Deprecated
     @Transactional
     public void draftAllArticlesContaining(ComposableArticle entity, List<Article> exclusions) {
         List<Article> articles = anyArticleRepository.findAll().stream()
