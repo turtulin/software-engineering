@@ -13,7 +13,7 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 @ToString
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public abstract class Article implements IArticle {
+public abstract class Article implements IArticle, Cloneable {
     @Id
     @GeneratedValue
     private Long id;
@@ -36,4 +36,7 @@ public abstract class Article implements IArticle {
         this.price = price;
         this.seller = seller;
     }
+
+    @Override
+    public abstract Article clone();
 }

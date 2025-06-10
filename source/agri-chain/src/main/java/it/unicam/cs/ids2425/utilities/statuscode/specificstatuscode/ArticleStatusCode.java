@@ -12,6 +12,7 @@ public enum ArticleStatusCode implements IStatusCode {
     PUBLISHED(BaseStatusCode.PUBLISHED),
     REJECTED(BaseStatusCode.REJECTED),
     DRAFT(BaseStatusCode.DRAFT),
+    ARCHIVED(BaseStatusCode.CLOSED),
     PENDING(BaseStatusCode.PENDING);
 
     private final int code;

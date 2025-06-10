@@ -16,4 +16,9 @@ public class ComposableArticle extends Article {
     public ComposableArticle(ArticleType type, String name, String description, double price, User seller) {
         super(type, name, description, price, seller);
     }
+
+    @Override
+    public ComposableArticle clone() {
+        throw new UnsupportedOperationException("Cloning of ComposableArticle is not supported, try cloning one of its subclasses instead.");
+    }
 }
