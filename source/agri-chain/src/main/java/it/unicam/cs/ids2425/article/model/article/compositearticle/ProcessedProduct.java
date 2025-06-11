@@ -25,4 +25,15 @@ public class ProcessedProduct extends ComposableArticle implements HasComponent 
             throw new IllegalArgumentException("The type of a raw material must be PROCESSED_PRODUCT");
         }
     }
+
+    @Override
+    public ProcessedProduct clone() {
+        ProcessedProduct clone = new ProcessedProduct(this.getType(), this.getName(), this.getDescription(), this.getPrice(), this.getSeller());
+        if (this.components == null) {
+            clone.components = new ArrayList<>();
+        } else {
+            clone.components = new ArrayList<>(this.components);
+        }
+        return clone;
+    }
 }

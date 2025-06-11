@@ -88,6 +88,7 @@ public class ProblemController {
 
     public Problem updateProblem(@NonNull Long problemId, @NonNull ProblemStatusCode newStatus, String updateReason, @NonNull User user) {
         ProblemState oldState = getProblemState(problemId, user);
+        // no new entity created because this is the problem status change, the entity data did not change.
         ProblemState problemState = new ProblemState(newStatus, user, updateReason, oldState.getEntity(), oldState);
         problemStateRepository.save(problemState);
         return problemRepository

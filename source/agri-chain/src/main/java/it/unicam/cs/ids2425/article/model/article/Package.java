@@ -29,4 +29,15 @@ public class Package extends Article implements HasComponent {
             throw new IllegalArgumentException("The type of a package must be PACKAGE");
         }
     }
+
+    @Override
+    public Package clone() {
+        Package clone = new Package(getType(), getName(), getDescription(), getPrice(), getSeller());
+        if (this.components == null) {
+            clone.components = new ArrayList<>();
+        } else {
+            clone.components = new ArrayList<>(components);
+        }
+        return clone;
+    }
 }

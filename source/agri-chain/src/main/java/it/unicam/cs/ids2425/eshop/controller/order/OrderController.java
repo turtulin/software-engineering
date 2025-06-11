@@ -57,6 +57,7 @@ public class OrderController {
             throw new IllegalArgumentException("User must be a customer");
         }
 
+        // no new entity created because this is the order status update, the entity data did not change.
         OrderState state = new OrderState(orderStatusCode, customer, null, order, previousState);
 
         orderRepository.save(order);

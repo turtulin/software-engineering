@@ -71,6 +71,7 @@ public abstract class AbstractArticleController<T extends Article> {
         if (!oldState.getStatusCode().equals(ArticleStatusCode.PENDING)) {
             throw new IllegalArgumentException("Article must be pending");
         }
+        // no new entity created because this is the article rejection, the entity data did not change.
         articleStateRepository.save(new ArticleState(newArticleStatusCode, user, "Rejected", article, oldState));
         return article;
     }

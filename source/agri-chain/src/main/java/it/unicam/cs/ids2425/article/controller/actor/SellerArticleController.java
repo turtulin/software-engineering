@@ -53,6 +53,9 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
     public Article getArticle(@NonNull Long articleId, @NonNull ArticleStatusCode status, @NonNull User user) {
         checkSeller(user);
         ArticleState articleState = articleStateRepository.findAllByEntity_Id(articleId).getLast();
+        if (status.equals(ArticleStatusCode.DELETED) || status.equals(ArticleStatusCode.ARCHIVED)) {
+            throw new IllegalArgumentException("Article not found");
+        }
         if (articleState.getStatusCode().equals(status) && articleState.getEntity().getSeller().equals(user)) {
             return articleState.getEntity();
         }
@@ -91,16 +94,36 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
                 draftAllArticlesContaining(composableArticle);
             }
         }
+        // no new entity created because this is the article status change, the entity data did not change.
         ArticleState newArticleState = new ArticleState(articleStatusCode, user, reason, oldArticleState.getEntity(), oldArticleState);
         articleStateRepository.save(newArticleState);
         return articleStateRepository.findAllByEntity_Id(articleId).getLast();
     }
 
     @Transactional
-    public void draftAllArticlesContaining(ComposableArticle article) {
-        draftAllArticlesContaining(article, List.of());
+    public void draftAllArticlesContaining(ComposableArticle entity) {
+       List<Article> articles = new ArrayList<>(anyArticleRepository.findAll().stream()
+                .filter(a -> a instanceof HasComponent)
+                .filter(a -> ((HasComponent) a).getComponents().stream()
+                        .anyMatch(c -> c.equals(entity))
+                ).toList());
+        for (int i = 0; i<articles.size(); i++) {
+            Article hasComponent = articles.get(i);
+            ArticleState oldArticleState = articleStateRepository.findAllByEntity_Id(hasComponent.getId()).getLast();
+            // no new entity created because this is the article drafting after one of their component was drafted, the entity data did not change.
+            ArticleState newArticleState = new ArticleState(ArticleStatusCode.DRAFT, singleEntityController.getTimeUser(), "Component Changed", hasComponent, oldArticleState);
+            articleStateRepository.save(newArticleState);
+            if (hasComponent instanceof ComposableArticle composableArticle) {
+                articles.addAll(anyArticleRepository.findAll().stream()
+                        .filter(a -> a instanceof HasComponent)
+                        .filter(a -> ((HasComponent) a).getComponents().stream()
+                                .anyMatch(c -> c.equals(composableArticle))
+                        ).filter(a -> !articles.contains(a)).toList());
+            }
+        }
     }
 
+    @Deprecated
     @Transactional
     public void draftAllArticlesContaining(ComposableArticle entity, List<Article> exclusions) {
         List<Article> articles = anyArticleRepository.findAll().stream()
@@ -116,6 +139,7 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
         newExclusions.addAll(articles);
         for (Article hasComponent : articles) {
             ArticleState oldArticleState = articleStateRepository.findAllByEntity_Id(hasComponent.getId()).getLast();
+            // no new entity created because this is the article drafting after one of their component was drafted, the entity data did not change.
             ArticleState newArticleState = new ArticleState(ArticleStatusCode.DRAFT, singleEntityController.getTimeUser(), "Component Changed", hasComponent, oldArticleState);
             articleStateRepository.save(newArticleState);
             if (hasComponent instanceof ComposableArticle composableArticle) {
@@ -170,46 +194,67 @@ public abstract class SellerArticleController<T extends Article> extends Abstrac
         return getArticleById(article.getId(), ArticleStatusCode.DRAFT);
     }
 
+    @SuppressWarnings("unchecked")
     @Transactional
-    public Article updateArticle(@NonNull T article, @NonNull User user) {
+    public Article updateArticle(@NonNull T articleDelta, @NonNull User user) {
         checkSeller(user);
 
-        if (articleRepository.findById(article.getId()).isEmpty()) {
+        if (articleDelta.getName() == null && articleDelta.getDescription() == null && articleDelta.getPrice() == null) {
+            throw new IllegalArgumentException("Article must have at least one field to update");
+        }
+
+        if (articleRepository.findById(articleDelta.getId()).isEmpty()) {
             throw new IllegalArgumentException("Article not found");
         }
-        T toUpdateArticle = articleRepository.findById(article.getId()).get();
 
-        if (!toUpdateArticle.getSeller().equals(user)) {
+        T oldArticle = articleRepository.findById(articleDelta.getId()).get();
+
+        if (!oldArticle.getSeller().equals(user)) {
             throw new IllegalArgumentException("Article seller must be the same as the user");
         }
 
-        if (notCorrectArticleType(toUpdateArticle)) {
+        if (notCorrectArticleType(oldArticle)) {
             throw new IllegalArgumentException("Article type must be specified");
         }
 
-        ArticleState oldState = articleStateRepository.findAllByEntity(toUpdateArticle).getLast();
+        ArticleState oldState = articleStateRepository.findAllByEntity(oldArticle).getLast();
 
-        if (article.getName() != null) {
-            toUpdateArticle.setName(article.getName());
+        // suppressing unchecked cast warning, this is unavoidable, but we know that Article and all its subclasses are cloneable.
+        T newArticle = (T) oldArticle.clone();
+
+        if (articleDelta.getName() != null) {
+            newArticle.setName(articleDelta.getName());
         }
-        if (article.getDescription() != null) {
-            toUpdateArticle.setDescription(article.getDescription());
+        if (articleDelta.getDescription() != null) {
+            newArticle.setDescription(articleDelta.getDescription());
         }
-        if (article.getPrice() != null) {
-            toUpdateArticle.setPrice(article.getPrice());
+        if (articleDelta.getPrice() != null) {
+            newArticle.setPrice(articleDelta.getPrice());
         }
 
-        if (article instanceof HasComponent hasComponent && toUpdateArticle instanceof HasComponent toUpdateHasComponent) {
-            if (hasComponent.getComponents() != null) {
-                toUpdateHasComponent.setComponents(hasComponent.getComponents());
+        if (articleDelta instanceof HasComponent hasComponent){
+            if (newArticle instanceof HasComponent toUpdateHasComponent) {
+                if (hasComponent.getComponents() != null) {
+                    toUpdateHasComponent.setComponents(hasComponent.getComponents());
+                }
+            } else {
+                throw new IllegalArgumentException("Article type does not match");
             }
         }
-        ArticleState state = new ArticleState(ArticleStatusCode.DRAFT, user, "updated", toUpdateArticle, oldState);
 
-        articleRepository.save(toUpdateArticle);
+        ArticleState oldArticleState = new ArticleState(ArticleStatusCode.ARCHIVED, user, "updated", oldArticle, oldState);
+        articleStateRepository.save(oldArticleState);
+
+        newArticle = articleRepository.save(newArticle);
+
+        ArticleState state = new ArticleState(ArticleStatusCode.DRAFT, user, "updated", newArticle, oldArticleState);
         articleStateRepository.save(state);
 
-        return getArticleById(article.getId(), ArticleStatusCode.DRAFT);
+        if (oldArticle instanceof ComposableArticle composableArticle) {
+            draftAllArticlesContaining(composableArticle);
+        }
+
+        return getArticleById(newArticle.getId(), ArticleStatusCode.DRAFT);
     }
 
     @Transactional

@@ -16,4 +16,9 @@ public class RawMaterial extends ComposableArticle {
             throw new IllegalArgumentException("The type of a raw material must be RAW_MATERIAL");
         }
     }
+
+    @Override
+    public RawMaterial clone() {
+        return new RawMaterial(this.getType(), this.getName(), this.getDescription(), this.getPrice(), this.getSeller());
+    }
 }

@@ -19,4 +19,8 @@ public class Event extends Article {
             throw new IllegalArgumentException("The type of a package must be EVENT");
         }
     }
+    @Override
+    public Event clone() {
+        return new Event(this.getType(), this.getName(), this.getDescription(), this.getPrice(), this.getSeller());
+    }
 }

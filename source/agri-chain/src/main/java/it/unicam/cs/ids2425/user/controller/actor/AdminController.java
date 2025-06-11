@@ -76,6 +76,7 @@ public class AdminController extends UserController {
         if (userStatusCode == UserStatusCode.BANNED || userStatusCode == UserStatusCode.INACTIVE) {
             tokenController.logout(user);
         }
+        // no new entity created because this is the user activation, the entity data did not change.
         return userStateRepository.save(new UserState(userStatusCode, admin, "User state changed", user, oldState));
     }
 
