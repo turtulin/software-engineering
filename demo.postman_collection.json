@@ -3,8 +3,8 @@
 		"_postman_id": "f6231851-baf4-423b-942b-ebd5fcb241c1",
 		"name": "demo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "42493725",
-		"_collection_link": "https://ids-project-8503.postman.co/workspace/IDS-project-Workspace~04acc417-9a64-4079-8318-185eb798d464/collection/42493725-f6231851-baf4-423b-942b-ebd5fcb241c1?action=share&source=collection_link&creator=42493725"
+		"_exporter_id": "40496783",
+		"_collection_link": "https://ids-project-8503.postman.co/workspace/IDS-project-Workspace~04acc417-9a64-4079-8318-185eb798d464/collection/42493725-f6231851-baf4-423b-942b-ebd5fcb241c1?action=share&source=collection_link&creator=40496783"
 	},
 	"item": [
 		{
@@ -21,13 +21,13 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/admin/all/pending",
-							"protocol": "http",
+							"raw": "{{base_url}}/admin/user/all/pending",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"admin",
+								"user",
 								"all",
 								"pending"
 							]
@@ -47,14 +47,14 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/admin/4/activate",
-							"protocol": "http",
+							"raw": "{{base_url}}/admin/user/107/activate",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"admin",
-								"4",
+								"user",
+								"107",
 								"activate"
 							]
 						},
@@ -203,8 +203,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/admin/9/state",
-							"protocol": "http",
+							"raw": "{{base_url}}/admin/9/state",
 							"host": [
 								"{{base_url}}"
 							],
@@ -224,7 +223,7 @@
 			"name": "add-article-to-cart",
 			"item": [
 				{
-					"name": "http://{{base_url}}/article/all",
+					"name": "List articles",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -234,8 +233,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/article/all",
-							"protocol": "http",
+							"raw": "{{base_url}}/article/all",
 							"host": [
 								"{{base_url}}"
 							],
@@ -249,7 +247,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/customer/cart/1/1",
+					"name": "Customer add article to cart 1",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -259,8 +257,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer/cart/1/1",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/cart/1/1",
 							"host": [
 								"{{base_url}}"
 							],
@@ -276,7 +273,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/customer/cart/4/3",
+					"name": "Customer add to cart 2",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -286,16 +283,15 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer/cart/4/3",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/cart/2/1",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"customer",
 								"cart",
-								"4",
-								"3"
+								"2",
+								"1"
 							]
 						},
 						"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/customer/cart/4/3\" \\\n    -H \"Authorization: {{customer_token}}\""
@@ -303,7 +299,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/customer/cart",
+					"name": "List my cart",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -313,8 +309,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer/cart",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/cart",
 							"host": [
 								"{{base_url}}"
 							],
@@ -331,13 +326,116 @@
 		},
 		{
 			"name": "ban-user",
-			"item": []
+			"item": [
+				{
+					"name": "List users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/user/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"all"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/admin/all\" \\\n    -H \"Authorization: {{admin_token}}\""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user state",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/user/102",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"102"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/admin/9/state\" \\\n    -H \"Authorization: {{admin_token}}\""
+					},
+					"response": []
+				},
+				{
+					"name": "Ban user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/user/105/ban",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"105",
+								"ban"
+							]
+						},
+						"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/admin/9/ban\" \\\n    -H \"Authorization: {{admin_token}}\""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by state",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/admin/user/105/banned",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"105",
+								"banned"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/admin/9/state\" \\\n    -H \"Authorization: {{admin_token}}\""
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "cancel-order",
 			"item": [
 				{
-					"name": "http://{{base_url}}/customer/order/all",
+					"name": "List orders",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -347,8 +445,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer/order/all",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/order/all",
 							"host": [
 								"{{base_url}}"
 							],
@@ -363,7 +460,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/customer/order/{{id}}",
+					"name": "Delete order",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -373,18 +470,43 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer/order/{{id}}",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/order/1",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"customer",
 								"order",
-								"{{id}}"
+								"1"
 							]
 						},
 						"description": "Generated from cURL: curl -X DELETE --location \"http://{{base_url}}/customer/order/{{id}}\" \\\n    -H \"Authorization: {{customer_token}}\""
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{customer_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/customer/order/1/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"order",
+								"1",
+								"status"
+							]
+						}
 					},
 					"response": []
 				}
@@ -394,7 +516,7 @@
 			"name": "delete-article",
 			"item": [
 				{
-					"name": "http://{{base_url}}/seller/distributor/article/all Copy",
+					"name": "Get distributor articles",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -404,8 +526,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/seller/distributor/article/all",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/distributor/article/all",
 							"host": [
 								"{{base_url}}"
 							],
@@ -421,7 +542,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/seller/distributor/article/all/{{status}} Copy",
+					"name": "Get distributor published articles",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -431,8 +552,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/seller/distributor/article/all/PUBLISHED",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/distributor/article/all/PUBLISHED",
 							"host": [
 								"{{base_url}}"
 							],
@@ -449,7 +569,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/seller/distributor/article/5 Copy",
+					"name": "Delete distributor article",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -459,8 +579,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/seller/distributor/article/5",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/distributor/article/5",
 							"host": [
 								"{{base_url}}"
 							],
@@ -479,13 +598,318 @@
 		},
 		{
 			"name": "create-article",
-			"item": []
+			"item": [
+				{
+					"name": "Producer create Milk",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{producer_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n          \"type\": \"RAW_MATERIAL\",\n          \"name\": \"Muffin\",\n          \"description\": \"Muffin\",\n          \"price\": 5\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/producer/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"producer",
+								"article"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/producer/article\" \\\n    -H \"Authorization: {{producer_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"type\": \"RAW_MATERIAL\",\n          \"name\": \"Milk\",\n          \"description\": \"Milk\",\n          \"price\": 5\n        }'"
+					},
+					"response": []
+				},
+				{
+					"name": "Producer create Flour",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{producer_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n          \"name\": \"Flour\",\n          \"description\": \"Flour\",\n          \"price\": 3,\n          \"type\": \"RAW_MATERIAL\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/producer/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"producer",
+								"article"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/producer/article\" \\\n    -H \"Authorization: {{producer_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"name\": \"Flour\",\n          \"description\": \"Flour\",\n          \"price\": 3,\n          \"type\": \"RAW_MATERIAL\"\n        }'"
+					},
+					"response": []
+				},
+				{
+					"name": "Transformer create Bread",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{transformer_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n          \"name\": \"Test\",\n          \"description\": \"Bread\",\n          \"price\": 2,\n          \"type\": \"PROCESSED_PRODUCT\",\n          \"components\": [\n            {\n                \"id\": 52\n            },\n            {\n                \"id\": 53\n                }\n            ]\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/transformer/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"transformer",
+								"article"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/transformer/article\" \\\n    -H \"Authorization: {{transformer_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"name\": \"Bread\",\n          \"description\": \"Bread\",\n          \"price\": 2,\n          \"type\": \"PROCESSED_PRODUCT\"\n        }'"
+					},
+					"response": []
+				},
+				{
+					"name": "Transformer create Cheese",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{transformer_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n          \"name\": \"Cheese\",\n          \"description\": \"Cheese\",\n          \"price\": 6,\n          \"type\": \"PROCESSED_PRODUCT\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/transformer/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"transformer",
+								"article"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/transformer/article\" \\\n    -H \"Authorization: {{transformer_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"name\": \"Cheese\",\n          \"description\": \"Cheese\",\n          \"price\": 6,\n          \"type\": \"PROCESSED_PRODUCT\"\n        }'"
+					},
+					"response": []
+				},
+				{
+					"name": "Distributor create package cheese + milk",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{distributor_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n          \"name\": \"Cheese + Milk\",\n          \"description\": \"Cheese + Milk\",\n          \"price\": 2,\n          \"type\": \"PACKAGE\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/distributor/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"distributor",
+								"article"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/distributor/article\" \\\n    -H \"Authorization: {{distributor_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"name\": \"Cheese + Milk\",\n          \"description\": \"Cheese + Milk\",\n          \"price\": 2,\n          \"type\": \"PACKAGE\"\n        }'"
+					},
+					"response": []
+				},
+				{
+					"name": "Distributor create package potato + milk",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{distributor_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n          \"name\": \"Potato + Milk\",\n          \"description\": \"Potato + Milk\",\n          \"price\": 8,\n          \"type\": \"PACKAGE\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/distributor/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"distributor",
+								"article"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/distributor/article\" \\\n    -H \"Authorization: {{distributor_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"name\": \"Potato + Milk\",\n          \"description\": \"Potato + Milk\",\n          \"price\": 8,\n          \"type\": \"PACKAGE\"\n        }'"
+					},
+					"response": []
+				},
+				{
+					"name": "Event-Planner create event 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{event_planner_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n          \"name\": \"Wine Tour\",\n          \"description\": \"Wine Tour\",\n          \"price\": 8,\n          \"type\": \"EVENT\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/event-planner/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"event-planner",
+								"article"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/event-planner/article\" \\\n    -H \"Authorization: {{event_planner_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"name\": \"Wine Tour\",\n          \"description\": \"Wine Tour\",\n          \"price\": 8,\n          \"type\": \"EVENT\"\n        }'"
+					},
+					"response": []
+				},
+				{
+					"name": "Event-Planner create event 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{event_planner_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n          \"name\": \"Vineyards Tour\",\n          \"description\": \"Vineyards Tour\",\n          \"price\": 8,\n          \"type\": \"EVENT\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/seller/event-planner/article",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"event-planner",
+								"article"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/event-planner/article\" \\\n    -H \"Authorization: {{event_planner_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"name\": \"Vineyards Tour\",\n          \"description\": \"Vineyards Tour\",\n          \"price\": 8,\n          \"type\": \"EVENT\"\n        }'"
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "checkout-cart",
 			"item": [
 				{
-					"name": "http://{{base_url}}/customer/cart",
+					"name": "Get customer cart",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -495,8 +919,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer/cart",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/cart",
 							"host": [
 								"{{base_url}}"
 							],
@@ -510,7 +933,33 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/customer/cart/checkout",
+					"name": "Edit quantity cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{customer_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/customer/cart/2/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customer",
+								"cart",
+								"2",
+								"3"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/customer/cart\" \\\n    -H \"Authorization: {{customer_token}}\""
+					},
+					"response": []
+				},
+				{
+					"name": "Customer go checkout",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -525,7 +974,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n          \"stock\": {\n            \"user\": {\n              \"role\": \"CUSTOMER\",\n              \"username\": \"customer\"\n            },\n            \"articles\": [\n              {\n                \"article\": {\n                  \"id\": 1,\n                  \"type\": \"RAW_MATERIAL\",\n                  \"name\": \"Milk\",\n                  \"description\": \"Milk\",\n                  \"price\": 5.0,\n                  \"seller\": {\n                    \"role\": \"PRODUCER\",\n                    \"username\": \"producer\"\n                  }\n                },\n                \"quantity\": 2\n              }\n            ]\n          },\n          \"shippingAddress\": {\n            \"latitude\": 43.135,\n            \"longitude\": 13.067,\n            \"notes\": \"\",\n            \"street\": \"Via Madonna delle Carceri\",\n            \"city\": \"Camerino (MC)\",\n            \"zipCode\": \"62032\",\n            \"country\": \"Italy\"\n          },\n          \"billingAddress\": {\n            \"latitude\": 43.135,\n            \"longitude\": 13.067,\n            \"notes\": \"\",\n            \"street\": \"Via Madonna delle Carceri\",\n            \"city\": \"Camerino (MC)\",\n            \"zipCode\": \"62032\",\n            \"country\": \"Italy\"\n          },\n          \"payment\": {\n            \"email\": \"test@mail.org\",\n            \"password\": \"password\",\n            \"user\": {\n                \"role\": \"CUSTOMER\",\n                \"username\": \"customer\"\n            }\n          }\n        }",
+							"raw": "{\n  \"shippingAddress\": {\n    \"latitude\": 41.9028,\n    \"longitude\": 12.4964,\n    \"notes\": \"Consegna al portiere\",\n    \"street\": \"Via Roma 123\",\n    \"city\": \"Roma\",\n    \"zipCode\": \"00100\",\n    \"country\": \"Italia\"\n  },\n  \"billingAddress\": {\n    \"latitude\": 45.4642,\n    \"longitude\": 9.1900,\n    \"notes\": \"Appartamento 5B\",\n    \"street\": \"Via Milano 45\",\n    \"city\": \"Milano\",\n    \"zipCode\": \"20100\",\n    \"country\": \"Italia\"\n  },\n  \"payment\": {\n    \"type\": \"CARD\",\n    \"cardNumber\": \"4111111111111111\",\n    \"expirationDate\": \"2027-12-31T00:00:00Z\",\n    \"cvv\": \"123\"\n  }\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -533,8 +982,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/customer/cart/checkout",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/cart/checkout",
 							"host": [
 								"{{base_url}}"
 							],
@@ -554,7 +1002,7 @@
 			"name": "inactivate-user",
 			"item": [
 				{
-					"name": "http://{{base_url}}/admin/all/ACTIVE",
+					"name": "Admin list ACTIVE users",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -564,13 +1012,13 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/admin/all/ACTIVE",
-							"protocol": "http",
+							"raw": "{{base_url}}/admin/user/all/ACTIVE",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"admin",
+								"user",
 								"all",
 								"ACTIVE"
 							]
@@ -580,7 +1028,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/admin/8/deactivate",
+					"name": "Admin deactivate user",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -590,14 +1038,14 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/admin/8/deactivate",
-							"protocol": "http",
+							"raw": "{{base_url}}/admin/user/103/deactivate",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"admin",
-								"8",
+								"user",
+								"103",
 								"deactivate"
 							]
 						},
@@ -611,13 +1059,19 @@
 			"name": "login-user",
 			"item": [
 				{
-					"name": "http://{{base_url}}/login",
+					"name": "Admin Login",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
@@ -630,8 +1084,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/login",
-							"protocol": "http",
+							"raw": "{{base_url}}/login",
 							"host": [
 								"{{base_url}}"
 							],
@@ -644,7 +1097,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/login",
+					"name": "Customer Login",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -663,8 +1116,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/login",
-							"protocol": "http",
+							"raw": "{{base_url}}/login",
 							"host": [
 								"{{base_url}}"
 							],
@@ -677,7 +1129,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/login",
+					"name": "Producer Login",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -696,8 +1148,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/login",
-							"protocol": "http",
+							"raw": "{{base_url}}/login",
 							"host": [
 								"{{base_url}}"
 							],
@@ -710,7 +1161,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/login",
+					"name": "Transformer Login",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -729,8 +1180,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/login",
-							"protocol": "http",
+							"raw": "{{base_url}}/login",
 							"host": [
 								"{{base_url}}"
 							],
@@ -743,7 +1193,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/login",
+					"name": "Distributor Login",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -762,8 +1212,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/login",
-							"protocol": "http",
+							"raw": "{{base_url}}/login",
 							"host": [
 								"{{base_url}}"
 							],
@@ -776,7 +1225,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/login",
+					"name": "Event-Planner Login",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -795,8 +1244,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/login",
-							"protocol": "http",
+							"raw": "{{base_url}}/login",
 							"host": [
 								"{{base_url}}"
 							],
@@ -809,7 +1257,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/login",
+					"name": "Moderator Login",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -828,8 +1276,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/login",
-							"protocol": "http",
+							"raw": "{{base_url}}/login",
 							"host": [
 								"{{base_url}}"
 							],
@@ -842,7 +1289,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/login",
+					"name": "DEPRECATED Customer Service Login",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -861,8 +1308,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/login",
-							"protocol": "http",
+							"raw": "{{base_url}}/login",
 							"host": [
 								"{{base_url}}"
 							],
@@ -880,7 +1326,7 @@
 			"name": "logout-user",
 			"item": [
 				{
-					"name": "http://{{base_url}}/customer/logout",
+					"name": "Customer Logout",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -890,8 +1336,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer/logout",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/logout",
 							"host": [
 								"{{base_url}}"
 							],
@@ -910,7 +1355,7 @@
 			"name": "manage-article-approvement",
 			"item": [
 				{
-					"name": "http://{{base_url}}/moderator/all/pending",
+					"name": "Moderator list pending articles",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -920,8 +1365,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/moderator/all/pending",
-							"protocol": "http",
+							"raw": "{{base_url}}/moderator/all/pending",
 							"host": [
 								"{{base_url}}"
 							],
@@ -936,7 +1380,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/moderator/1/approve",
+					"name": "Moderator approve article 1",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -946,14 +1390,13 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/moderator/1/approve",
-							"protocol": "http",
+							"raw": "{{base_url}}/moderator/53/approve",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"moderator",
-								"1",
+								"53",
 								"approve"
 							]
 						},
@@ -962,7 +1405,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/moderator/4/approve",
+					"name": "Moderator approve article 2",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -972,14 +1415,13 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/moderator/4/approve",
-							"protocol": "http",
+							"raw": "{{base_url}}/moderator/2/approve",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"moderator",
-								"4",
+								"2",
 								"approve"
 							]
 						},
@@ -988,7 +1430,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/moderator/2/reject",
+					"name": "Moderator reject article",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -998,14 +1440,13 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/moderator/2/reject",
-							"protocol": "http",
+							"raw": "{{base_url}}/moderator/7/reject",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"moderator",
-								"2",
+								"7",
 								"reject"
 							]
 						},
@@ -1014,7 +1455,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/moderator/all/approved",
+					"name": "Moderator list approved articles",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1024,8 +1465,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/moderator/all/approved",
-							"protocol": "http",
+							"raw": "{{base_url}}/moderator/all/approved",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1045,23 +1485,23 @@
 			"name": "manage-problem",
 			"item": [
 				{
-					"name": "http://{{base_url}}/customer-service/all/OPEN",
+					"name": "Admin list all problem",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{customer_service_token}}"
+								"value": "{{admin_token}}"
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer-service/all/OPEN",
-							"protocol": "http",
+							"raw": "{{base_url}}/admin/problem/all/OPEN",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"customer-service",
+								"admin",
+								"problem",
 								"all",
 								"OPEN"
 							]
@@ -1071,23 +1511,23 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/customer-service/1/solve",
+					"name": "Admin solve problem",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{customer_service_token}}"
+								"value": "{{admin_token}}"
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer-service/1/solve",
-							"protocol": "http",
+							"raw": "{{base_url}}/admin/problem/1/solve",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"customer-service",
+								"admin",
+								"problem",
 								"1",
 								"solve"
 							]
@@ -1097,29 +1537,38 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/customer-service/{{problemId}}/reject",
+					"name": "Admin close problem",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{customer_service_token}}"
+								"value": "{{admin_token}}"
 							},
 							{
 								"key": "Content-Type",
 								"value": "application/json"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"i dont know\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://{{base_url}}/customer-service/{{problemId}}/reject",
-							"protocol": "http",
+							"raw": "{{base_url}}/admin/problem/2/close",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"customer-service",
-								"{{problemId}}",
-								"reject"
+								"admin",
+								"problem",
+								"2",
+								"close"
 							]
 						},
 						"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/customer-service/{{problemId}}/reject\" \\\n    -H \"Authorization: {{customer_service_token}}\" \\\n    -H \"Content-Type: application/json\""
@@ -1127,13 +1576,13 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/customer-service/2/close",
+					"name": "Admin reject problem",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{customer_service_token}}"
+								"value": "{{admin_token}}"
 							},
 							{
 								"key": "Content-Type",
@@ -1150,15 +1599,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/customer-service/2/close",
-							"protocol": "http",
+							"raw": "{{base_url}}/admin/problem/3/reject",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"customer-service",
-								"2",
-								"close"
+								"admin",
+								"problem",
+								"3",
+								"reject"
 							]
 						},
 						"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/customer-service/2/close\" \\\n    -H \"Authorization: {{customer_service_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"reason\": \"not valid\"\n        }'"
@@ -1171,7 +1620,7 @@
 			"name": "register-user",
 			"item": [
 				{
-					"name": "http://{{base_url}}/admin/register",
+					"name": "Admin register",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1190,8 +1639,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/admin/register",
-							"protocol": "http",
+							"raw": "{{base_url}}/admin/register",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1205,7 +1653,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/customer/register",
+					"name": "Customer register",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1224,8 +1672,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/customer/register",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/register",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1239,7 +1686,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/seller/producer/register",
+					"name": "Producer register",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1258,8 +1705,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/seller/producer/register",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/producer/register",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1274,7 +1720,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/seller/transformer/register",
+					"name": "Transformer register",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1293,8 +1739,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/seller/transformer/register",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/transformer/register",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1309,7 +1754,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/seller/distributor/register",
+					"name": "Distributor register",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1328,8 +1773,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/seller/distributor/register",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/distributor/register",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1344,7 +1788,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/seller/event-planner/register",
+					"name": "Seller register",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1363,8 +1807,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/seller/event-planner/register",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/event-planner/register",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1379,7 +1822,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/moderator/register",
+					"name": "Moderator register",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1398,8 +1841,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/moderator/register",
-							"protocol": "http",
+							"raw": "{{base_url}}/moderator/register",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1432,8 +1874,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/customer-service/register",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer-service/register",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1452,7 +1893,7 @@
 			"name": "remove-article-from-cart",
 			"item": [
 				{
-					"name": "http://{{base_url}}/customer/cart",
+					"name": "Get customer cart",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1462,8 +1903,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer/cart",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/cart",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1477,7 +1917,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/customer/cart/1/1",
+					"name": "Delete customer article",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -1487,8 +1927,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/customer/cart/1/1",
-							"protocol": "http",
+							"raw": "{{base_url}}/customer/cart/1/1",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1509,7 +1948,7 @@
 			"name": "report-problem",
 			"item": [
 				{
-					"name": "http://{{base_url}}/seller/producer/report",
+					"name": "Send problem",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1532,8 +1971,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/seller/producer/report",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/producer/report",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1553,7 +1991,7 @@
 			"name": "request-publish-article",
 			"item": [
 				{
-					"name": "http://{{base_url}}/seller/producer/article/all/DRAFT",
+					"name": "Producer list draft article",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1563,8 +2001,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/seller/producer/article/all/DRAFT",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/producer/article/all/DRAFT",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1581,7 +2018,88 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/seller/producer/article/1/publish",
+					"name": "Distributor list draft article",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{distributor_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/seller/distributor/article/all/DRAFT",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"distributor",
+								"article",
+								"all",
+								"DRAFT"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/seller/producer/article/all/DRAFT\" \\\n    -H \"Authorization: {{producer_token}}\""
+					},
+					"response": []
+				},
+				{
+					"name": "Event-planner list draft article",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{event_planner_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/seller/event-planner/article/all/DRAFT",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"event-planner",
+								"article",
+								"all",
+								"DRAFT"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/seller/producer/article/all/DRAFT\" \\\n    -H \"Authorization: {{producer_token}}\""
+					},
+					"response": []
+				},
+				{
+					"name": "Transformer list draft article",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{transformer_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/seller/transformer/article/all/DRAFT",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"transformer",
+								"article",
+								"all",
+								"DRAFT"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/seller/producer/article/all/DRAFT\" \\\n    -H \"Authorization: {{producer_token}}\""
+					},
+					"response": []
+				},
+				{
+					"name": "Producer request publish article",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1591,8 +2109,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/seller/producer/article/1/publish",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/producer/article/53/publish",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1600,7 +2117,7 @@
 								"seller",
 								"producer",
 								"article",
-								"1",
+								"53",
 								"publish"
 							]
 						},
@@ -1609,7 +2126,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/seller/transformer/article/4/publish",
+					"name": "Transformer publish article",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1619,8 +2136,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/seller/transformer/article/4/publish",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/transformer/article/3/publish",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1628,7 +2144,7 @@
 								"seller",
 								"transformer",
 								"article",
-								"4",
+								"3",
 								"publish"
 							]
 						},
@@ -1647,8 +2163,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/seller/producer/article/2/publish",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/producer/article/2/publish",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1675,8 +2190,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/seller/event-planner/article/1/publish",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/event-planner/article/7/publish",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1684,7 +2198,7 @@
 								"seller",
 								"event-planner",
 								"article",
-								"1",
+								"7",
 								"publish"
 							]
 						},
@@ -1726,7 +2240,7 @@
 			"name": "share-content",
 			"item": [
 				{
-					"name": "http://{{base_url}}/article/all",
+					"name": "Get all articles",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1736,8 +2250,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/article/all",
-							"protocol": "http",
+							"raw": "{{base_url}}/article/all",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1749,27 +2262,6 @@
 						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/article/all\" \\\n    -H \"Content-Type: application/json\""
 					},
 					"response": []
-				},
-				{
-					"name": "http://{{base_url}}/article/1/share",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{base_url}}/article/1/share",
-							"protocol": "http",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"article",
-								"1",
-								"share"
-							]
-						},
-						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/article/1/share\""
-					},
-					"response": []
 				}
 			]
 		},
@@ -1777,7 +2269,7 @@
 			"name": "update-article",
 			"item": [
 				{
-					"name": "http://{{base_url}}/seller/distributor/article/all",
+					"name": "List distributor articles",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1787,8 +2279,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/seller/distributor/article/all",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/distributor/article/all",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1804,7 +2295,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/seller/distributor/article",
+					"name": "Update seller article",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1827,8 +2318,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{base_url}}/seller/distributor/article",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/distributor/article",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1843,7 +2333,7 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/seller/distributor/article/6/DRAFT",
+					"name": "List distributor DRAFT article",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1853,8 +2343,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/seller/distributor/article/6/DRAFT",
-							"protocol": "http",
+							"raw": "{{base_url}}/seller/distributor/article/5/DRAFT",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1862,7 +2351,7 @@
 								"seller",
 								"distributor",
 								"article",
-								"6",
+								"5",
 								"DRAFT"
 							]
 						},
@@ -1876,7 +2365,7 @@
 			"name": "view-article",
 			"item": [
 				{
-					"name": "http://{{base_url}}/article/all",
+					"name": "List all articles",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1886,8 +2375,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{base_url}}/article/all",
-							"protocol": "http",
+							"raw": "{{base_url}}/article/all",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1901,13 +2389,12 @@
 					"response": []
 				},
 				{
-					"name": "http://{{base_url}}/article/1",
+					"name": "GET article by id",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{base_url}}/article/1",
-							"protocol": "http",
+							"raw": "{{base_url}}/article/1",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1924,7 +2411,1397 @@
 		},
 		{
 			"name": "write-review",
-			"item": []
+			"item": [
+				{
+					"name": "List all articles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/article/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"article",
+								"all"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/article/all\" \\\n    -H \"Content-Type: application/json\""
+					},
+					"response": []
+				},
+				{
+					"name": "Get article 1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/article/53",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"article",
+								"53"
+							]
+						},
+						"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/article/1\""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "update-stock",
+			"item": [
+				{
+					"name": "Update article quantity stock",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{producer_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/seller/producer/article/1/quantity/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seller",
+								"producer",
+								"article",
+								"1",
+								"quantity",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flows",
+			"item": [
+				{
+					"name": "Producer create article and customer buy",
+					"item": [
+						{
+							"name": "Producer Login Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"username\":\"producer\",\n        \"password\":\"producer\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/login\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"username\":\"producer\",\n        \"password\":\"producer\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Customer Login Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"username\":\"customer\",\n        \"password\":\"customer\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/login\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"username\":\"customer\",\n        \"password\":\"customer\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Admin Login Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n          \"username\":\"admin\",\n          \"password\":\"admin\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/login\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"username\":\"admin\",\n          \"password\":\"admin\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Moderator Login Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"username\":\"moderator\",\n        \"password\":\"moderator\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/login\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"username\":\"moderator\",\n        \"password\":\"moderator\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Producer create Kivi",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{producer_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n          \"type\": \"RAW_MATERIAL\",\n          \"name\": \"anguria\",\n          \"description\": \"anguria\",\n          \"price\": 5\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/seller/producer/article",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"producer",
+										"article"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/producer/article\" \\\n    -H \"Authorization: {{producer_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"type\": \"RAW_MATERIAL\",\n          \"name\": \"Milk\",\n          \"description\": \"Milk\",\n          \"price\": 5\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Producer list draft article Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{producer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/seller/producer/article/all/DRAFT",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"producer",
+										"article",
+										"all",
+										"DRAFT"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/seller/producer/article/all/DRAFT\" \\\n    -H \"Authorization: {{producer_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Producer request publish article Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{producer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/seller/producer/article/105/publish",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"producer",
+										"article",
+										"105",
+										"publish"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/seller/producer/article/1/publish\" \\\n    -H \"Authorization: {{producer_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Moderator list pending articles Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{moderator_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/moderator/all/pending",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"moderator",
+										"all",
+										"pending"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/moderator/all/pending\" \\\n    -H \"Authorization: {{moderator_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Moderator approve article 1 Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{moderator_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/moderator/105/approve",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"moderator",
+										"105",
+										"approve"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/moderator/1/approve\" \\\n    -H \"Authorization: {{moderator_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Update article quantity in stock",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{producer_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/seller/producer/article/105/quantity/5",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"producer",
+										"article",
+										"105",
+										"quantity",
+										"5"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/seller/distributor/article\" \\\n    -H \"Authorization: {{distributor_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"id\": 6,\n          \"type\": \"PACKAGE\",\n          \"name\": \"Tomato + Potato + Milk\",\n          \"description\": \"very cheap\",\n          \"price\": 1,\n          \"seller\": {\n            \"id\": 6,\n            \"role\": \"DISTRIBUTOR\",\n            \"username\": \"distributor\",\n            \"password\": \"distributor\",\n            \"birthDate\": \"2025-02-23T08:15:02.766+00:00\"\n          }\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "List marketplace articles",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/article/all",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"article",
+										"all"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/article/all\" \\\n    -H \"Content-Type: application/json\""
+							},
+							"response": []
+						},
+						{
+							"name": "Customer add article to cart 1 Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/customer/cart/103/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"cart",
+										"103",
+										"1"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/customer/cart/1/1\" \\\n    -H \"Authorization: {{customer_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "List my cart",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/customer/cart",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"cart"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/customer/cart\" \\\n    -H \"Authorization: {{customer_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Delete article from cart",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/customer/cart/102/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"cart",
+										"102",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List my cart Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/customer/cart",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"cart"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/customer/cart\" \\\n    -H \"Authorization: {{customer_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Customer go checkout Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"shippingAddress\": {\n    \"latitude\": 41.90288,\n    \"longitude\": 12.49664,\n    \"notes\": \"Consegna al portieree\",\n    \"street\": \"Via Roma 123e\",\n    \"city\": \"Romae\",\n    \"zipCode\": \"001000\",\n    \"country\": \"Italiaa\"\n  },\n  \"billingAddress\": {\n    \"latitude\": 45.46422,\n    \"longitude\": 9.19000,\n    \"notes\": \"Appartamento 5BB\",\n    \"street\": \"Via Milano 455\",\n    \"city\": \"Milanoo\",\n    \"zipCode\": \"201000\",\n    \"country\": \"Italiaa\"\n  },\n  \"payment\": {\n    \"type\": \"CARD\",\n    \"cardNumber\": \"41111111111111221\",\n    \"expirationDate\": \"2027-12-31T00:00:00Z\",\n    \"cvv\": \"123\"\n  }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/customer/cart/checkout",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"cart",
+										"checkout"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/customer/cart/checkout\" \\\n    -H \"Authorization: {{customer_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"stock\": {\n            \"user\": {\n              \"role\": \"CUSTOMER\",\n              \"username\": \"customer\"\n            },\n            \"articles\": [\n              {\n                \"article\": {\n                  \"id\": 1,\n                  \"type\": \"RAW_MATERIAL\",\n                  \"name\": \"Milk\",\n                  \"description\": \"Milk\",\n                  \"price\": 5.0,\n                  \"seller\": {\n                    \"role\": \"PRODUCER\",\n                    \"username\": \"producer\"\n                  }\n                },\n                \"quantity\": 2\n              }\n            ]\n          },\n          \"shippingAddress\": {\n            \"latitude\": 43.135,\n            \"longitude\": 13.067,\n            \"notes\": \"\",\n            \"street\": \"Via Madonna delle Carceri\",\n            \"city\": \"Camerino (MC)\",\n            \"zipCode\": \"62032\",\n            \"country\": \"Italy\"\n          },\n          \"billingAddress\": {\n            \"latitude\": 43.135,\n            \"longitude\": 13.067,\n            \"notes\": \"\",\n            \"street\": \"Via Madonna delle Carceri\",\n            \"city\": \"Camerino (MC)\",\n            \"zipCode\": \"62032\",\n            \"country\": \"Italy\"\n          },\n          \"payment\": {\n            \"email\": \"test@mail.org\",\n            \"password\": \"password\",\n            \"user\": {\n                \"role\": \"CUSTOMER\",\n                \"username\": \"customer\"\n            }\n          }\n        }'"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Transformer create article and customer buy",
+					"item": [
+						{
+							"name": "Transformer Login Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n          \"username\":\"transformer\",\n          \"password\":\"transformer\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/login\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"username\":\"transformer\",\n          \"password\":\"transformer\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Producer Login Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"username\":\"producer\",\n        \"password\":\"producer\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/login\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"username\":\"producer\",\n        \"password\":\"producer\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Customer Login Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"username\":\"customer\",\n        \"password\":\"customer\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/login\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"username\":\"customer\",\n        \"password\":\"customer\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Admin Login Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n          \"username\":\"admin\",\n          \"password\":\"admin\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/login\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"username\":\"admin\",\n          \"password\":\"admin\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Moderator Login Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"username\":\"moderator\",\n        \"password\":\"moderator\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"login"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/login\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"username\":\"moderator\",\n        \"password\":\"moderator\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Transformer create Bread Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{transformer_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n          \"name\": \"melone & anguria\",\n          \"description\": \"melone & anguria\",\n          \"price\": 2,\n          \"type\": \"PROCESSED_PRODUCT\",\n          \"components\": [\n            {\n                \"id\": 104\n            },\n            {\n                \"id\": 105\n                }\n            ]\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/seller/transformer/article",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"transformer",
+										"article"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/transformer/article\" \\\n    -H \"Authorization: {{transformer_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"name\": \"Bread\",\n          \"description\": \"Bread\",\n          \"price\": 2,\n          \"type\": \"PROCESSED_PRODUCT\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Transformer list draft article Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{transformer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/seller/transformer/article/all/DRAFT",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"transformer",
+										"article",
+										"all",
+										"DRAFT"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/seller/producer/article/all/DRAFT\" \\\n    -H \"Authorization: {{producer_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Transformer request publish article Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{transformer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/seller/transformer/article/106/publish",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"transformer",
+										"article",
+										"106",
+										"publish"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/seller/producer/article/1/publish\" \\\n    -H \"Authorization: {{producer_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Moderator list pending articles Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{moderator_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/moderator/all/pending",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"moderator",
+										"all",
+										"pending"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/moderator/all/pending\" \\\n    -H \"Authorization: {{moderator_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Moderator approve article 1 Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{moderator_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/moderator/106/approve",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"moderator",
+										"106",
+										"approve"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/moderator/1/approve\" \\\n    -H \"Authorization: {{moderator_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Update article quantity in stock",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{producer_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/seller/transformer/article/103/quantity/5",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"transformer",
+										"article",
+										"103",
+										"quantity",
+										"5"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/seller/distributor/article\" \\\n    -H \"Authorization: {{distributor_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"id\": 6,\n          \"type\": \"PACKAGE\",\n          \"name\": \"Tomato + Potato + Milk\",\n          \"description\": \"very cheap\",\n          \"price\": 1,\n          \"seller\": {\n            \"id\": 6,\n            \"role\": \"DISTRIBUTOR\",\n            \"username\": \"distributor\",\n            \"password\": \"distributor\",\n            \"birthDate\": \"2025-02-23T08:15:02.766+00:00\"\n          }\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "List marketplace articles",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/article/all",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"article",
+										"all"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/article/all\" \\\n    -H \"Content-Type: application/json\""
+							},
+							"response": []
+						},
+						{
+							"name": "Customer add article to cart 1 Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/customer/cart/106/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"cart",
+										"106",
+										"1"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/customer/cart/1/1\" \\\n    -H \"Authorization: {{customer_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "List my cart",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/customer/cart",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"cart"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/customer/cart\" \\\n    -H \"Authorization: {{customer_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Delete article from cart",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/customer/cart/102/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"cart",
+										"102",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List my cart Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/customer/cart",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"cart"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/customer/cart\" \\\n    -H \"Authorization: {{customer_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Transformer Update article quantity stock Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{transformer_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/seller/transformer/article/106/quantity/2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"transformer",
+										"article",
+										"106",
+										"quantity",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Customer go checkout Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"shippingAddress\": {\n    \"latitude\": 41.90288,\n    \"longitude\": 12.49664,\n    \"notes\": \"Consegna al portieree\",\n    \"street\": \"Via Roma 123e\",\n    \"city\": \"Romae\",\n    \"zipCode\": \"001000\",\n    \"country\": \"Italiaa\"\n  },\n  \"billingAddress\": {\n    \"latitude\": 45.46422,\n    \"longitude\": 9.19000,\n    \"notes\": \"Appartamento 5BB\",\n    \"street\": \"Via Milano 455\",\n    \"city\": \"Milanoo\",\n    \"zipCode\": \"201000\",\n    \"country\": \"Italiaa\"\n  },\n  \"payment\": {\n    \"type\": \"CARD\",\n    \"cardNumber\": \"41111111111111221\",\n    \"expirationDate\": \"2027-12-31T00:00:00Z\",\n    \"cvv\": \"123\"\n  }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/customer/cart/checkout",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"cart",
+										"checkout"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/customer/cart/checkout\" \\\n    -H \"Authorization: {{customer_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"stock\": {\n            \"user\": {\n              \"role\": \"CUSTOMER\",\n              \"username\": \"customer\"\n            },\n            \"articles\": [\n              {\n                \"article\": {\n                  \"id\": 1,\n                  \"type\": \"RAW_MATERIAL\",\n                  \"name\": \"Milk\",\n                  \"description\": \"Milk\",\n                  \"price\": 5.0,\n                  \"seller\": {\n                    \"role\": \"PRODUCER\",\n                    \"username\": \"producer\"\n                  }\n                },\n                \"quantity\": 2\n              }\n            ]\n          },\n          \"shippingAddress\": {\n            \"latitude\": 43.135,\n            \"longitude\": 13.067,\n            \"notes\": \"\",\n            \"street\": \"Via Madonna delle Carceri\",\n            \"city\": \"Camerino (MC)\",\n            \"zipCode\": \"62032\",\n            \"country\": \"Italy\"\n          },\n          \"billingAddress\": {\n            \"latitude\": 43.135,\n            \"longitude\": 13.067,\n            \"notes\": \"\",\n            \"street\": \"Via Madonna delle Carceri\",\n            \"city\": \"Camerino (MC)\",\n            \"zipCode\": \"62032\",\n            \"country\": \"Italy\"\n          },\n          \"payment\": {\n            \"email\": \"test@mail.org\",\n            \"password\": \"password\",\n            \"user\": {\n                \"role\": \"CUSTOMER\",\n                \"username\": \"customer\"\n            }\n          }\n        }'"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Report problem and manage",
+					"item": [
+						{
+							"name": "Send problem Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{producer_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n          \"user\": {\n            \"username\": \"producer\"\n          },\n          \"description\": \"this is a test 2\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/seller/producer/report",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"seller",
+										"producer",
+										"report"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/seller/producer/report\" \\\n    -H \"Authorization: {{producer_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"user\": {\n            \"username\": \"producer\"\n          },\n          \"description\": \"problem with bread\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "Admin list all problem Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{admin_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/admin/problem/all/OPEN",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"problem",
+										"all",
+										"OPEN"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/customer-service/all/OPEN\" \\\n    -H \"Authorization: {{customer_service_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Admin solve problem Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{admin_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/admin/problem/52/solve",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"problem",
+										"52",
+										"solve"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/customer-service/1/solve\" \\\n    -H \"Authorization: {{customer_service_token}}\""
+							},
+							"response": []
+						},
+						{
+							"name": "Admin close problem Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{admin_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"reason\": \"i dont know\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/admin/problem/2/close",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"problem",
+										"2",
+										"close"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/customer-service/{{problemId}}/reject\" \\\n    -H \"Authorization: {{customer_service_token}}\" \\\n    -H \"Content-Type: application/json\""
+							},
+							"response": []
+						},
+						{
+							"name": "Admin reject problem Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{admin_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n          \"reason\": \"not valid\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/admin/problem/53/reject",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"problem",
+										"53",
+										"reject"
+									]
+								},
+								"description": "Generated from cURL: curl -X PUT --location \"http://{{base_url}}/customer-service/2/close\" \\\n    -H \"Authorization: {{customer_service_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"reason\": \"not valid\"\n        }'"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Share content and review",
+					"item": [
+						{
+							"name": "Get all articles Copy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/article/all",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"article",
+										"all"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/article/all\" \\\n    -H \"Content-Type: application/json\""
+							},
+							"response": []
+						},
+						{
+							"name": "Share article",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/article/52/share",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"article",
+										"52",
+										"share"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/article/1/share\""
+							},
+							"response": []
+						},
+						{
+							"name": "Publish review",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{customer_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"article\": {\n    \"id\": 52\n  },\n  \"rating\": \"VERY_BAD\",\n  \"title\": \"Fantastic Product!\",\n  \"comment\": \"I'm extremely satisfied with this article. It exceeded my expectations in terms of quality and performance.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/customer/review",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customer",
+										"review"
+									]
+								},
+								"description": "Generated from cURL: curl -X POST --location \"http://{{base_url}}/customer/review\" \\\n    -H \"Authorization: {{customer_token}}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n          \"article\": {\n            \"id\": 1\n          },\n          \"rating\": \"VERY_GOOD\",\n          \"title\": \"good\",\n          \"comment\": \"so good !!\"\n        }'"
+							},
+							"response": []
+						},
+						{
+							"name": "List review by article id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/article/1/review/all",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"article",
+										"1",
+										"review",
+										"all"
+									]
+								},
+								"description": "Generated from cURL: curl -X GET --location \"http://{{base_url}}/article/1/review/all\""
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	]
 }
