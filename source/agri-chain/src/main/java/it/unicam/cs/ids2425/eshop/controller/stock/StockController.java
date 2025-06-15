@@ -27,12 +27,12 @@ public class StockController {
     }
 
     public Stock findByUser(@NonNull User user) {
-        return stockRepository.findByUser(user).get();
+        return stockRepository.getStockByUser(user).orElseThrow(() -> new NoSuchElementException("User Stock not found"));
     }
 
     @Transactional
     public StockContent changeQuantity(@NonNull Stock stock, @NonNull Article article, @NonNull Long quantity) {
-        if (quantity != 0) {
+        if (quantity == 0) {
             throw new IllegalArgumentException("Quantity must not be 0");
         }
 
@@ -40,16 +40,21 @@ public class StockController {
 
         List<StockContent> articles = stock.getArticles();
         if (articles.contains(stockContent)) {
-            articles.get(articles.indexOf(stockContent))
-                    .setQuantity(
-                            articles.get(articles.indexOf(stockContent)).getQuantity()
-                                    +
-                                    stockContent.getQuantity()
-                    );
+            StockContent sc = articles.get(articles.indexOf(stockContent));
+            sc.setQuantity(sc.getQuantity() + stockContent.getQuantity());
+            if (sc.getQuantity() <= 0) {
+                articles.remove(sc);
+                stockContentRepository.delete(sc);
+            } else {
+                stockContentRepository.save(sc);
+            }
         } else {
+            if (stockContent.getQuantity() < 0) {
+                throw new IllegalArgumentException(STR."Can't remove \{article.getName()}: not present");
+            }
             articles.add(stockContent);
+            stockContentRepository.save(stockContent);
         }
-        stockContentRepository.save(stockContent);
         stockContentRepository.saveAll(articles);
         stockRepository.save(stock);
         return stockContent;
@@ -68,11 +73,15 @@ public class StockController {
             if (stockContentSeller.getRole().equals(UserRole.CUSTOMER)) {
                 throw new NoSuchElementException("Seller not found");
             }
-            Stock sellerStock = stockRepository.findByUser(stockContentSeller)
-                    .orElseThrow(() -> new NoSuchElementException("Seller Stock not found"));
+            Stock sellerStock;
+            try {
+                sellerStock = findByUser(stockContentSeller);
+            } catch (NoSuchElementException e) {
+                throw new NoSuchElementException("Seller Stock not found");
+            }
 
             if (!sellerStock.getArticles().contains(stockContent)) {
-                throw new IllegalArgumentException("Stock is not present");
+                throw new IllegalArgumentException("Article is not present in stock");
             }
             List<StockContent> articles = sellerStock.getArticles();
             StockContent actualStock = articles.get(articles.indexOf(stockContent));

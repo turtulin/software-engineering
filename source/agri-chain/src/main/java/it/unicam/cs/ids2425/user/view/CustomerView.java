@@ -1,13 +1,18 @@
 package it.unicam.cs.ids2425.user.view;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.unicam.cs.ids2425.article.controller.actor.CustomerArticleController;
 import it.unicam.cs.ids2425.eshop.model.order.Order;
+import it.unicam.cs.ids2425.eshop.model.order.OrderState;
 import it.unicam.cs.ids2425.eshop.model.review.Review;
 import it.unicam.cs.ids2425.eshop.model.stock.Stock;
 import it.unicam.cs.ids2425.eshop.model.stock.StockContent;
 import it.unicam.cs.ids2425.problem.controller.ProblemController;
 import it.unicam.cs.ids2425.user.controller.actor.OtherUserController;
 import it.unicam.cs.ids2425.user.model.User;
+import it.unicam.cs.ids2425.user.model.detail.address.Address;
+import it.unicam.cs.ids2425.user.model.detail.payment.AbstractPaymentMethod;
 import it.unicam.cs.ids2425.utilities.view.IView;
 import it.unicam.cs.ids2425.utilities.view.ViewResponse;
 import lombok.Getter;
@@ -44,18 +49,24 @@ public class CustomerView implements IView, ICanLogoutView, ICanRegisterView, IC
         return genericCall(() -> customerArticleController.addToCart(articleId, quantity, user));
     }
 
-    // Not completed
-    // @RequestMapping(value = "/cart/{id}/{quantity}", method = {RequestMethod.DELETE})
+    @RequestMapping(value = "/cart/{id}/{quantity}", method = {RequestMethod.DELETE})
     public ResponseEntity<ViewResponse<StockContent>> removeFromCart(@PathVariable("id") Long articleId,
                                                                      @PathVariable("quantity") Long quantity,
                                                                      @RequestAttribute("user") User user) {
         return genericCall(() -> customerArticleController.removeFromCart(articleId, quantity, user));
     }
 
-    // Not completed
-    // @RequestMapping(value = "/cart/checkout", method = {RequestMethod.POST})
-    public ResponseEntity<ViewResponse<Order>> checkout(@RequestBody Order order,
+    @RequestMapping(value = "/cart/checkout", method = {RequestMethod.POST})
+    public ResponseEntity<ViewResponse<Order>> checkout(@RequestBody JsonNode body,
                                                         @RequestAttribute("user") User user) {
+        ObjectMapper mapper = new ObjectMapper();
+        Order order = new Order();
+        Address shippingAddress = mapper.convertValue(body.get("shippingAddress"), Address.class);
+        order.setShippingAddress(shippingAddress);
+        Address billingAddress = mapper.convertValue(body.get("billingAddress"), Address.class);
+        order.setBillingAddress(billingAddress);
+        AbstractPaymentMethod payment = mapper.convertValue(body.get("payment"), AbstractPaymentMethod.class);
+        order.setPayment(payment);
         return genericCall(() -> customerArticleController.checkout(order, user));
     }
 
@@ -63,6 +74,12 @@ public class CustomerView implements IView, ICanLogoutView, ICanRegisterView, IC
     public ResponseEntity<ViewResponse<Order>> cancelOrder(@PathVariable("id") Long orderId,
                                                            @RequestAttribute("user") User user) {
         return genericCall(() -> customerArticleController.cancelOrder(orderId, user));
+    }
+
+    @RequestMapping(value = "/order/{id}/status", method = {RequestMethod.GET})
+    public ResponseEntity<ViewResponse<OrderState>> getOrderStatus(@PathVariable("id") Long orderId,
+                                                                   @RequestAttribute("user") User user) {
+        return genericCall(() -> customerArticleController.getOrderStatus(orderId, user));
     }
 
     @RequestMapping(value = "/order/all", method = {RequestMethod.GET})

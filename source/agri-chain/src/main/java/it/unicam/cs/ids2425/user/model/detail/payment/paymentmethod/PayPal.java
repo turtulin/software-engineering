@@ -9,10 +9,13 @@ import lombok.*;
 @Entity
 @EqualsAndHashCode(callSuper = false)
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PayPal extends AbstractPaymentMethod {
     private String email;
     private String password;
+
+    protected PayPal() {
+        super(PaymentMethodType.PAYPAL);
+    }
 
     protected PayPal(String email, String password) {
         super(PaymentMethodType.PAYPAL);

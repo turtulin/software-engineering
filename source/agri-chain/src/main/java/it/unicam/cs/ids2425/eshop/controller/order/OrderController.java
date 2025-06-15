@@ -57,6 +57,7 @@ public class OrderController {
             throw new IllegalArgumentException("User must be a customer");
         }
 
+        // no new entity created because this is the order status update, the entity data did not change.
         OrderState state = new OrderState(orderStatusCode, customer, null, order, previousState);
 
         orderRepository.save(order);
@@ -71,5 +72,13 @@ public class OrderController {
 
     public List<Order> findByUser(User user) {
         return orderRepository.findAllByStock_User(user);
+    }
+
+    public OrderState getOrderStatus(Long orderId, User user) {
+        Order order = findById(orderId);
+        if (!order.getStock().getUser().equals(user) && user.getRole() != UserRole.ADMIN) {
+            throw new IllegalArgumentException("Order does not belong to user");
+        }
+        return orderStateRepository.findAllByEntity(order).getLast();
     }
 }

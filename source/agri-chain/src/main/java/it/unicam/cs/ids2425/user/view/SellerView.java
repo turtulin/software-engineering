@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Getter
-public abstract class SellerView implements IView, ICanLogoutView, ICanRegisterView, ICanReportView {
+public abstract class SellerView<T extends Article> implements IView, ICanLogoutView, ICanRegisterView, ICanReportView {
     private final OtherUserController logoutController;
     private final OtherUserController registerController;
     private final ProblemController problemController;
 
-    private final SellerArticleController sellerArticleController;
+    private final SellerArticleController<T> sellerArticleController;
 
-    public SellerView(OtherUserController logoutController, SellerArticleController sellerArticleController, ProblemController problemController) {
+    public SellerView(OtherUserController logoutController, SellerArticleController<T> sellerArticleController, ProblemController problemController) {
         this.logoutController = logoutController;
         this.registerController = logoutController;
         this.sellerArticleController = sellerArticleController;
@@ -42,54 +42,54 @@ public abstract class SellerView implements IView, ICanLogoutView, ICanRegisterV
         return genericCall(() -> sellerArticleController.getAllArticles(statusCode, user));
     }
 
-    @RequestMapping(value = "/article/{articleId}/{status}", method = {RequestMethod.GET})
-    public ResponseEntity<ViewResponse<Article>> getArticle(@PathVariable Long articleId,
+    @RequestMapping(value = "/article/{id}/{status}", method = {RequestMethod.GET})
+    public ResponseEntity<ViewResponse<Article>> getArticle(@PathVariable Long id,
                                                             @PathVariable String status,
                                                             @RequestAttribute("user") User user) {
         ArticleStatusCode statusCode = ArticleStatusCode.valueOf(status.toUpperCase());
-        return genericCall(() -> sellerArticleController.getArticle(articleId, statusCode, user));
+        return genericCall(() -> sellerArticleController.getArticle(id, statusCode, user));
     }
 
     @RequestMapping(value = "/article", method = {RequestMethod.POST})
-    public ResponseEntity<ViewResponse<Article>> createArticle(@RequestBody Article article,
+    public ResponseEntity<ViewResponse<Article>> createArticle(@RequestBody T article,
                                                                @RequestAttribute("user") User user) {
         return genericCall(() -> sellerArticleController.createArticle(article, user));
     }
 
     @RequestMapping(value = "/article", method = {RequestMethod.PUT})
-    public ResponseEntity<ViewResponse<Article>> updateArticle(@RequestBody Article article,
+    public ResponseEntity<ViewResponse<Article>> updateArticle(@RequestBody T article,
                                                                @RequestAttribute("user") User user) {
         return genericCall(() -> sellerArticleController.updateArticle(article, user));
     }
 
-    @RequestMapping(value = "/article/{articleId}", method = {RequestMethod.DELETE})
-    public ResponseEntity<ViewResponse<ArticleState>> deleteArticle(@PathVariable Long articleId,
+    @RequestMapping(value = "/article/{id}", method = {RequestMethod.DELETE})
+    public ResponseEntity<ViewResponse<ArticleState>> deleteArticle(@PathVariable Long id,
                                                                     @RequestAttribute("user") User user) {
-        return genericCall(() -> sellerArticleController.updateArticle(articleId, ArticleStatusCode.DELETED, user));
+        return genericCall(() -> sellerArticleController.updateArticle(id, ArticleStatusCode.DELETED, user));
     }
 
-    @RequestMapping(value = "/article/{articleId}/draft", method = {RequestMethod.PUT})
-    public ResponseEntity<ViewResponse<ArticleState>> draftArticle(@PathVariable Long articleId,
+    @RequestMapping(value = "/article/{id}/draft", method = {RequestMethod.PUT})
+    public ResponseEntity<ViewResponse<ArticleState>> draftArticle(@PathVariable Long id,
                                                                    @RequestAttribute("user") User user) {
-        return genericCall(() -> sellerArticleController.updateArticle(articleId, ArticleStatusCode.DRAFT, user));
+        return genericCall(() -> sellerArticleController.updateArticle(id, ArticleStatusCode.DRAFT, user));
     }
 
-    @RequestMapping(value = "/article/{articleId}/publish", method = {RequestMethod.PUT})
-    public ResponseEntity<ViewResponse<ArticleState>> publishArticle(@PathVariable Long articleId,
+    @RequestMapping(value = "/article/{id}/publish", method = {RequestMethod.PUT})
+    public ResponseEntity<ViewResponse<ArticleState>> publishArticle(@PathVariable Long id,
                                                                      @RequestAttribute("user") User user) {
-        return genericCall(() -> sellerArticleController.updateArticle(articleId, ArticleStatusCode.PENDING, user));
+        return genericCall(() -> sellerArticleController.updateArticle(id, ArticleStatusCode.PENDING, user));
     }
 
-    @RequestMapping(value = "/article/{articleId}/quantity/{quantity}", method = {RequestMethod.PUT})
-    public ResponseEntity<ViewResponse<Article>> updateArticleQuantity(@PathVariable Long articleId,
+    @RequestMapping(value = "/article/{id}/quantity/{quantity}", method = {RequestMethod.PUT})
+    public ResponseEntity<ViewResponse<Article>> updateArticleQuantity(@PathVariable Long id,
                                                                        @PathVariable Long quantity,
                                                                        @RequestAttribute("user") User user) {
-        return genericCall(() -> sellerArticleController.updateArticleQuantity(articleId, quantity, user));
+        return genericCall(() -> sellerArticleController.updateArticleQuantity(id, quantity, user));
     }
 
-    @RequestMapping(value = "/article/{articleId}/quantity", method = {RequestMethod.GET})
-    public ResponseEntity<ViewResponse<Long>> getArticleQuantity(@PathVariable Long articleId,
+    @RequestMapping(value = "/article/{id}/quantity", method = {RequestMethod.GET})
+    public ResponseEntity<ViewResponse<Long>> getArticleQuantity(@PathVariable Long id,
                                                                  @RequestAttribute("user") User user) {
-        return genericCall(() -> sellerArticleController.getArticleQuantity(articleId, user));
+        return genericCall(() -> sellerArticleController.getArticleQuantity(id, user));
     }
 }

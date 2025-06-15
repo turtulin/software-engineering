@@ -43,7 +43,7 @@ public class AdminController extends UserController {
         return userRepository.findAll();
     }
 
-    public User getUserById(@NonNull Long id, UserStatusCode status, @NonNull User admin) {
+    public User getUser(@NonNull Long id, UserStatusCode status, @NonNull User admin) {
         UserState state = getLastUserState(id, admin);
         if (status != null && !state.getStatusCode().equals(status)) {
             throw new IllegalStateException("User is not in the correct state");
@@ -76,6 +76,7 @@ public class AdminController extends UserController {
         if (userStatusCode == UserStatusCode.BANNED || userStatusCode == UserStatusCode.INACTIVE) {
             tokenController.logout(user);
         }
+        // no new entity created because this is the user activation, the entity data did not change.
         return userStateRepository.save(new UserState(userStatusCode, admin, "User state changed", user, oldState));
     }
 

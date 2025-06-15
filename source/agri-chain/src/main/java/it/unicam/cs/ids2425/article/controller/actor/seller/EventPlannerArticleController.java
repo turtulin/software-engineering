@@ -1,11 +1,13 @@
 package it.unicam.cs.ids2425.article.controller.actor.seller;
 
 import it.unicam.cs.ids2425.article.controller.actor.SellerArticleController;
-import it.unicam.cs.ids2425.article.model.Article;
 import it.unicam.cs.ids2425.article.model.ArticleType;
-import it.unicam.cs.ids2425.article.repository.ArticleRepository;
+import it.unicam.cs.ids2425.article.model.article.Event;
+import it.unicam.cs.ids2425.article.repository.AnyArticleRepository;
 import it.unicam.cs.ids2425.article.repository.ArticleStateRepository;
+import it.unicam.cs.ids2425.article.repository.article.EventRepository;
 import it.unicam.cs.ids2425.eshop.controller.stock.StockController;
+import it.unicam.cs.ids2425.user.controller.actor.SingleEntityController;
 import it.unicam.cs.ids2425.user.model.User;
 import it.unicam.cs.ids2425.user.model.UserRole;
 import lombok.NonNull;
@@ -13,10 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EventPlannerArticleController extends SellerArticleController {
+public class EventPlannerArticleController extends SellerArticleController<Event> {
+
     @Autowired
-    public EventPlannerArticleController(ArticleStateRepository articleStatusRepository, ArticleRepository articleRepository, StockController stockController) {
-        super(articleStatusRepository, articleRepository, stockController);
+    public EventPlannerArticleController(ArticleStateRepository articleStatusRepository, EventRepository articleRepository, StockController stockController, SingleEntityController singleEntityController, AnyArticleRepository anyArticleRepository) {
+        super(articleStatusRepository, articleRepository, stockController, singleEntityController, anyArticleRepository);
     }
 
     @Override
@@ -27,7 +30,7 @@ public class EventPlannerArticleController extends SellerArticleController {
     }
 
     @Override
-    public boolean checkArticleType(Article article) {
-        return article.getType() == ArticleType.EVENT;
+    public boolean notCorrectArticleType(Event article) {
+        return article.getType() != ArticleType.EVENT || !ArticleType.EVENT.getEntityClass().equals(article.getClass());
     }
 }

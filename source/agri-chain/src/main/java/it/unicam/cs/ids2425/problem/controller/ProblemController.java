@@ -54,15 +54,15 @@ public class ProblemController {
     }
 
     public List<Problem> getAllProblems(@NonNull User user, ProblemStatusCode status) {
-        if (user.getRole() != UserRole.CUSTOMER_SERVICE) {
-            throw new IllegalArgumentException("User must be a customer service");
+        if (user.getRole() != UserRole.ADMIN) {
+            throw new IllegalArgumentException("User must be an admin");
         }
         return getAllProblems(status);
     }
 
     public ProblemState getProblemState(@NonNull Long problemId, @NonNull User user) {
-        if (user.getRole() != UserRole.CUSTOMER_SERVICE) {
-            throw new IllegalArgumentException("User must be a customer service");
+        if (user.getRole() != UserRole.ADMIN) {
+            throw new IllegalArgumentException("User must be an admin");
         }
         return problemStateRepository
                 .findAllByEntity_Id(problemId)
@@ -70,8 +70,8 @@ public class ProblemController {
     }
 
     public Problem getProblem(@NonNull Long problemId, @NonNull ProblemStatusCode statusCode, @NonNull User user) {
-        if (user.getRole() != UserRole.CUSTOMER_SERVICE) {
-            throw new IllegalArgumentException("User must be a customer service");
+        if (user.getRole() != UserRole.ADMIN) {
+            throw new IllegalArgumentException("User must be an admin");
         }
         ProblemState problemState = problemStateRepository
                 .findAllByEntity_Id(problemId)
@@ -88,6 +88,7 @@ public class ProblemController {
 
     public Problem updateProblem(@NonNull Long problemId, @NonNull ProblemStatusCode newStatus, String updateReason, @NonNull User user) {
         ProblemState oldState = getProblemState(problemId, user);
+        // no new entity created because this is the problem status change, the entity data did not change.
         ProblemState problemState = new ProblemState(newStatus, user, updateReason, oldState.getEntity(), oldState);
         problemStateRepository.save(problemState);
         return problemRepository

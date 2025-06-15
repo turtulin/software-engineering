@@ -1,3 +1,0 @@
-### Logout
-GET {{base_url}}/customer/logout
-Authorization: {{customer_token}}

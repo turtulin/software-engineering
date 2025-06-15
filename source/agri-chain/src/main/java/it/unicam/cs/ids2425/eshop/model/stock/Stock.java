@@ -20,7 +20,7 @@ public class Stock {
     @OneToOne
     private User user;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<StockContent> articles;
 
     public Stock(User user) {

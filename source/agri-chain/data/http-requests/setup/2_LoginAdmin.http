@@ -1,8 +1,0 @@
-### Login
-POST {{base_url}}/login
-Content-Type: application/json
-
-{
-  "username":"admin",
-  "password":"admin"
-}

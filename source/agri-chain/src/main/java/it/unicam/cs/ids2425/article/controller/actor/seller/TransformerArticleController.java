@@ -1,11 +1,13 @@
 package it.unicam.cs.ids2425.article.controller.actor.seller;
 
 import it.unicam.cs.ids2425.article.controller.actor.SellerArticleController;
-import it.unicam.cs.ids2425.article.model.Article;
 import it.unicam.cs.ids2425.article.model.ArticleType;
-import it.unicam.cs.ids2425.article.repository.ArticleRepository;
+import it.unicam.cs.ids2425.article.model.article.compositearticle.ProcessedProduct;
+import it.unicam.cs.ids2425.article.repository.AnyArticleRepository;
 import it.unicam.cs.ids2425.article.repository.ArticleStateRepository;
+import it.unicam.cs.ids2425.article.repository.article.compositearticle.ProcessedProductRepository;
 import it.unicam.cs.ids2425.eshop.controller.stock.StockController;
+import it.unicam.cs.ids2425.user.controller.actor.SingleEntityController;
 import it.unicam.cs.ids2425.user.model.User;
 import it.unicam.cs.ids2425.user.model.UserRole;
 import lombok.NonNull;
@@ -13,15 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TransformerArticleController extends SellerArticleController {
-    @Autowired
-    public TransformerArticleController(ArticleStateRepository articleStatusRepository, ArticleRepository articleRepository, StockController stockController) {
-        super(articleStatusRepository, articleRepository, stockController);
-    }
+public class TransformerArticleController extends SellerArticleController<ProcessedProduct> {
 
-    @Override
-    public boolean checkArticleType(Article article) {
-        return article.getType() == ArticleType.PROCESSED_PRODUCT;
+    @Autowired
+    public TransformerArticleController(ArticleStateRepository articleStatusRepository, ProcessedProductRepository articleRepository, StockController stockController, SingleEntityController singleEntityController, AnyArticleRepository anyArticleRepository) {
+        super(articleStatusRepository, articleRepository, stockController, singleEntityController, anyArticleRepository);
     }
 
     @Override
@@ -29,5 +27,10 @@ public class TransformerArticleController extends SellerArticleController {
         if (user.getRole() != UserRole.TRANSFORMER) {
             throw new IllegalArgumentException("User must be a transformer");
         }
+    }
+
+    @Override
+    public boolean notCorrectArticleType(ProcessedProduct article) {
+        return article.getType() != ArticleType.PROCESSED_PRODUCT || !ArticleType.PROCESSED_PRODUCT.getEntityClass().equals(article.getClass());
     }
 }

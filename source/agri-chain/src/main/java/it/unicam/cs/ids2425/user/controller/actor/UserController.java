@@ -53,6 +53,7 @@ public abstract class UserController {
         if (state.getStateTime().before(new Timestamp(System.currentTimeMillis()))) {
             UserStatusCode nextState = UserStatusCode.fromCode(userStateRepository.findAllByEntity(u).stream().sorted().toList().get(userStateRepository.findAllByEntity(u).size() - 2).getStatusCode());
             UserState previousState = userStateRepository.findAllByEntity(u).stream().sorted().toList().getLast();
+            // no new entity created because this is the user re-activation, the entity data did not change.
             UserState newState = new UserState(nextState, singleEntityController.getTimeUser(), "automatic suspension removal", u, previousState);
             userStateRepository.save(newState);
             return login(u.getUsername(), u.getPassword());

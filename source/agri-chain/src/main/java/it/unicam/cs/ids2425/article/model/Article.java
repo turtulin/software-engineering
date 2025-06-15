@@ -1,10 +1,7 @@
 package it.unicam.cs.ids2425.article.model;
 
 import it.unicam.cs.ids2425.user.model.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,10 +9,11 @@ import lombok.ToString;
 
 @Data
 @Entity
-@EqualsAndHashCode
+@Inheritance(strategy = InheritanceType.JOINED)
+@EqualsAndHashCode(of = "id")
 @ToString
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public class Article implements IArticle {
+public abstract class Article implements IArticle, Cloneable {
     @Id
     @GeneratedValue
     private Long id;
@@ -26,7 +24,7 @@ public class Article implements IArticle {
 
     private String description;
 
-    private double price;
+    private Double price;
 
     @ManyToOne
     private User seller;
@@ -38,4 +36,7 @@ public class Article implements IArticle {
         this.price = price;
         this.seller = seller;
     }
+
+    @Override
+    public abstract Article clone();
 }

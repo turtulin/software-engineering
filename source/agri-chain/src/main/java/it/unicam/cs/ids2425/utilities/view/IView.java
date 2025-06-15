@@ -15,10 +15,10 @@ public interface IView {
             return ResponseEntity.status(successStatus).body(ViewResponse.<T>builder().status(successStatus).data(result).build());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            return ResponseEntity.status(failureStatus).body(ViewResponse.<T>builder().status(failureStatus).message(e.getClass().getSimpleName() + " " + e.getMessage()).build());
+            return ResponseEntity.status(failureStatus).body(ViewResponse.<T>builder().status(failureStatus).message(STR."\{e.getClass().getSimpleName()} \{e.getMessage()}").build());
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ViewResponse.<T>builder().status(HttpStatus.BAD_REQUEST).message(e.getClass().getSimpleName() + " " + e.getMessage()).build());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ViewResponse.<T>builder().status(HttpStatus.BAD_REQUEST).message(STR."\{e.getClass().getSimpleName()} \{e.getMessage()}").build());
         }
     }
 

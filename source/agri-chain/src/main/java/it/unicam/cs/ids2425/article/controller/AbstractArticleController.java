@@ -6,7 +6,6 @@ import it.unicam.cs.ids2425.article.repository.ArticleRepository;
 import it.unicam.cs.ids2425.article.repository.ArticleStateRepository;
 import it.unicam.cs.ids2425.user.model.User;
 import it.unicam.cs.ids2425.user.model.UserRole;
-import it.unicam.cs.ids2425.utilities.statuscode.BaseStatusCode;
 import it.unicam.cs.ids2425.utilities.statuscode.specificstatuscode.ArticleStatusCode;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
@@ -17,31 +16,36 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 
-public abstract class AbstractArticleController {
+public abstract class AbstractArticleController<T extends Article> {
     protected final ArticleStateRepository articleStateRepository;
-    protected final ArticleRepository articleRepository;
+    protected final ArticleRepository<T> articleRepository;
 
-    public AbstractArticleController(ArticleStateRepository articleStateRepository, ArticleRepository articleRepository) {
+    public AbstractArticleController(ArticleStateRepository articleStateRepository, ArticleRepository<T> articleRepository) {
         this.articleStateRepository = articleStateRepository;
         this.articleRepository = articleRepository;
     }
 
     public List<Article> getAllArticles(@NonNull ArticleStatusCode articleStatusCode) {
-        return articleStateRepository.findAllByStatusCode(BaseStatusCode.fromCode(articleStatusCode)).stream().map(ArticleState::getEntity).toList();
+        return articleRepository.findAll().stream().map(a -> articleStateRepository.findAllByEntity_Id(a.getId()).getLast()).filter(st -> st.getStatusCode().equals(articleStatusCode)).map(ArticleState::getEntity).toList();
     }
 
     @Transactional
     public Article getArticleById(@NonNull Long id, @NonNull ArticleStatusCode articleStatusCode) {
-        ArticleState articleState = articleStateRepository.findAllByEntity_Id(id).getLast();
-        if (!articleState.getStatusCode().equals(articleStatusCode)) {
+        try {
+            ArticleState articleState = articleStateRepository.findAllByEntity_Id(id).getLast();
+            if (!articleState.getStatusCode().equals(articleStatusCode)) {
+                throw new IllegalArgumentException("Article not found");
+            }
+            return articleState.getEntity();
+        } catch (NoSuchElementException e) {
             throw new IllegalArgumentException("Article not found");
         }
-        return articleState.getEntity();
     }
 
+    @Transactional
     public Map<String, String> shareArticle(@NonNull Long id, @NonNull ArticleStatusCode articleStatusCode) {
         Map<String, String> response = new HashMap<>();
-        response.put("uri", "/article/" + id);
+        response.put("uri", STR."/article/\{id}");
         response.put("article", getArticleById(id, articleStatusCode).toString());
         return response;
     }
@@ -67,6 +71,7 @@ public abstract class AbstractArticleController {
         if (!oldState.getStatusCode().equals(ArticleStatusCode.PENDING)) {
             throw new IllegalArgumentException("Article must be pending");
         }
+        // no new entity created because this is the article rejection, the entity data did not change.
         articleStateRepository.save(new ArticleState(newArticleStatusCode, user, "Rejected", article, oldState));
         return article;
     }

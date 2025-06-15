@@ -19,7 +19,7 @@ public abstract class AbstractState implements Comparable<AbstractState> {
     @GeneratedValue
     private Long id;
     private BaseStatusCode statusCode;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User initiator;
     private Timestamp stateTime;
     private String reason;
