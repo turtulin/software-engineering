@@ -1,6 +1,6 @@
 package it.unicam.cs.ids2425.utilities.state;
 
-import it.unicam.cs.ids2425.user.model.User;
+import it.unicam.cs.ids2425.model.user.User;
 import it.unicam.cs.ids2425.utilities.statuscode.BaseStatusCode;
 import it.unicam.cs.ids2425.utilities.statuscode.IStatusCode;
 import jakarta.persistence.*;

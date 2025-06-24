@@ -28,3 +28,9 @@ create global temporary table HTE_pay_pal(rn_ integer not null, type tinyint, id
 2025-02-26 12:42:42.268399+01:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "HTE_PAY_PAL" already exists; SQL statement:
 create global temporary table HTE_pay_pal(rn_ integer not null, type tinyint, id bigint, user_id bigint, email varchar(255), password varchar(255), primary key (rn_)) TRANSACTIONAL [42101-232]
+2025-06-24 11:29:29.440659+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "HTE_PAY_PAL" already exists; SQL statement:
+create global temporary table HTE_pay_pal(rn_ integer not null, type tinyint, id bigint, user_id bigint, email varchar(255), password varchar(255), primary key (rn_)) TRANSACTIONAL [42101-232]
+2025-06-24 11:57:22.525624+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "HTE_PAY_PAL" already exists; SQL statement:
+create global temporary table HTE_pay_pal(rn_ integer not null, type tinyint, id bigint, user_id bigint, email varchar(255), password varchar(255), primary key (rn_)) TRANSACTIONAL [42101-232]
