@@ -64,9 +64,6 @@ $ mvn clean install
 $ mvn spring-boot:run
 ```
 
-### 🧪 API Testing
-Samples HTTP requests can be found in `source/agri-chain/data/http-requests/samples.http` to test various use cases.
-
 ### 🌍 Accessing the Application
 Once started, the application will be available at:
 ```
