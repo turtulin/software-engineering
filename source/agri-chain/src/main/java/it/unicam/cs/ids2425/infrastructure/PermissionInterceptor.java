@@ -1,7 +1,7 @@
 package it.unicam.cs.ids2425.infrastructure;
 
-import it.unicam.cs.ids2425.authentication.controller.TokenController;
-import it.unicam.cs.ids2425.user.controller.actor.SingleEntityController;
+import it.unicam.cs.ids2425.controller.authentication.TokenController;
+import it.unicam.cs.ids2425.controller.user.SingleEntityController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
